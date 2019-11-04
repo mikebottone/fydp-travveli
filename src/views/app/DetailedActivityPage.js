@@ -20,7 +20,7 @@ import {
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppFooter from "components/Footers/AppFooter";
 import DetailedActivityHeader from "components/Headers/DetailedActivityHeader.js";
-import DetailedActivityCarousel from "components/DetailedActivityCarousel";
+import DetailedActivityCarousel from "components/Carousels/DetailedActivityCarousel";
 
 class DetailedActivityPage extends Component{
   constructor(props){
