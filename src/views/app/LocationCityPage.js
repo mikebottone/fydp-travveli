@@ -30,7 +30,7 @@ class LocationCityPage extends Component{
       <Col key={city}>
         <div>
           <Link to={{
-              pathname: "/detail-activity",
+              pathname: "/detailed-activity",
               state: {
                 tag: city
               }

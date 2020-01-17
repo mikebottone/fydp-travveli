@@ -32,7 +32,23 @@ import AppFooter from "components/Footers/AppFooter";
 class Homepage extends Component{
   constructor(props){
     super(props);
+    this.state = {
+      users: []
+    }
   }
+
+  //fetch users on first mount
+  componentDidMount() {
+    this.getUsers();
+  }
+
+  //retrieves the list of users from Express App
+getUsers(){
+  fetch('http://localhost:4000/user_info')
+  .then(res => res.json())
+  .then(users => this.setState({ users }))
+}
+
   getPic(){
     return require("assets/img/faces/erik-lucatero-2.jpg");
   }
@@ -42,6 +58,7 @@ class Homepage extends Component{
   }
 
   render() {
+   const { users } = this.state;
     return (
       <>
         <AppNavbar />
@@ -49,6 +66,28 @@ class Homepage extends Component{
         <div className="main">
           <div className="section">
             <Container>
+        <div>
+        <h1>List of users</h1>
+        {/* Check to see if any items are found*/}
+        {users.length ? (
+          <div>
+            {/* Render the list of items */}
+            {users.map((item) => {
+              return(
+                <div key={item.user_id}>
+                  {item.user_id}|
+                  {item.first_name}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div>
+            <h2>No List Items Found</h2>
+          </div>
+        )
+      }
+      </div>
               {/* Recommended for you */}
               <h3>Recommended for you...</h3>
               <Row>
@@ -79,9 +118,11 @@ class Homepage extends Component{
                     />
                 </Col>
                 <Col md="3">
+                  <Link to="/locations">
                     <CategoryCard pic={require("assets/img/sections/leonard-cotte.jpg")}
                       description={this.getDescription()}
                     />
+                  </Link>
                 </Col>
               </Row>
 

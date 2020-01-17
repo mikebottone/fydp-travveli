@@ -50,7 +50,7 @@ class CategoryCard extends Component {
         style={{
           backgroundImage:"url(" + this.props.pic + ")"
         }}>
-        <Link to="/locations"> {/* TODO: Pass in link to appropriate page*/}
+         {/*<Link to="/locations"> TODO: Pass in link to appropriate page*/}
           <CardBody>
             <h3>
               {this.props.title}
@@ -59,7 +59,7 @@ class CategoryCard extends Component {
             {/* Get and display tags   */}
               {this.getTags()}
           </CardBody>
-        </Link>
+         {/* </Link> */}
       </Card>
     );
   }
