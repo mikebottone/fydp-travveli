@@ -51,7 +51,7 @@ function AppNavbar() {
         <Container>
           <NavbarBrand to="/homepage" tag={Link}>
             <i className="fa fa-globe" />
-            WooshTravel
+           Travveli
           </NavbarBrand>
           <Collapse navbar isOpen={collapseOpen}>
             <Nav className="ml-auto" navbar>
