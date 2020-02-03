@@ -61,8 +61,10 @@ class LocationCard extends Component {
         {this.state.listNum}
         <Link to="/detailed-activity"> {/* TODO: Pass in link to appropriate page*/}
           <CardImg src={this.props.pic} />
-          <CardBody>
-            <CardText>{this.props.description}</CardText>
+          <CardBody className="card-location">
+            <CardText>
+              <h4>{this.props.city}, <br/> {this.props.country}</h4>
+            </CardText>
           </CardBody>
         </Link>
       </Card>
@@ -72,6 +74,7 @@ class LocationCard extends Component {
 
 LocationCard.propTypes = {
   pic: PropTypes.string,
-  description: PropTypes.string
+  country: PropTypes.string,
+  city: PropTypes.string
 };
 export default LocationCard;

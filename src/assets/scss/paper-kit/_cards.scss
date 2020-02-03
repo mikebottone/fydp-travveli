@@ -265,7 +265,7 @@
     }
 
     .card-body{
-        padding: 20px;
+        padding: 10px;
 
         .card-title{
             margin: 5px 0 0 0;
@@ -493,6 +493,36 @@
     &[data-color="orange"]{
         background: $bg-danger;
     }
+
+    .card-activity-detail{
+      padding: 5px 5px 5px 10px;
+      h4{
+        margin: 0px;
+      }
+      hr{
+        margin: 5px 0 10px 0;
+      }
+      .heart-btn-right{
+        position: relative;
+        right: 70%;
+        bottom: 5%;
+      }
+    }
+
+    .card-location{
+      text-align: center;
+      padding-bottom: 0px;
+      h4 {
+       margin: 0px;
+      }
+    }
+    .card-mood{
+      padding-top: 25%;
+      h3{
+        font-weight: bold;
+      }
+    }
+
 }
 
 .card-big-shadow{

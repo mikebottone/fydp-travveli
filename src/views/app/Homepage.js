@@ -28,7 +28,9 @@ import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import CategoryCard from "components/Cards/CategoryCard";
 import AppFooter from "components/Footers/AppFooter";
+import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 import LocationCard from "components/Cards/LocationCard";
+import MoodCard from "components/Cards/MoodCard";
 
 class Homepage extends Component{
   constructor(props){
@@ -135,37 +137,22 @@ getUsers(){
               </Link>
               <Row>
                 <Col md="3">
-                  <FullPicCard  pic={this.getPic()}
-                      description={this.getDescription()}
-                  />
+                  <MoodCard pic={this.getPic()} mood="Adventurous"  icon="nc-icon nc-spaceship"/>
                 </Col>
                 <Col md="3">
                     <LocationCard pic={this.getPic()}
-                      description= "Paris, France"
+                      city= "Paris"
+                      country= "France"
                     />
                 </Col>
                 <Col md="3">
-                    <LocationCard pic={this.getPic()}
-                      description= "France"
+                    <ActivityDetailCard pic={this.getPic()}
+                      city= "Paris"
+                      country= "France"
+                      detail="Hiking Trip in the Alps"
                     />
                 </Col>
-                <Col md="3">
-                    <LocationCard pic={this.getPic()}
-                      description= "France"
-                    />
-                </Col>
-                <Col md="3">
-                  <CardHeader>Header</CardHeader>
-                    <Card
-                      data-background="image"
-                      style={{ backgroundImage: "url(" + require("assets/img/sections/por7o.jpg") + ")"}}
-                      >
-                      <CardBody>
 
-                      </CardBody>
-                    </Card>
-                    <CardFooter>CardFooter</CardFooter>
-                </Col>
                 <Col md="3">
                     <Card
                       data-background="image"
