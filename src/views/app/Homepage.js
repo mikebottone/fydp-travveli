@@ -28,6 +28,7 @@ import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import CategoryCard from "components/Cards/CategoryCard";
 import AppFooter from "components/Footers/AppFooter";
+import LocationCard from "components/Cards/LocationCard";
 
 class Homepage extends Component{
   constructor(props){
@@ -139,8 +140,18 @@ getUsers(){
                   />
                 </Col>
                 <Col md="3">
-                    <AppCard pic={this.getPic()}
-                      description={this.getDescription()}
+                    <LocationCard pic={this.getPic()}
+                      description= "Paris, France"
+                    />
+                </Col>
+                <Col md="3">
+                    <LocationCard pic={this.getPic()}
+                      description= "France"
+                    />
+                </Col>
+                <Col md="3">
+                    <LocationCard pic={this.getPic()}
+                      description= "France"
                     />
                 </Col>
                 <Col md="3">
