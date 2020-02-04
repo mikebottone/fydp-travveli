@@ -31,6 +31,7 @@ import AppFooter from "components/Footers/AppFooter";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 import LocationCard from "components/Cards/LocationCard";
 import MoodCard from "components/Cards/MoodCard";
+import ActivityCard from "components/Cards/ActivityCard";
 
 class Homepage extends Component{
   constructor(props){
@@ -154,14 +155,9 @@ getUsers(){
                 </Col>
 
                 <Col md="3">
-                    <Card
-                      data-background="image"
-                      style={{ backgroundImage:"url(" + require("assets/img/sections/vincent-versluis.jpg") + ")" }}
-                    >
-                      <CardBody>
-
-                      </CardBody>
-                    </Card>
+                    <ActivityCard pic={this.getPic()}
+                        activity="Hiking"
+                    />
                 </Col>
               </Row>
               <hr/>
