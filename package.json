@@ -11,13 +11,15 @@
     "@types/react": "16.8.23",
     "body-parser": "^1.19.0",
     "classnames": "2.2.6",
+    "concurrently": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "headroom.js": "0.9.4",
     "moment": "2.24.0",
     "mysql": "^2.17.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "nouislider": "14.0.2",
+    "npm-run-all": "^4.1.5",
     "react": "16.8.6",
     "react-bootstrap-switch": "15.5.3",
     "react-datetime": "2.16.3",
@@ -29,11 +31,12 @@
     "react-select": "3.0.4",
     "react-tagsinput": "3.19.0",
     "reactstrap": "8.0.0",
-    "tedious": "^6.6.2",
+    "tedious": "^6.7.0",
     "typescript": "3.5.2"
   },
   "scripts": {
-    "start": "npm run lint && react-scripts start",
+    "start": "concurrently \"npm-run-all -p expressApp start-react\"",
+    "start-react": "npm run lint && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint ./src --fix-dry-run --color",
@@ -67,17 +70,19 @@
   },
   "description": "![Paper Kit React](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/paper-kit-pro-react/opt_pkp_react_thumbnail.jpg)",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-plugin-react": "^7.18.3"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mikebottone/FYDPapp.git"
+    "url": "git+https://github.com/mikebottone/fypd-travveli.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mikebottone/FYDPapp/issues"
+    "url": "https://github.com/mikebottone/fypd-travveli/issues"
   },
-  "homepage": "https://github.com/mikebottone/FYDPapp#readme",
+  "homepage": "https://github.com/mikebottone/fypd-travveli#readme",
   "proxy": "http://localhost:4000"
 }

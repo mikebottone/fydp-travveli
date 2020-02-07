@@ -37,21 +37,21 @@ class Homepage extends Component{
   constructor(props){
     super(props);
     this.state = {
-      users: []
+      airports: []
     }
   }
 
   //fetch users on first mount
   componentDidMount() {
-    this.getUsers();
+    this.getAirports();
   }
 
   //retrieves the list of users from Express App
-getUsers(){
-  fetch('http://localhost:4000/user_info')
-  .then(res => res.json())
-  .then(users => this.setState({ users }))
-}
+  getAirports(){
+    fetch('http://localhost:4000/airports')
+    .then(res => res.json())
+    .then(airports => this.setState({ airports }))
+  }
 
   getPic(){
     return require("assets/img/faces/erik-lucatero-2.jpg");
@@ -62,7 +62,7 @@ getUsers(){
   }
 
   render() {
-   const { users } = this.state;
+   const { airports } = this.state;
     return (
       <>
         <AppNavbar />
@@ -71,16 +71,16 @@ getUsers(){
           <div className="section">
             <Container>
         <div>
-        <h1>List of users</h1>
+        <h1>List of airports</h1>
         {/* Check to see if any items are found*/}
-        {users.length ? (
+        {airports.length ? (
           <div>
             {/* Render the list of items */}
-            {users.map((item) => {
+            {airports.map((item) => {
               return(
-                <div key={item.user_id}>
-                  {item.user_id}|
-                  {item.first_name}
+                <div key={item.AirportCode}>
+                  {item.AirportCode}|
+                  {item.AirportCity}
                 </div>
               );
             })}
