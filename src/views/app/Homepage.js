@@ -2,16 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
-  Button,
-  Badge,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  CardText,
-  CardImg,
-  CardLink,
   Container,
   Carousel,
   CarouselItem,
