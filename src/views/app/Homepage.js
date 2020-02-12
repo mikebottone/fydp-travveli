@@ -22,11 +22,8 @@ import {
 } from "reactstrap";
 
 // core components
-import AppCard from "components/Cards/AppCard.js";
-import FullPicCard from "components/Cards/FullPicCard.js";
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
-import CategoryCard from "components/Cards/CategoryCard";
 import AppFooter from "components/Footers/AppFooter";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 import LocationCard from "components/Cards/LocationCard";
@@ -70,63 +67,51 @@ class Homepage extends Component{
         <div className="main">
           <div className="section">
             <Container>
-        <div>
-        <h1>List of airports</h1>
-        {/* Check to see if any items are found*/}
-        {airports.length ? (
-          <div>
-            {/* Render the list of items */}
-            {airports.map((item) => {
-              return(
-                <div key={item.AirportCode}>
-                  {item.AirportCode}|
-                  {item.AirportCity}
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div>
-            <h2>No List Items Found</h2>
-          </div>
-        )
-      }
-      </div>
+            {/* <div>
+            <h1>List of airports</h1>
+            {/* Check to see if any items are found
+            {airports.length ? (
+              <div>
+                {/* Render the list of items
+                {airports.map((item) => {
+                  return(
+                    <div key={item.AirportCode}>
+                      {item.AirportCode}|
+                      {item.AirportCity}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div>
+                <h2>No List Items Found</h2>
+              </div>
+            )
+            }
+            </div> */}
               {/* Recommended for you */}
               <h3>Recommended for you...</h3>
               <Row>
                 <Col md="3">
-                    <Card
-                      data-background="image"
-                      style={{
-                        backgroundImage:"url(" + require("assets/img/sections/leonard-cotte.jpg") + ")"
-                      }}
-                      >
-                      <CardHeader>Header</CardHeader>
-                      <CardBody>
-                        <CardTitle>Somewhere nice</CardTitle>
-                        <CardText> Some words </CardText>
-                        <CardLink href="#">Link to a place </CardLink>
-                      </CardBody>
-                      <CardFooter>CardFooter</CardFooter>
-                    </Card>
+                  <MoodCard pic={this.getPic()} mood="Adventurous"  icon="nc-icon nc-spaceship"/>
                 </Col>
                 <Col md="3">
-                  <FullPicCard pic={require("assets/img/sections/leonard-cotte.jpg")}
-                      description={this.getDescription()}
+                  <LocationCard pic={this.getPic()}
+                        city= "Paris"
+                        country= "France"
+                   />
+                </Col>
+                <Col md="3">
+                  <ActivityDetailCard pic={this.getPic()}
+                        city= "Paris"
+                        country= "France"
+                        detail="Hiking Trip in the Alps"
                   />
                 </Col>
                 <Col md="3">
-                    <AppCard pic={this.getPic()}
-                      description={this.getDescription()}
-                    />
-                </Col>
-                <Col md="3">
-                  <Link to="/locations">
-                    <CategoryCard pic={require("assets/img/sections/leonard-cotte.jpg")}
-                      description={this.getDescription()}
-                    />
-                  </Link>
+                  <ActivityCard pic={this.getPic()}
+                        activity="Active"
+                   />
                 </Col>
               </Row>
 
@@ -141,64 +126,45 @@ class Homepage extends Component{
                   <MoodCard pic={this.getPic()} mood="Adventurous"  icon="nc-icon nc-spaceship"/>
                 </Col>
                 <Col md="3">
-                    <LocationCard pic={this.getPic()}
-                      city= "Paris"
-                      country= "France"
-                    />
+                  <MoodCard pic={this.getPic()} mood="Adventurous"  icon="nc-icon nc-spaceship"/>
                 </Col>
                 <Col md="3">
-                    <ActivityDetailCard pic={this.getPic()}
-                      city= "Paris"
-                      country= "France"
-                      detail="Hiking Trip in the Alps"
-                    />
+                  <MoodCard pic={this.getPic()} mood="Adventurous"  icon="nc-icon nc-spaceship"/>
                 </Col>
-
                 <Col md="3">
-                    <ActivityCard pic={this.getPic()}
-                        activity="Hiking"
-                    />
+                  <MoodCard pic={this.getPic()} mood="Adventurous"  icon="nc-icon nc-spaceship"/>
                 </Col>
               </Row>
+
               <hr/>
+
               {/* Activity */}
               <Link to="/activities">
                 <h3>Activity</h3>
               </Link>
               <Row>
                 <Col md="3">
-                  <FullPicCard  pic={this.getPic()}
-                      description={this.getDescription()}
+                  <ActivityCard pic={this.getPic()}
+                        activity="Active"
                   />
                 </Col>
                 <Col md="3">
-                    <AppCard pic={this.getPic()}
-                      description={this.getDescription()}
-                    />
+                  <ActivityCard pic={this.getPic()}
+                        activity="Active"
+                  />
                 </Col>
                 <Col md="3">
-                  <CardHeader>Header</CardHeader>
-                    <Card
-                      data-background="image"
-                      style={{ backgroundImage: "url(" + require("assets/img/sections/por7o.jpg") + ")"}}
-                      >
-                      <CardBody>
-
-                      </CardBody>
-                    </Card>
-                    <CardFooter>CardFooter</CardFooter>
+                  <ActivityCard pic={this.getPic()}
+                        activity="Active"
+                  />
                 </Col>
                 <Col md="3">
-                    <Card
-                      data-background="image"
-                      style={{ backgroundImage:"url(" + require("assets/img/sections/vincent-versluis.jpg") + ")" }}
-                    >
-                      <CardBody>
-
-                      </CardBody>
-                    </Card>
+                  <ActivityCard pic={this.getPic()}
+                        activity="Active"
+                  />
                 </Col>
               </Row>
+
               <hr/>
               {/* Location */}
               <Link to="/locations">
@@ -206,36 +172,28 @@ class Homepage extends Component{
               </Link>
               <Row>
                 <Col md="3">
-                  <FullPicCard  pic={this.getPic()}
-                      description={this.getDescription()}
+                  <LocationCard pic={this.getPic()}
+                        city= "Paris"
+                        country= "France"
                   />
                 </Col>
                 <Col md="3">
-                    <AppCard pic={this.getPic()}
-                      description={this.getDescription()}
-                    />
+                  <LocationCard pic={this.getPic()}
+                        city= "Paris"
+                        country= "France"
+                  />
                 </Col>
                 <Col md="3">
-                  <CardHeader>Header</CardHeader>
-                    <Card
-                      data-background="image"
-                      style={{ backgroundImage: "url(" + require("assets/img/sections/por7o.jpg") + ")"}}
-                      >
-                      <CardBody>
-
-                      </CardBody>
-                    </Card>
-                    <CardFooter>CardFooter</CardFooter>
+                  <LocationCard pic={this.getPic()}
+                        city= "Paris"
+                        country= "France"
+                  />
                 </Col>
                 <Col md="3">
-                    <Card
-                      data-background="image"
-                      style={{ backgroundImage:"url(" + require("assets/img/sections/vincent-versluis.jpg") + ")" }}
-                    >
-                      <CardBody>
-
-                      </CardBody>
-                    </Card>
+                  <LocationCard pic={this.getPic()}
+                        city= "Paris"
+                        country= "France"
+                  />
                 </Col>
               </Row>
               <AppFooter/>

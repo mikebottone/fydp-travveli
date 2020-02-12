@@ -15,7 +15,7 @@ import {
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProductPageHeader from "components/Headers/ProductPageHeader";
 import AppFooter from "components/Footers/AppFooter";
-import CategoryCard from "components/Cards/CategoryCard";
+import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 
 class LocationCityPage extends Component{
   constructor(props){
@@ -36,7 +36,11 @@ class LocationCityPage extends Component{
               }
             }}> {/* pass city to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
 
-            <CategoryCard title={city}/>
+            <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                        city= {city}
+                        country= "France"
+                        detail="Hiking Trip in the Alps"
+              />
           </Link>
         </div>
       </Col>

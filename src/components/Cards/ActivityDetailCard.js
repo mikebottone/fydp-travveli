@@ -46,76 +46,79 @@ class ActivityDetailCard extends Component {
 
   render() {
     return (
+
       <Card className="app-card" >
-        <CardImg src={this.props.pic}/>
-        <CardTitle className="card-activity-detail text-center"> <h4> {this.props.detail} </h4> </CardTitle>
-        <CardFooter className="card-activity-detail">
-          <hr/>
-        <Row>
-          <Col>
-            <h6> {this.props.city}, {this.props.country} </h6>
-          </Col>
+        <Link to="/detailed-activity">
+          <CardImg src={this.props.pic}/>
+          <CardTitle className="card-activity-detail text-center"> <h4> {this.props.detail} </h4> </CardTitle>
+          <CardFooter className="card-activity-detail">
+            <hr/>
+          <Row>
+            <Col>
+              <h6> {this.props.city}, {this.props.country} </h6>
+            </Col>
 
-          {this.state.listNum}
-          <UncontrolledDropdown direction="left">
-            <DropdownToggle className="btn-just-icon btn-sm btn-danger heart-btn-right">
-              <i className="fa fa-heart" />
-            </DropdownToggle>
-            <DropdownMenu aria-labelledby="dLabel" right>
+            {this.state.listNum}
+            <UncontrolledDropdown direction="left">
+              <DropdownToggle className="btn-just-icon btn-sm btn-danger heart-btn-right">
+                <i className="fa fa-heart" />
+              </DropdownToggle>
+              <DropdownMenu aria-labelledby="dLabel" right>
 
-            {/* List 1 Symbol and function to add */}
-              <DropdownItem>
-              <div className="action-line"
-                onClick={this.addtoList1}
-              >
-                <Row>
-                  <Col sm="2">
-                  <i className= {constants.LIST1_SYMBOL} />
-                  </Col>
-                  <Col sm="9">
-                  Add to List 1
-                  </Col>
-                </Row>
-              </div>
-              </DropdownItem>
-              <DropdownItem divider />
+              {/* List 1 Symbol and function to add */}
+                <DropdownItem>
+                <div className="action-line"
+                  onClick={this.addtoList1}
+                >
+                  <Row>
+                    <Col sm="2">
+                    <i className= {constants.LIST1_SYMBOL} />
+                    </Col>
+                    <Col sm="9">
+                    Add to List 1
+                    </Col>
+                  </Row>
+                </div>
+                </DropdownItem>
+                <DropdownItem divider />
 
-              {/* List 2 Symbol and function to add */}
-              <DropdownItem>
-              <div className="action-line"
-                onClick={this.addtoList2}
-              >
-                <Row>
-                  <Col sm="2">
-                  <i className= {constants.LIST2_SYMBOL} />
-                  </Col>
-                  <Col sm="9">
-                    Add to List 2
-                  </Col>
-                </Row>
-              </div>
-              </DropdownItem>
-              <DropdownItem divider />
+                {/* List 2 Symbol and function to add */}
+                <DropdownItem>
+                <div className="action-line"
+                  onClick={this.addtoList2}
+                >
+                  <Row>
+                    <Col sm="2">
+                    <i className= {constants.LIST2_SYMBOL} />
+                    </Col>
+                    <Col sm="9">
+                      Add to List 2
+                    </Col>
+                  </Row>
+                </div>
+                </DropdownItem>
+                <DropdownItem divider />
 
-              {/* List 3 Symbol and function to add */}
-              <DropdownItem>
-              <div className="action-line"
-                onClick={this.addtoList3}
-              >
-                <Row>
-                  <Col sm="2">
-                  <i className= {constants.LIST3_SYMBOL} />
-                  </Col>
-                  <Col sm="9">
-                  Add to List 3
-                  </Col>
-                </Row>
-              </div>
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </Row>
-        </CardFooter>
+                {/* List 3 Symbol and function to add */}
+                <DropdownItem>
+                <div className="action-line"
+                  onClick={this.addtoList3}
+                >
+                  <Row>
+                    <Col sm="2">
+                    <i className= {constants.LIST3_SYMBOL} />
+                    </Col>
+                    <Col sm="9">
+                    Add to List 3
+                    </Col>
+                  </Row>
+                </div>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Row>
+          </CardFooter>
+        </Link>
       </Card>
     );
   }

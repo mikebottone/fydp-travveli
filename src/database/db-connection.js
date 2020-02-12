@@ -15,6 +15,10 @@ var db_conn_info = {
   database: 'heroku_2e52a7e26390f81'
 }
 
+const queries = {
+  airports: "SELECT * FROM airports;"
+};
+
 expressApp.listen(4000, ()=> {
   console.log('Go to http://localhost:4000/ to see more instruction')
 });
@@ -29,7 +33,7 @@ expressApp.get('/', (req, res) => { // anonymous function
 
 expressApp.get('/airports', function( req,res) {
   console.log("GET request received for /airports");
-  var querystring = "SELECT * FROM airports;";
+  var querystring = queries.airports;
   getDBData(req,res,db_conn_info,querystring);
 });
 

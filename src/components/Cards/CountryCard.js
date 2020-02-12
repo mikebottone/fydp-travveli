@@ -21,8 +21,8 @@ import {
 import PropTypes from 'prop-types';
 
 //classes keep state and functional components don't
-//Used on the locations page to display the country
-class LocationCard extends Component {
+//Used on the locations page to display the country and like to country page only
+class CountryCard extends Component {
   constructor(props) {
     super(props); //always need in a class
     this.state = {
@@ -61,15 +61,15 @@ class LocationCard extends Component {
       <Card className="app-card">
         {this.state.listNum}
         <Link to={{
-              pathname: "/city",
+              pathname: "/country",
               state: {
-                tag: this.props.city
+                tag: this.props.country
               }
             }}> {/* TODO: Pass in link to appropriate page*/}
           <CardImg src={this.props.pic} />
           <CardBody className="card-location">
             <CardText>
-              <h4>{this.props.city}, <br/> {this.props.country}</h4>
+              <h4>{this.props.country}</h4>
             </CardText>
           </CardBody>
         </Link>
@@ -78,9 +78,8 @@ class LocationCard extends Component {
   }
 }
 
-LocationCard.propTypes = {
+CountryCard.propTypes = {
   pic: PropTypes.string,
   country: PropTypes.string,
-  city: PropTypes.string
 };
-export default LocationCard;
+export default CountryCard;

@@ -32,6 +32,7 @@ import ActivitySpecificPage from "views/app/ActivitySpecificPage.js";
 import DetailedActivityPage from "views/app/DetailedActivityPage.js";
 import FavouritesPage from "views/app/Favourites.js";
 import Homepage from "views/app/Homepage.js";
+import LandingPage from "views/app/LandingPage.js";
 import LocationCityPage from "views/app/LocationCityPage.js";
 import LocationCountryPage from "views/app/LocationCountryPage.js";
 import LocationsPage from "views/app/LocationsPage.js";
@@ -56,7 +57,6 @@ import Ecommerce from "views/examples/Ecommerce.js";
 import Error404 from "views/examples/Error404.js";
 import Error422 from "views/examples/Error422.js";
 import Error500 from "views/examples/Error500.js";
-import LandingPage from "views/examples/LandingPage.js";
 import ProductPage from "views/examples/ProductPage.js";
 import SearchWithSidebar from "views/examples/SearchWithSidebar.js";
 import TwitterRedesign from "views/examples/TwitterRedesign.js";
@@ -102,7 +102,7 @@ ReactDOM.render(
       <Route path="/search-with-sidebar" render={props => <SearchWithSidebar {...props} />} />
       <Route path="/twitter-redesign" render={props => <TwitterRedesign {...props} />} />
 
-      <Redirect to="/login-page" />
+      <Redirect to="/landing-page" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

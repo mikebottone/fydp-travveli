@@ -34,7 +34,7 @@
     }
 
     a:not(.btn){
-        color: $white-color;
+        color: $black-color; //used to be white then on hover turned black
 
         &:hover,
         &:focus{

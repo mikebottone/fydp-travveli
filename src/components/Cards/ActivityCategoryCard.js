@@ -21,7 +21,8 @@ import {
 import PropTypes from 'prop-types';
 
 //classes keep state and functional components don't
-class ActivityCard extends Component {
+//Second level of the activity category breakdown on ActivityCategoryPage
+class ActivityCategoryCard extends Component {
   constructor(props) {
     super(props); //always need in a class
     this.state = {
@@ -38,25 +39,19 @@ class ActivityCard extends Component {
             backgroundImage:"url(" + this.props.pic + ")"
           }}
       >
-        <Link to={{
-              pathname: "/activity-category",
-              state: {
-                tag: this.props.activity
-              }
-            }}>
+        {/* Link to correct section of the activity category page */}
         <CardBody>
           <div className="card-activity">
             <h3 className="card-category"> {this.props.activity} </h3>
           </div>
         </CardBody>
-        </Link>
       </Card>
     );
   }
 }
 
-ActivityCard.propTypes = {
+ActivityCategoryCard.propTypes = {
   pic: PropTypes.string,
   activity: PropTypes.string
 };
-export default ActivityCard;
+export default ActivityCategoryCard;

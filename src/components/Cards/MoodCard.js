@@ -38,6 +38,12 @@ class MoodCard extends Component {
             backgroundImage:"url(" + this.props.pic + ")"
           }}
       >
+        <Link to={{
+              pathname: "/mood-specific",
+              state: {
+                tag: this.props.mood
+              }
+            }}>
         <CardBody>
           <div className="card-mood">
             <div className="card-icon">
@@ -46,6 +52,7 @@ class MoodCard extends Component {
             <h3 className="card-category"> {this.props.mood} </h3>
           </div>
         </CardBody>
+        </Link>
       </Card>
     );
   }

@@ -14,11 +14,10 @@ import {
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProductPageHeader from "components/Headers/ProductPageHeader";
-import AppCard from "components/Cards/AppCard";
-import FullPicCard from "components/Cards/FullPicCard";
 import AppFooter from "components/Footers/AppFooter";
-import CategoryCard from "components/Cards/CategoryCard";
 import constants from "components/constants";
+import ActivityCategoryCard from "components/Cards/ActivityCategoryCard";
+import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 
 class ActivityCategoryPage extends Component{
   constructor(props){
@@ -31,24 +30,33 @@ class ActivityCategoryPage extends Component{
   getCategoryCards(){
     return <Row>
             <Col>
-            <CategoryCard
-            pic={require("assets/img/sections/leonard-cotte.jpg")}
-            description={"words words words"}
+            <ActivityDetailCard
+              pic={require("assets/img/sections/leonard-cotte.jpg")}
+              detail={"words words words"}
+              city="Rome"
+              country="Italy"
             />
             </Col>
             <Col>
-            <CategoryCard
-            pic={require("assets/img/sections/leonard-cotte.jpg")}
-            description={"words words words"}
+            <ActivityDetailCard
+              pic={require("assets/img/sections/leonard-cotte.jpg")}
+              detail={"words words words"}
+              city="Rome"
+              country="Italy"
             />
             </Col>
             <Col>
-            <AppCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                      description={"Some text"}/>
+              <ActivityDetailCard
+                pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                detail={"Some text"}
+                city="Rome"
+                country="Italy"
+              />
             </Col>
           </Row>;
   }
   renderActivityCategoryCards(){
+    //TODO: fetch the correct 2nd level categories
     //displays all categories at top of page
     var output = constants.ACTIVITY_CATEGORIES.map((category) =>
       <Col key={category}>
@@ -60,7 +68,9 @@ class ActivityCategoryPage extends Component{
               }
             }}> {/*Passes category to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
 
-            <CategoryCard title={category}/>
+              <ActivityCategoryCard activity={category}
+              pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+            />
           </Link>
         </div>
       </Col>
@@ -69,6 +79,7 @@ class ActivityCategoryPage extends Component{
   }
 
   renderActivityCategoriesList(){
+    //TODO: get the correct 2nd level activity categories
     var output = constants.ACTIVITY_CATEGORIES.map((category) =>
       <div key={category}>
         <Link to={{

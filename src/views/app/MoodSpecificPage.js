@@ -22,9 +22,9 @@ import {
 
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
-import FullPicCard from "components/Cards/FullPicCard";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader";
 import AppFooter from "components/Footers/AppFooter";
+import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 
 class MoodSpecificPage extends Component{
   constructor(props){
@@ -33,9 +33,11 @@ class MoodSpecificPage extends Component{
   }
 
   renderCards(){
-    return <FullPicCard
+    return <ActivityDetailCard
             pic={require("assets/img/sections/leonard-cotte.jpg")}
-            description={"words words words"}
+            detail={"words words words"}
+            city={"Paris"}
+            country={"France"}
             />;
   }
 

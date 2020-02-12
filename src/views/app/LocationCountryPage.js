@@ -14,9 +14,9 @@ import {
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppHeader from "components/Headers/AppHeader";
-import AppCard from "components/Cards/AppCard";
 import AppFooter from "components/Footers/AppFooter";
-import CategoryCard from "components/Cards/CategoryCard";
+import LocationCard from "components/Cards/LocationCard";
+import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 
 class LocationCountryPage extends Component{
   constructor(props){
@@ -33,20 +33,25 @@ class LocationCountryPage extends Component{
   getCityCards(){
     return <Row>
             <Col>
-            <CategoryCard
-            pic={require("assets/img/sections/leonard-cotte.jpg")}
-            description={"words words words"}
-            />
+              <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                        city= "Paris"
+                        country= "France"
+                        detail="Hiking Trip in the Alps"
+              />
             </Col>
             <Col>
-            <CategoryCard
-            pic={require("assets/img/sections/leonard-cotte.jpg")}
-            description={"words words words"}
-            />
+              <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                        city= "Paris"
+                        country= "France"
+                        detail="Hiking Trip in the Alps"
+              />
             </Col>
             <Col>
-            <AppCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                      description={"Some text"}/>
+              <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                        city= "Paris"
+                        country= "France"
+                        detail="Hiking Trip in the Alps"
+              />
             </Col>
           </Row>;
   }
@@ -63,7 +68,10 @@ class LocationCountryPage extends Component{
               }
             }}> {/* pass city to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
 
-            <CategoryCard title={city}/>
+            <LocationCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                        city= "Paris"
+                        country= "France"
+            />
           </Link>
         </div>
       </Col>

@@ -14,38 +14,15 @@ import {
 import constants from "components/constants.js";
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProductPageHeader from "components/Headers/ProductPageHeader";
-import AppCard from "components/Cards/AppCard";
 import AppFooter from "components/Footers/AppFooter";
-import CategoryCard from "components/Cards/CategoryCard";
+import ActivityCard from "components/Cards/ActivityCard";
 
 class ActivitiesPage extends Component{
   constructor(props){
     super(props);
-    this.getCategoryCards = this.getCategoryCards.bind(this);
-    this.renderActivityCategoriesList = this.renderActivityCategoriesList.bind(this);
     this.renderActivityCategoryCards = this.renderActivityCategoryCards.bind(this);
   }
 
-  getCategoryCards(){
-    return <Row>
-            <Col>
-            <CategoryCard
-            pic={require("assets/img/sections/leonard-cotte.jpg")}
-            description={"words words words"}
-            />
-            </Col>
-            <Col>
-            <CategoryCard
-            pic={require("assets/img/sections/leonard-cotte.jpg")}
-            description={"words words words"}
-            />
-            </Col>
-            <Col>
-            <AppCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                      description={"Some text"}/>
-            </Col>
-          </Row>;
-  }
   renderActivityCategoryCards(){
     //displays all categories at top of page
     var output = constants.ACTIVITY_CATEGORIES.map((category) =>
@@ -58,30 +35,12 @@ class ActivitiesPage extends Component{
               }
             }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
 
-            <CategoryCard title={category}/>
+            <ActivityCard activity={category} pic={require("assets/img/sections/leonard-cotte.jpg")}/>
           </Link>
         </div>
       </Col>
        );
       return( <Row>{output}</Row>);
-  }
-
-  renderActivityCategoriesList(){
-
-    var output = constants.ACTIVITY_CATEGORIES.map((category) =>
-      <div key={category}>
-        <Link to={{
-            pathname: "/activity-category",
-            state: {
-              tag: category
-            }
-          }}> {/* Passes category to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
-          <h4>{category}</h4>
-        </Link>
-        {this.getCategoryCards()}
-      </div>
-       );
-      return( <div>{output}</div>);
   }
 
   render(){
@@ -96,8 +55,6 @@ class ActivitiesPage extends Component{
               <h2>Activity Categories</h2>
               <this.renderActivityCategoryCards/>
             </Row>
-            <hr/>
-              <this.renderActivityCategoriesList/>
             </Container>
             <AppFooter/>
           </div>

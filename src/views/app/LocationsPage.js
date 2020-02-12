@@ -14,37 +14,13 @@ import {
 import constants from "components/constants.js";
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProductPageHeader from "components/Headers/ProductPageHeader";
-import AppCard from "components/Cards/AppCard";
 import AppFooter from "components/Footers/AppFooter";
-import CategoryCard from "components/Cards/CategoryCard";
+import CountryCard from "components/Cards/CountryCard";
 
 class LocationsPage extends Component{
   constructor(props){
     super(props);
-    this.getCountryCards = this.getCountryCards.bind(this);
-    this.renderCountryList = this.renderCountryList.bind(this);
     this.renderCountryCards = this.renderCountryCards.bind(this);
-  }
-
-  getCountryCards(){
-    return <Row>
-            <Col>
-            <CategoryCard
-            pic={require("assets/img/sections/leonard-cotte.jpg")}
-            description={"words words words"}
-            />
-            </Col>
-            <Col>
-            <CategoryCard
-            pic={require("assets/img/sections/leonard-cotte.jpg")}
-            description={"words words words"}
-            />
-            </Col>
-            <Col>
-            <AppCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                      description={"Some text"}/>
-            </Col>
-          </Row>;
   }
   renderCountryCards(){
     //displays all categories at top of page
@@ -58,30 +34,12 @@ class LocationsPage extends Component{
               }
             }}> {/* passes country to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
 
-            <CategoryCard title={country} pic={require("assets/img/countries/flag-"+ country.toLowerCase() +".jpg")}/>
+            <CountryCard country={country} pic={require("assets/img/countries/flag-"+ country.toLowerCase() +".jpg")}/>
           </Link>
         </div>
       </Col>
        );
       return( <Row>{output}</Row>);
-  }
-
-  renderCountryList(){
-
-    var output = constants.COUNTRIES.map((category) =>
-      <div key={category}>
-        <Link to={{
-            pathname: "/country",
-            state: {
-              tag: category
-            }
-          }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
-          <h4>{category}</h4>
-        </Link>
-        {this.getCountryCards()}
-      </div>
-       );
-      return( <div>{output}</div>);
   }
 
   render(){
@@ -96,8 +54,6 @@ class LocationsPage extends Component{
               <h2>Countries</h2>
               <this.renderCountryCards/>
             </Row>
-            <hr/>
-              <this.renderCountryList/>
             </Container>
             <AppFooter/>
           </div>
