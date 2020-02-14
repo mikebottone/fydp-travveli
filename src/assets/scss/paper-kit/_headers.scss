@@ -38,7 +38,29 @@
        text-align: center;
        color: #FFFFFF;
        width: 100%;
+       //detailed activity page header
    }
+
+   .d-activity-header{
+    position: absolute;
+    left:0%;
+    bottom: 0%;
+    background-color: lightgrey;
+    padding: 3px 6px 3px 6px;
+    width: max-content;
+    max-width: inherit;
+      h1{
+        color: black;
+        margin: 0px;
+        font-weight: bold;
+      }
+      h3{
+        color:darkslategray;
+        margin: 0px;
+        font-weight: 400;
+        font-style: italic;
+      }
+    }
 
     .motto{
         color: #FFFFFF;
