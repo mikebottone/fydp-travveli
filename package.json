@@ -37,7 +37,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm-run-all -p expressApp start-react\"",
-    "start-react": "npm run lint && react-scripts start",
+    "start-react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint ./src --fix-dry-run --color",
