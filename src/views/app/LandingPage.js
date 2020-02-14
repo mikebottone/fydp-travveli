@@ -70,9 +70,9 @@ function LandingPage() {
                     <i className="nc-icon nc-bulb-63" />
                   </div>
                   <div className="description">
-                    <h4 className="info-title">Inspirational Discovery</h4>
+                    <h4 className="info-title">Inspirational Discovery Journey</h4>
                     <p>
-                      Vacations are meant to be about stepping outside your
+                      Vacations are meant for stepping outside your
                       comfort zone and experiencing something new.
                     </p>
                   </div>
@@ -87,7 +87,7 @@ function LandingPage() {
                     <h4 className="info-title">Algorithmic Recomendations</h4>
                     <p>
                       We use a series of algorithms to learn your interests
-                      over time so that we can better surface suggestions.
+                      over time so that we can improve suggestions.
                     </p>
                   </div>
                 </div>
@@ -100,7 +100,7 @@ function LandingPage() {
                   <div className="description">
                     <h4 className="info-title">Increased Customer Satisfaction</h4>
                     <p>
-                      We're here to bring together content so that you can feel confident
+                      We're here to aggregate content so that you can feel confident
                       in your decision making process.
                     </p>
                   </div>
