@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Container,
-  Carousel,
-  CarouselItem,
-  CarouselIndicators,
-  CarouselCaption,
   Row,
   Col
 } from "reactstrap";
@@ -49,7 +45,7 @@ class Homepage extends Component{
   }
 
   render() {
-   const { airports } = this.state;
+  //  const { airports } = this.state;
     return (
       <>
         <AppNavbar />

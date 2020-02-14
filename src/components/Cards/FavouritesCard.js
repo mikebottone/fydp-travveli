@@ -5,18 +5,11 @@ import {
   Badge,
   Button,
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
-  CardTitle,
   CardText,
-  CardImg,
-  CardLink,
-  Container,
-  Row,
-  Col
+  CardImg
 } from "reactstrap";
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 //classes keep state and functional components don't
 class FavouritesCard extends Component {

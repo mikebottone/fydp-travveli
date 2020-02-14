@@ -2,13 +2,10 @@
 //displays all the specific activity (ie. all hiking) activities
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 // reactstrap components
 import {
-  Container,
-  Row,
-  Col
+  Container
 } from "reactstrap";
 
 // core components

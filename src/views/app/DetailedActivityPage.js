@@ -1,17 +1,14 @@
 //Final landing page in the flow that has a detailed description of a specific activity
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+
 // reactstrap components
 import {
   Container,
   Row,
   Card,
-  Carousel,
-  CarouselItem,
-  CarouselIndicators,
-  CarouselCaption,
   Col,
   Badge
 } from "reactstrap";

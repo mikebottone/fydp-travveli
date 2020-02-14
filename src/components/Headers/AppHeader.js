@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import {Container} from "reactstrap";
 
 class AppHeader extends Component {
-  constructor(props) {
-    super(props); //always need in a class
-  }
+  // constructor(props) {
+  //   super(props); //always need in a class
+  // }
   static defaultProps = {
     title: "",
     pic: require("assets/img/sections/clark-street-mercantile.jpg")

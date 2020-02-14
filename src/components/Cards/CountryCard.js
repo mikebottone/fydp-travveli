@@ -1,22 +1,13 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import constants from "components/constants.js";
+
 // reactstrap components
 import {
   Badge,
-  Button,
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
-  CardTitle,
   CardText,
-  CardImg,
-  CardLink,
-  Container,
-  Row,
-  Col,
-  UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle
+  CardImg
 } from "reactstrap";
 import PropTypes from 'prop-types';
 

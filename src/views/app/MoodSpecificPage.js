@@ -2,22 +2,10 @@
 //displays the activities associated with that mood
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 // reactstrap components
 import {
-  Badge,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  CardText,
-  CardImg,
-  CardLink,
-  Container,
-  Row,
-  Col
+  Container
 } from "reactstrap";
 
 // core components
