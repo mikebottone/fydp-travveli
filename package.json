@@ -82,6 +82,5 @@
   "bugs": {
     "url": "https://github.com/mikebottone/fypd-travveli/issues"
   },
-  "homepage": "https://github.com/mikebottone/fypd-travveli#readme",
-  "proxy": "http://localhost:4000"
+  "homepage": "https://github.com/mikebottone/fypd-travveli#readme"
 }
