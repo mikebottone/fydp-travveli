@@ -15,9 +15,7 @@ import {
 } from "reactstrap";
 
 // core components
-import MultiDropdownNavbar from "components/Navbars/MultiDropdownNavbar.js";
 import LandingPageHeader from "components/Headers/LandingPageHeader.js";
-import FooterWhite from "components/Footers/FooterWhite.js";
 import LandingNavbar from "components/Navbars/LandingNavbar";
 import AppFooter from "components/Footers/AppFooter";
 

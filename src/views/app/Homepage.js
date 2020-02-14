@@ -2,21 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
-  Button,
-  Badge,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  CardText,
-  CardImg,
-  CardLink,
   Container,
-  Carousel,
-  CarouselItem,
-  CarouselIndicators,
-  CarouselCaption,
   Row,
   Col
 } from "reactstrap";
@@ -59,7 +45,7 @@ class Homepage extends Component{
   }
 
   render() {
-   const { airports } = this.state;
+  //  const { airports } = this.state;
     return (
       <>
         <AppNavbar />
