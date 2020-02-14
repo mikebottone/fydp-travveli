@@ -56,67 +56,7 @@ function LandingNavbar() {
           <Collapse navbar isOpen={collapseOpen}>
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav inNavbar>
-                {/* TODO: Remove Examples dropdown later */}
-                <DropdownToggle color="default" caret nav>
-                  Examples
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-danger" right>
-                <DropdownItem to="/index" tag={Link}>
-                    <i className="nc-icon nc-world-2" />
-                    All Components
-                  </DropdownItem>
-                  <DropdownItem to="/project-test" tag={Link}>
-                    <i className="nc-icon nc-world-2" />
-                    Project Test
-                  </DropdownItem>
-                  <DropdownItem to="/homepage" tag={Link}>
-                    <i className="fa fa-home" />
-                    Homepage
-                  </DropdownItem>
-                  <DropdownItem to="/about-us" tag={Link}>
-                    <i className="nc-icon nc-bank" />
-                    About-us
-                  </DropdownItem>
-                  <DropdownItem to="/blog-post" tag={Link}>
-                    <i className="nc-icon nc-badge" />
-                    Blog Post
-                  </DropdownItem>
-                  <DropdownItem to="/landing-page" tag={Link}>
-                    <i className="nc-icon nc-spaceship" />
-                    Landing Page
-                  </DropdownItem>
-                  <DropdownItem to="/login-page" tag={Link}>
-                    <i className="nc-icon nc-lock-circle-open" />
-                    Login Page
-                  </DropdownItem>
-                  <DropdownItem to="/product-page" tag={Link}>
-                    <i className="nc-icon nc-album-2" />
-                    Product Page
-                  </DropdownItem>
-                  <DropdownItem to="/twitter-redesign" tag={Link}>
-                    <i className="nc-icon nc-tie-bow" />
-                    Twitter
-                  </DropdownItem>
-                </DropdownMenu>
               </UncontrolledDropdown>
-              <NavItem>
-                <Button
-                  className="btn-round"
-                  color="default"
-                  to="/login-page" tag={Link}
-                >
-                  Login
-                </Button>
-              </NavItem>
-              <NavItem>
-                <Button
-                  className="btn-round"
-                  color="default"
-                  to="/register-page" tag={Link}
-                >
-                  Register
-                </Button>
-              </NavItem>
             </Nav>
           </Collapse>
         </Container>

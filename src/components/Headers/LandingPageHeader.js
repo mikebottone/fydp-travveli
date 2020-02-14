@@ -36,27 +36,27 @@ function LandingPageHeader() {
         <div className="content-center">
           <Container>
             <div className="motto">
-              <h1 className="title">Landing page</h1>
+              <h1 className="title">Welcome to Travveli</h1>
               <h3 className="description">
-                Start designing your landing page here.
+                "It's not the Destination, It's the Journey."
               </h3>
               <br />
               <Button
                 className="btn-round mr-1"
                 color="neutral"
-                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ?ref=creativetim"
+              //  href=""
                 target="_blank"
               >
-                <i className="fa fa-play" />
-                Watch video
+                Register
               </Button>
               <Button
                 className="btn-round"
                 color="neutral"
+              //  href+""
                 type="button"
                 outline
               >
-                Download
+                Log In
               </Button>
             </div>
           </Container>
