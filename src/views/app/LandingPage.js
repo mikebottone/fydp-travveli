@@ -33,7 +33,7 @@ function LandingPage() {
   });
   return (
     <>
-    //  <LandingNavbar/>
+    {/*   <LandingNavbar/> } */ }
       <LandingPageHeader />
       <div className="wrapper">
         <div className="section text-center landing-section">
