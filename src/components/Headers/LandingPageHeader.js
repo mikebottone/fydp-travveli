@@ -37,9 +37,9 @@ function LandingPageHeader() {
           <Container>
             <div className="motto">
               <h1 className="title">Welcome to Travveli</h1>
-              <h3 className="description">
+              <h3 className="description"><i>
                 "It's not the Destination, It's the Journey."
-              </h3>
+              </i></h3>
               <br />
               <Button
                 className="btn-round mr-1"
