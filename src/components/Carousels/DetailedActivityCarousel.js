@@ -17,26 +17,25 @@ import {
   Col
 } from "reactstrap";
 
-// carousel items
-const carouselItems = [
-  {
-    src: require("assets/img/sections/pedro-lastra.jpg"),
-    altText: "Somewhere",
-    caption: "Somewhere"
-  },
-  {
-    src: require("assets/img/sections/fabio-mangione.jpg"),
-    altText: "Somewhere else",
-    caption: "Somewhere else"
-  },
-  {
-    src: require("assets/img/cover.jpg"),
-    altText: "Here it is",
-    caption: "Here it is"
-  }
-];
-
-function DetailedActivityCarousel() {
+function DetailedActivityCarousel(props) {
+  // carousel items
+  const carouselItems = [
+    {
+      src: props.pic1,
+      altText: "Somewhere",
+      caption: "Somewhere"
+    },
+    {
+      src: props.pic2,
+      altText: "Somewhere else",
+      caption: "Somewhere else"
+    },
+    {
+      src: props.pic3,
+      altText: "Here it is",
+      caption: "Here it is"
+    }
+  ];
   // carousel states and functions
  const [activeIndex, setActiveIndex] = React.useState(0);
  const [animating, setAnimating] = React.useState(false);

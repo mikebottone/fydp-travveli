@@ -46,10 +46,12 @@ class DetailedActivityPage extends Component{
   getDurationAndTravelPeriod(){
     return <div className="durationBox">
       <div>
-        <i className="fa fa-hourglass-half"/> <strong>Duration:</strong> *from db*
+        <i className="fa fa-hourglass-half"/> <strong>Duration:</strong>
+        <p>*from db*</p>
       </div>
       <div>
-        <i className="fa fa-calendar"/> <strong>Ideal Travel Period:</strong> *from db*
+        <i className="fa fa-calendar"/> <strong>Ideal Travel Period:</strong>
+        <p>*from db*</p>
       </div>
     </div>
   }
@@ -75,15 +77,24 @@ class DetailedActivityPage extends Component{
           />
         </Card>
       </Col>
+      <Col md="4" sm="4">
+        <Card>
+          <img
+            alt="..."
+            className="img-rounded img-responsive"
+            src={require("assets/img/sections/pavel-kosov.jpg")}
+          />
+        </Card>
+      </Col>
     </Row>
     );
   }
 
   getTags(){
-    var numbers = [1,2,3,4,5,6,7,8,9,10];
-      var output = numbers.map((index) =>
+    var testTag = ["Monument","Rome","Italy","Family-friendly","Walking","Historical"];
+      var output = testTag.map((index) =>
       <div key={index} className="tags">
-      <Badge className="btn-lg"> Tag {index} </Badge>
+      <Badge className="btn-round mr-1 btn btn-outline-default"> {index} </Badge>
       </div>
       );
       return(<div className="tag-parent">{output}</div>);
@@ -93,7 +104,11 @@ class DetailedActivityPage extends Component{
     return (
       <>
         <AppNavbar />
-        <DetailedActivityHeader/>
+        <DetailedActivityHeader pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+            activity="Name of Activity"
+            city="City Name"
+            country="Country"
+        />
         <div className="main">
           <div className="section">
             <Container>
@@ -106,7 +121,13 @@ class DetailedActivityPage extends Component{
                 {this.getDurationAndTravelPeriod()}
                 </div>
               </Row>
-              <DetailedActivityCarousel/>
+              <Row>
+              <DetailedActivityCarousel
+                pic1={require("assets/img/sections/pedro-lastra.jpg")}
+                pic2={require("assets/img/sections/fabio-mangione.jpg")}
+                pic3={require("assets/img/cover.jpg")}
+              />
+              </Row>
                 {this.getPics()}
             </Container>
           <AppFooter/>

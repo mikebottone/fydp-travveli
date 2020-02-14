@@ -9,8 +9,10 @@ class DetailedActivityHeader extends Component {
     super(props); //always need in a class
   }
   static defaultProps = {
-    title: "",
-    pic: require("assets/img/rihanna_cover.jpg")
+    activity: "Coming Soon",
+    pic: require("assets/img/faces/erik-lucatero-2.jpg"),
+    city:"Coming",
+    country:"Soon"
   }
   render(){
     return (
@@ -19,10 +21,11 @@ class DetailedActivityHeader extends Component {
           className="page-header page-header-small"
           style={{ backgroundImage:"url(" + this.props.pic + ")" }}
         >
-          <div className="content-center">
+          <div className="d-activity-header">
               <Container>
-                <div>
-                  <h1><strong>{this.props.title}</strong></h1>
+                <div className="d-activity-header">
+                  <h1>{this.props.activity}</h1>
+                  <h3>{this.props.city}, {this.props.country}</h3>
                 </div>
               </Container>
             </div>
@@ -34,8 +37,10 @@ class DetailedActivityHeader extends Component {
 }
 
 DetailedActivityHeader.propTypes = {
-  title: PropTypes.string,
+  activity: PropTypes.string,
   pic: PropTypes.string,
+  city: PropTypes.string,
+  country: PropTypes.string
 };
 
 export default DetailedActivityHeader;
