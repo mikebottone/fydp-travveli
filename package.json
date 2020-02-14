@@ -70,9 +70,7 @@
   },
   "description": "![Paper Kit React](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/paper-kit-pro-react/opt_pkp_react_thumbnail.jpg)",
   "main": "index.js",
-  "devDependencies": {
-    "eslint-plugin-react": "^7.18.3"
-  },
+  "eslint-plugin-react": "^7.18.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mikebottone/fypd-travveli.git"
