@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import {Container} from "reactstrap";
 
 class DetailedActivityHeader extends Component {
-  constructor(props) {
-    super(props); //always need in a class
-  }
+  // constructor(props) {
+  //   super(props); //always need in a class
+  // }
   static defaultProps = {
     activity: "Coming Soon",
     pic: require("assets/img/faces/erik-lucatero-2.jpg"),

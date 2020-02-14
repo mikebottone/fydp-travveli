@@ -1,22 +1,12 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import constants from "components/constants.js";
+
 // reactstrap components
 import {
-  Badge,
-  Button,
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
-  CardTitle,
   CardText,
-  CardImg,
-  CardLink,
-  Container,
-  Row,
-  Col,
-  UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle
+  CardImg
 } from "reactstrap";
 import PropTypes from 'prop-types';
 
@@ -41,16 +31,6 @@ class LocationCard extends Component {
   addtoList3 = () => {
     this.setState(state => ({listNum: 3}));
   };
-
-  getTags(){
-      var numbers = [1,2,3,4,5,6];
-      var output = numbers.map((index) =>
-      <div key={index} className="tags">
-      <Badge className="btn-sm" to="/moods" tag={Link}> Tag {index} </Badge>
-      </div>
-    );
-    return(<div className="tag-parent">{output}</div>);
-  }
 
   removeFromList = () => {
     this.setState(state => ({listNum: null}));

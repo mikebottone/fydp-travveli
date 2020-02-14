@@ -1,19 +1,13 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import constants from "components/constants.js";
+
 // reactstrap components
 import {
-  Badge,
-  Button,
   Card,
-  CardHeader,
-  CardBody,
   CardFooter,
   CardTitle,
-  CardText,
   CardImg,
-  CardLink,
-  Container,
   Row,
   Col,
   UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle
@@ -51,6 +45,7 @@ class ActivityDetailCard extends Component {
         <Link to="/detailed-activity">
           <CardImg src={this.props.pic}/>
           <CardTitle className="card-activity-detail text-center"> <h4> {this.props.detail} </h4> </CardTitle>
+        </Link>
           <CardFooter className="card-activity-detail">
             <hr/>
           <Row>
@@ -118,7 +113,6 @@ class ActivityDetailCard extends Component {
             </UncontrolledDropdown>
           </Row>
           </CardFooter>
-        </Link>
       </Card>
     );
   }
