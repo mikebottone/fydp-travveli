@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import jwt_decode from 'jwt-decode';
 // reactstrap components
 import {
   Container,
@@ -20,13 +21,19 @@ class Homepage extends Component{
   constructor(props){
     super(props);
     this.state = {
-      airports: []
+      airports: [],
+      token: ''
     }
   }
 
   //fetch users on first mount
   componentDidMount() {
     this.getAirports();
+    const token = localStorage.usertoken
+    const decoded = jwt_decode(token)
+    this.setState({
+      token: decoded.token
+    })
   }
 
   //retrieves the list of users from Express App

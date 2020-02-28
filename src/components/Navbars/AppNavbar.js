@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import { Link, withRouter} from "react-router-dom";
 // JavaScript plugin that hides or shows a component based on your scroll
-import Headroom from "headroom.js";
+// import Headroom from "headroom.js";
 // reactstrap components
 import {
   Button,
@@ -19,23 +19,31 @@ import {
 } from "reactstrap";
 // core components
 
-function AppNavbar() {
-  const [bodyClick, setBodyClick] = React.useState(false);
-  const [collapseOpen, setCollapseOpen] = React.useState(false);
-  React.useEffect(() => {
-    let headroom = new Headroom(document.getElementById("navbar-main"));
-    // initialise
-    headroom.init();
-  });
+class AppNavbar extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      bodyClick: false,
+      setBodyClick: false,
+      collapseOpen: false,
+      setCollapseOpen: false,
+    }
+  }
+  logOut(e){
+    e.preventDefault();
+    localStorage.removeItem('usertoken');
+    this.props.history.push('/')
+  }
+  render(){
   return (
     <>
-      {bodyClick ? (
+      {this.state.bodyClick ? (
         <div
           id="bodyClick"
           onClick={() => {
             document.documentElement.classList.toggle("nav-open");
-            setBodyClick(false);
-            setCollapseOpen(false);
+            // setBodyClick(false);
+            // setCollapseOpen(false);
           }}
         />
       ) : null}
@@ -48,9 +56,9 @@ function AppNavbar() {
         <Container>
           <NavbarBrand to="/homepage" tag={Link}>
             <i className="fa fa-globe" />
-           Travveli
+           Travveli Home
           </NavbarBrand>
-          <Collapse navbar isOpen={collapseOpen}>
+          <Collapse navbar isOpen={this.state.collapseOpen}>
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav inNavbar>
                 {/* TODO: Remove Examples dropdown later */}
@@ -135,8 +143,7 @@ function AppNavbar() {
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem
-                    onClick={e => e.preventDefault()} //will have to perform sign-out on click
-                    to="/login-page" tag={Link}
+                    onClick={this.logOut.bind(this)}
                   >
                     <i className="fa fa-lock" />
                     Sign out
@@ -150,5 +157,6 @@ function AppNavbar() {
     </>
   );
 }
+}
 
-export default AppNavbar;
+export default withRouter(AppNavbar);

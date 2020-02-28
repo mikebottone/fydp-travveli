@@ -9,14 +9,21 @@
     "@types/googlemaps": "3.36.6",
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.8.23",
+    "axios": "0.19.2",
+    "bcrypt": "^4.0.0",
     "body-parser": "^1.19.0",
     "classnames": "2.2.6",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.3",
     "express": "^4.17.1",
     "headroom.js": "0.9.4",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "2.2.0",
     "moment": "2.24.0",
     "mysql": "^2.17.1",
+    "mysql2": "^2.1.0",
     "node-sass": "^4.13.1",
     "nouislider": "14.0.2",
     "npm-run-all": "^4.1.5",
@@ -31,6 +38,7 @@
     "react-select": "3.0.4",
     "react-tagsinput": "3.19.0",
     "reactstrap": "8.0.0",
+    "sequelize": "^5.21.5",
     "tedious": "^6.7.0",
     "typescript": "3.5.2"
   },
@@ -70,9 +78,7 @@
   },
   "description": "![Paper Kit React](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/paper-kit-pro-react/opt_pkp_react_thumbnail.jpg)",
   "main": "index.js",
-  "devDependencies": {
-    "eslint-plugin-react": "^7.18.3"
-  },
+  "eslint-plugin-react": "^7.18.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mikebottone/fypd-travveli.git"

@@ -75,6 +75,7 @@ ReactDOM.render(
       <Route path="/homepage" render={props => <Homepage {...props} />} />
       <Route path="/city" render={props => <LocationCityPage {...props} />} />
       <Route path="/country" render={props => <LocationCountryPage {...props} />} />
+      <Route path="/landing-page" render={props => <LandingPage {...props} />} />
       <Route path="/locations" render={props => <LocationsPage {...props} />} />
       <Route path="/login-page" render={props => <LoginPage {...props} />} />
       <Route path="/moods" render={props => <MoodsPage {...props} />} />
@@ -97,7 +98,6 @@ ReactDOM.render(
       <Route path="/error-404" render={props => <Error404 {...props} />} />
       <Route path="/error-422" render={props => <Error422 {...props} />} />
       <Route path="/error-500" render={props => <Error500 {...props} />} />
-      <Route path="/landing-page" render={props => <LandingPage {...props} />} />
       <Route path="/product-page" render={props => <ProductPage {...props} />} />
       <Route path="/search-with-sidebar" render={props => <SearchWithSidebar {...props} />} />
       <Route path="/twitter-redesign" render={props => <TwitterRedesign {...props} />} />

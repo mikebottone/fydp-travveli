@@ -3,10 +3,13 @@
 
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require("body-parser")
 const mysql = require('mysql');
 
 const expressApp = express();
 expressApp.use(cors());
+expressApp.use(bodyParser.json());
+expressApp.use(bodyParser.urlencoded({extended: false}))
 
 var db_conn_info = {
   host: 'us-cdbr-iron-east-04.cleardb.net',
@@ -15,8 +18,11 @@ var db_conn_info = {
   database: 'heroku_2e52a7e26390f81'
 }
 
+//keep in alphabetical
 const queries = {
+  addUser: "",
   airports: "SELECT * FROM airports;"
+
 };
 
 expressApp.listen(4000, ()=> {
@@ -54,3 +60,7 @@ function getDBData(req, res, db_conn_info, inputstring) {
     con.end((err)=> {})
   });
 }
+
+//Handle User Post
+var Users = require("../database/UsersRoute");
+expressApp.use("/users",Users);
