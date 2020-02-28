@@ -7,8 +7,6 @@ import {
   CardBody,
   CardFooter,
   CardTitle,
-  Form,
-  Input,
   Container,
   Row,
   Col
@@ -16,7 +14,6 @@ import {
 
 // core components
 import LandingPageHeader from "components/Headers/LandingPageHeader.js";
-import LandingNavbar from "components/Navbars/LandingNavbar";
 import AppFooter from "components/Footers/AppFooter";
 
 function LandingPage() {
