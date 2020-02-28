@@ -37,7 +37,7 @@ usersRoute.post('/register', (req, res)=>{
         })
       })
     } else{
-      res.json({error: "User already exists"})
+      res.json({status: "User already exists"})
     }
   })
   .catch(err => {
@@ -59,13 +59,15 @@ usersRoute.post('/login', (req, res) => {
           expiresIn: 1440
         })
         res.send(token)
+      }else{
+        res.json({status: 'Invalid Email or Password'})
       }
     }else{
-      res.status(400).json({error: 'User does not exist'})
+      res.json({status: 'Invalid Email or Password'})
     }
   })
   .catch(err => {
-    res.status(400).json({error: err})
+    res.status(400).json({status: err})
   })
 })
 

@@ -41,9 +41,13 @@ class RegisterPage extends Component {
     }
 
     register(user).then(res=> {
-      // if(res){ //look into why this is stopping the push
+      if(res !== "User already exists" ){
+      alert(res)
       this.props.history.push('/login-page')
-      // }
+      }
+      else{
+        alert(res);
+      }
     })
 
   }

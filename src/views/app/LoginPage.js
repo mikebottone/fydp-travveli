@@ -37,8 +37,11 @@ class LoginPage extends Component {
     }
 
     login(user).then(res=> {
-      if(res){
+      if(res !== "Invalid Email or Password"){
         this.props.history.push('/homepage')
+      }
+      else{
+        alert(res)
       }
     })
 
