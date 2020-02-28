@@ -11,7 +11,6 @@ import {
 } from "reactstrap";
 
 // core components
-import constants from "components/constants.js";
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProductPageHeader from "components/Headers/ProductPageHeader";
 import AppFooter from "components/Footers/AppFooter";
@@ -20,21 +19,33 @@ import CountryCard from "components/Cards/CountryCard";
 class LocationsPage extends Component{
   constructor(props){
     super(props);
+    this.state = {
+      countries: []
+    }
     this.renderCountryCards = this.renderCountryCards.bind(this);
   }
+  componentDidMount() {
+    this.getCountries();
+  }
+
+  getCountries(){
+    fetch('http://localhost:4000/countries')
+    .then(res => res.json())
+    .then(countries => this.setState({ countries }))
+  }
   renderCountryCards(){
-    //displays all categories at top of page
-    var output = constants.COUNTRIES.map((country) =>
-      <Col  key={country}>
+    //displays all countries
+    var output = this.state.countries.map((country) =>
+      <Col  key={country.TagName}>
         <div>
           <Link to={{
               pathname: "/country",
               state: {
-                tag: country
+                tag: country.TagName
               }
             }}> {/* passes country to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
 
-            <CountryCard country={country} pic={require("assets/img/countries/flag-"+ country.toLowerCase() +".jpg")}/>
+            <CountryCard country={country.TagName} pic={require("assets/img/countries/flag-"+ country.TagName.toLowerCase() +".jpg")}/>
           </Link>
         </div>
       </Col>

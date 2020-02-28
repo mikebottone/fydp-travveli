@@ -21,8 +21,8 @@ var db_conn_info = {
 //keep in alphabetical
 const queries = {
   addUser: "",
-  airports: "SELECT * FROM airports;"
-
+  airports: "SELECT * FROM airports;",
+  countries: "SELECT TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;"
 };
 
 expressApp.listen(4000, ()=> {
@@ -33,8 +33,10 @@ expressApp.listen(4000, ()=> {
 expressApp.get('/', (req, res) => { // anonymous function
   console.log("GET request received for /");
   res.status(200).json({ "message": "Welcome to Travveli REST-based web service",
-  "links": [{"rel" : "aiports", "href" : "http://localhost:4000/airports"},
-            {"rel" : "main", "href" : "http://localhost:4000/"}]});
+  "links": [{"rel" : "main", "href" : "http://localhost:4000/"},
+    {"rel" : "aiports", "href" : "http://localhost:4000/airports"},
+    {"rel" : "countries", "href" : "http://localhost:4000/countries"}
+    ]});
 })
 
 expressApp.get('/airports', function( req,res) {
@@ -43,6 +45,13 @@ expressApp.get('/airports', function( req,res) {
   getDBData(req,res,db_conn_info,querystring);
 });
 
+expressApp.get('/countries', function( req,res) {
+  console.log("GET request received for /countries");
+  var querystring = queries.countries;
+  getDBData(req,res,db_conn_info,querystring);
+});
+
+//Execute Query
 function getDBData(req, res, db_conn_info, inputstring) {
   var con = mysql.createConnection(db_conn_info);
   con.connect((err) => {

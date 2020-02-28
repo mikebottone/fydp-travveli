@@ -28,7 +28,7 @@ class Homepage extends Component{
 
   //fetch users on first mount
   componentDidMount() {
-    this.getAirports();
+    // this.getAirports();
     const token = localStorage.usertoken
     const decoded = jwt_decode(token)
     this.setState({

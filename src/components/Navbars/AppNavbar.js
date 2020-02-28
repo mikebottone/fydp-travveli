@@ -10,7 +10,6 @@ import {
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
-  NavbarBrand,
   Navbar,
   NavItem,
   Nav,
@@ -54,56 +53,12 @@ class AppNavbar extends Component {
         color="success"
       > {/*see _variables.scss for colour variables*/}
         <Container>
-          <NavbarBrand to="/homepage" tag={Link}>
+          <Button to="/homepage" tag={Link}>
             <i className="fa fa-globe" />
            Travveli Home
-          </NavbarBrand>
+          </Button>
           <Collapse navbar isOpen={this.state.collapseOpen}>
             <Nav className="ml-auto" navbar>
-              <UncontrolledDropdown nav inNavbar>
-                {/* TODO: Remove Examples dropdown later */}
-                <DropdownToggle color="default" caret nav>
-                  Examples
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-danger" right>
-                <DropdownItem to="/index" tag={Link}>
-                    <i className="nc-icon nc-world-2" />
-                    All Components
-                  </DropdownItem>
-                  <DropdownItem to="/project-test" tag={Link}>
-                    <i className="nc-icon nc-world-2" />
-                    Project Test
-                  </DropdownItem>
-                  <DropdownItem to="/homepage" tag={Link}>
-                    <i className="fa fa-home" />
-                    Homepage
-                  </DropdownItem>
-                  <DropdownItem to="/about-us" tag={Link}>
-                    <i className="nc-icon nc-bank" />
-                    About-us
-                  </DropdownItem>
-                  <DropdownItem to="/blog-post" tag={Link}>
-                    <i className="nc-icon nc-badge" />
-                    Blog Post
-                  </DropdownItem>
-                  <DropdownItem to="/landing-page" tag={Link}>
-                    <i className="nc-icon nc-spaceship" />
-                    Landing Page
-                  </DropdownItem>
-                  <DropdownItem to="/login-page" tag={Link}>
-                    <i className="nc-icon nc-lock-circle-open" />
-                    Login Page
-                  </DropdownItem>
-                  <DropdownItem to="/product-page" tag={Link}>
-                    <i className="nc-icon nc-album-2" />
-                    Product Page
-                  </DropdownItem>
-                  <DropdownItem to="/twitter-redesign" tag={Link}>
-                    <i className="nc-icon nc-tie-bow" />
-                    Twitter
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
               <NavItem>
                 <Button
                   className="btn-just-icon btn-round"
