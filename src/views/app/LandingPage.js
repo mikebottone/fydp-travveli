@@ -40,7 +40,7 @@ function LandingPage() {
           <Container>
             <Row>
               <Col className="ml-auto mr-auto" md="8">
-                <h2 className="title">FYDP Problem Statement</h2>
+                <h2 className="title">Problem Statement</h2>
                 <h5>
                   We believe a need exists to leverage consumer data for the purpose of creating more effective insights within a consumer facing travel discovery solution.
                 </h5>
