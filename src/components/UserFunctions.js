@@ -7,7 +7,8 @@ export const register = newUser => {
     FirstName: newUser.FirstName,
     LastName: newUser.LastName,
     Email: newUser.Email,
-    Password: newUser.Password
+    Password: newUser.Password,
+    HomeAirport: newUser.HomeAirport
   })
   .then(res => {
     var msg = JSON.parse(JSON.stringify(res.data));

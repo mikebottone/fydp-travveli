@@ -21,7 +21,8 @@ class ProfilePage extends Component {
     this.state = {
       FirstName:'',
       LastName:'',
-      Email:''
+      Email:'',
+      HomeAirport:''
     }
   }
   //might need to do this on the homepage with constructor
@@ -31,7 +32,8 @@ class ProfilePage extends Component {
     this.setState({
       FirstName: decoded.FirstName,
       LastName: decoded.LastName,
-      Email: decoded.Email
+      Email: decoded.Email,
+      HomeAirport: decoded.HomeAirport
     })
 
   }
@@ -58,7 +60,8 @@ class ProfilePage extends Component {
                   <div className="name">
                     <h4 className="title text-center">
                       {this.state.FirstName} {this.state.LastName} <br />
-                      <small>{this.state.Email}</small>
+                      <small>{this.state.Email}</small> <br/>
+                      <small>Home Airport: {this.state.HomeAirport}</small>
                     </h4>
                   </div>
                 </div>

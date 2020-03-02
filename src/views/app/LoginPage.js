@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {login} from "components/UserFuncstions";
+import {login} from "components/UserFunctions";
 // reactstrap components
 import {
   Button,

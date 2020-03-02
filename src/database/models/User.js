@@ -24,6 +24,9 @@ module.exports = db.sequelize.define(
     JoinDate: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
+    },
+    HomeAirport: {
+      type: Sequelize.STRING
     }
   },
   {

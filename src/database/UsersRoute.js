@@ -16,7 +16,8 @@ usersRoute.post('/register', (req, res)=>{
     LastName: req.body.LastName,
     Email: req.body.Email,
     Password: req.body.Password,
-    JoinDate: today
+    JoinDate: today,
+    HomeAirport: req.body.HomeAirport
   }
 
   User.findOne({

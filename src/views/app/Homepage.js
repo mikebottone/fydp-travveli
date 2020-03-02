@@ -28,7 +28,6 @@ class Homepage extends Component{
 
   //fetch users on first mount
   componentDidMount() {
-    // this.getAirports();
     const token = localStorage.usertoken
     const decoded = jwt_decode(token)
     this.setState({
@@ -36,7 +35,7 @@ class Homepage extends Component{
     })
   }
 
-  //retrieves the list of users from Express App
+  //remove later
   getAirports(){
     fetch('http://localhost:4000/airports')
     .then(res => res.json())

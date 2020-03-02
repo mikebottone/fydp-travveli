@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {register} from "components/UserFuncstions";
+import {register} from "components/UserFunctions";
 
 // reactstrap components
 import {
@@ -12,6 +12,7 @@ import {
   Row,
   Col
 } from "reactstrap";
+import Select from "react-select";
 
 class RegisterPage extends Component {
   constructor(){
@@ -20,15 +21,43 @@ class RegisterPage extends Component {
       FirstName: "",
       LastName: "",
       Email: "",
-      Password: ""
+      Password: "",
+      HomeAirport: null,
+      airports: []
     }
 
+    this.getAirports = this.getAirports.bind(this)
     this.onChange = this.onChange.bind(this)
+    this.onSelect = this.onSelect.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  componentDidMount() {
+    this.getAirports();
+  }
+
+  //retrieves the list of users from Express App
+  getAirports(){
+    fetch('http://localhost:4000/airports')
+    .then(res => res.json())
+    .then(airports => {
+      const airportsDrop = airports.map((items) => {
+        const container = {};
+
+        container.value = items.AirportCode;
+        container.label=items.AirportCode + "|" + items.AirportCity;
+        return container;
+       })
+      this.setState({airports: airportsDrop});
+    })
   }
 
   onChange(e) {
     this.setState({[e.target.name]: e.target.value})
+  }
+
+  onSelect = (HomeAirport) => {
+    this.setState({HomeAirport})
   }
 
   onSubmit(e){
@@ -37,7 +66,8 @@ class RegisterPage extends Component {
       FirstName: this.state.FirstName,
       LastName: this.state.LastName,
       Email: this.state.Email,
-      Password: this.state.Password
+      Password: this.state.Password,
+      HomeAirport: this.state.HomeAirport.value
     }
 
     register(user).then(res=> {
@@ -121,7 +151,7 @@ class RegisterPage extends Component {
                     <Input placeholder="Last Name" type="text" name="LastName" value={this.state.LastName} onChange={this.onChange} />
                     <Input placeholder="Email" type="email" name="Email" value={this.state.Email} onChange={this.onChange} />
                     <Input placeholder="Password" type="password" name="Password" value={this.state.Password} onChange={this.onChange} />
-                    {/* <Input placeholder="Confirm Password" type="password" name="ConfirmPassword" onChange={this.onChange}/> */}
+                    <Select placeholder="Choose Preferred Airport" options={this.state.airports} onChange={this.onSelect}/>
                     <Button block className="btn-round" color="default" type="submit">
                       Register
                     </Button>
