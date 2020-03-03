@@ -21,6 +21,7 @@ var db_conn_info = {
 //keep in alphabetical
 const queries = {
   addUser: "",
+  //Generic Table Pulls
   airports: "SELECT * FROM airports;",
   countries: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;",
   moods: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Mood' Order by TagName ASC;",
@@ -41,19 +42,47 @@ expressApp.get('/', (req, res) => { // anonymous function
   res.status(200).json({ "message": "Welcome to Travveli REST-based web service",
   "links": [{"rel" : "main", "href" : "http://localhost:4000/"},
     {"rel" : "aiports", "href" : "http://localhost:4000/airports"},
-    {"rel" : "countries", "href" : "http://localhost:4000/countries"}
+    {"rel" : "countries", "href" : "http://localhost:4000/countries"},
+    {"rel" : "moods", "href" : "http://localhost:4000/moods"},
+    {"rel" : "primaryactivities", "href" : "http://localhost:4000/primaryactivites"},
+    {"rel" : "popularactivities", "href" : "http://localhost:4000/popularactivities"},
+    {"rel" : "popularcities", "href" : "http://localhost:4000/popularcities"}
     ]});
 })
-
+//Get Airports
 expressApp.get('/airports', function( req,res) {
   console.log("GET request received for /airports");
   var querystring = "SELECT * FROM airports;"; // Where AirportCode = " + req.query.q +";"
   getDBData(req,res,db_conn_info,querystring);
 });
-
+//Get Countries
 expressApp.get('/countries', function( req,res) {
   console.log("GET request received for /countries");
   var querystring = queries.countries;
+  getDBData(req,res,db_conn_info,querystring);
+});
+//Get Moods
+expressApp.get('/moods', function( req,res) {
+  console.log("GET request received for /moods");
+  var querystring = queries.moods;
+  getDBData(req,res,db_conn_info,querystring);
+});
+//Get Primary Activities
+expressApp.get('/primaryactivities', function( req,res) {
+  console.log("GET request received for /primaryactivities");
+  var querystring = queries.primaryactivities;
+  getDBData(req,res,db_conn_info,querystring);
+});
+//Get Popular Activities
+expressApp.get('/popularactivities', function( req,res) {
+  console.log("GET request received for /popularactivities");
+  var querystring = queries.popularactivities;
+  getDBData(req,res,db_conn_info,querystring);
+});
+//Get Popular Cities
+expressApp.get('/popularcities', function( req,res) {
+  console.log("GET request received for /popularcities");
+  var querystring = queries.popularcities;
   getDBData(req,res,db_conn_info,querystring);
 });
 
