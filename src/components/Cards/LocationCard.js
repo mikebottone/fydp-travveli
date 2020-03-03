@@ -15,35 +15,16 @@ import PropTypes from 'prop-types';
 class LocationCard extends Component {
   constructor(props) {
     super(props); //always need in a class
-    this.state = {
-      listNum: null
-    }
+    this.state = {}
   }
-
-  addtoList1 = () => {
-    this.setState(state => ({listNum: 1}));
-  };
-
-  addtoList2 = () => {
-    this.setState(state => ({listNum: 2}));
-  };
-
-  addtoList3 = () => {
-    this.setState(state => ({listNum: 3}));
-  };
-
-  removeFromList = () => {
-    this.setState(state => ({listNum: null}));
-  };
 
   render() {
     return (
       <Card className="app-card">
-        {this.state.listNum}
         <Link to={{
               pathname: "/city",
               state: {
-                tag: this.props.city
+                city: this.props.city
               }
             }}> {/* TODO: Pass in link to appropriate page*/}
           <CardImg src={this.props.pic} />
@@ -61,6 +42,7 @@ class LocationCard extends Component {
 LocationCard.propTypes = {
   pic: PropTypes.string,
   country: PropTypes.string,
-  city: PropTypes.string
+  city: PropTypes.string,
+  TagID: PropTypes.number
 };
 export default LocationCard;

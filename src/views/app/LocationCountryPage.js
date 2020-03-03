@@ -21,21 +21,71 @@ import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 class LocationCountryPage extends Component{
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      TagName: "", //country
+      TagID: null, //country ID
+      cities:[]
+    };
+    this.fetchCitiesFromDB = this.fetchCitiesFromDB.bind(this);
     this.getCityCards = this.getCityCards.bind(this);
     this.renderCityList = this.renderCityList.bind(this);
     this.renderCityCards = this.renderCityCards.bind(this);
   }
+
   componentDidMount(){
+    this.setState({TagID: this.props.location.state.TagID})
+    this.setState({TagName: this.props.location.state.TagName})
     window.scrollTo(0,0);
+    this.fetchCitiesFromDB();
+  }
+
+  fetchCitiesFromDB(){
+    //gets the cities for the country from the DB
+    fetch('http://localhost:4000/country-cities?TagID='+this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(cities => this.setState({ cities }))
+  }
+
+  renderCityCards(){
+    //displays all categories at top of page
+    var output = this.state.cities.map((city) =>
+      <Col key={city.TagID}>
+        <div>
+            <LocationCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                        city= {city.TagName}
+                        country= {this.state.TagName}//country
+                        TagID={city.TagID}
+
+            />
+        </div>
+      </Col>
+       );
+      return( <Row>{output}</Row>);
+  }
+
+  renderCityList(){
+    var output = this.state.cities.map((city) =>
+      <div key={city.TagID}>
+        <Link to={{
+            pathname: "/city",
+            state: {
+              city: city.TagName
+            }
+          }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
+          <h4>{city.TagName}</h4>
+        </Link>
+        {this.getCityCards()}
+      </div>
+       );
+      return( <div>{output}</div>);
   }
 
   getCityCards(){
     return <Row>
             <Col>
               <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                        city= "Paris"
-                        country= "France"
+                        city= {this.state.TagID}
+                        country= {this.state.TagName}
                         detail="Hiking Trip in the Alps"
               />
             </Col>
@@ -55,59 +105,19 @@ class LocationCountryPage extends Component{
             </Col>
           </Row>;
   }
-  renderCityCards(){
-    //displays all categories at top of page
-    var cities = ["city", "city2"];
-    var output = cities.map((city) =>
-      <Col key={city}>
-        <div>
-          <Link to={{
-              pathname: "/city",
-              state: {
-                tag: city
-              }
-            }}> {/* pass city to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
 
-            <LocationCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                        city= "Paris"
-                        country= "France"
-            />
-          </Link>
-        </div>
-      </Col>
-       );
-      return( <Row>{output}</Row>);
-  }
-
-  renderCityList(){
-    var cities = ["city", "city2"];
-    var output = cities.map((city) =>
-      <div key={city}>
-        <Link to={{
-            pathname: "/city",
-            state: {
-              tag: city
-            }
-          }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
-          <h4>{city}</h4>
-        </Link>
-        {this.getCityCards()}
-      </div>
-       );
-      return( <div>{output}</div>);
-  }
   render(){
     return (
       <>
         <AppNavbar />
-        <AppHeader title={this.props.location.state.tag}
-          pic={require("assets/img/countries/flag-"+ this.props.location.state.tag.toLowerCase() +".jpg")}
+        <AppHeader title={this.state.TagName}
+          pic={require("assets/img/countries/flag-"+ this.props.location.state.TagName.toLowerCase() +".jpg")}
         />
         <div className="main">
           <div className="section">
             <Container>
             <Row>
-              <h2> {this.props.location.state.tag}'s Cities</h2>
+              <h2> {this.state.TagName}'s Cities</h2>
             </Row>
             <Row>
               <this.renderCityCards/>
@@ -124,7 +134,8 @@ class LocationCountryPage extends Component{
 }
 
 LocationCountryPage.propTypes = {
-  tag: PropTypes.string,
+  TagName: PropTypes.string,
+  TagID: PropTypes.number
 };
 
 export default LocationCountryPage;

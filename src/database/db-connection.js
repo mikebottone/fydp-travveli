@@ -22,7 +22,7 @@ var db_conn_info = {
 const queries = {
   addUser: "",
   airports: "SELECT * FROM airports;",
-  countries: "SELECT TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;"
+  countries: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;"
 };
 
 expressApp.listen(4000, ()=> {
@@ -41,13 +41,23 @@ expressApp.get('/', (req, res) => { // anonymous function
 
 expressApp.get('/airports', function( req,res) {
   console.log("GET request received for /airports");
-  var querystring = queries.airports;
+  var querystring = "SELECT * FROM airports;"; // Where AirportCode = " + req.query.q +";"
   getDBData(req,res,db_conn_info,querystring);
 });
 
 expressApp.get('/countries', function( req,res) {
   console.log("GET request received for /countries");
   var querystring = queries.countries;
+  getDBData(req,res,db_conn_info,querystring);
+});
+
+//Gets the cities for a specific country
+expressApp.get('/country-cities', function( req,res) {
+  console.log("GET request received for /country-cities");
+  var querystring = "Select td.TagID, td1.TagName FROM `tag-details` td " +
+                    "INNER JOIN `tag-heirarchy` th ON td.TagID = th.PrimaryTagID " +
+                    "INNER JOIN `tag-details` td1 ON td1.TagID=th.SecondaryTagID " +
+                    "Where td.TagID=" + req.query.TagID + ";";
   getDBData(req,res,db_conn_info,querystring);
 });
 

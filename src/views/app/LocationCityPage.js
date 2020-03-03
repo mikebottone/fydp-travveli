@@ -23,6 +23,9 @@ class LocationCityPage extends Component{
     this.state = {};
     this.renderActivityCards = this.renderActivityCards.bind(this);
   }
+  componentDidMount(){
+    window.scrollTo(0,0);
+  }
 
   renderActivityCards(){
     //displays all activities in a city
@@ -58,7 +61,7 @@ class LocationCityPage extends Component{
           <div className="section">
             <Container>
             <Row>
-              <h2> {this.props.location.state.tag}</h2>
+              <h2> {this.props.location.state.city}</h2>
             </Row>
             <Row>
               <this.renderActivityCards/>
@@ -74,7 +77,7 @@ class LocationCityPage extends Component{
 }
 
 LocationCityPage.propTypes = {
-  tag: PropTypes.string,
+  city: PropTypes.string,
 };
 
 export default LocationCityPage;

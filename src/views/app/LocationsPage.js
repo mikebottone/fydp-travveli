@@ -2,7 +2,6 @@
 //displays countries and cities maybe
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Container,
@@ -36,17 +35,12 @@ class LocationsPage extends Component{
   renderCountryCards(){
     //displays all countries
     var output = this.state.countries.map((country) =>
-      <Col  key={country.TagName}>
+      <Col  key={country.TagID}>
         <div>
-          <Link to={{
-              pathname: "/country",
-              state: {
-                tag: country.TagName
-              }
-            }}> {/* passes country to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
-
-            <CountryCard country={country.TagName} pic={require("assets/img/countries/flag-"+ country.TagName.toLowerCase() +".jpg")}/>
-          </Link>
+            <CountryCard
+            TagID = {country.TagID}
+            TagName = {country.TagName}
+            pic={require("assets/img/countries/flag-"+ country.TagName.toLowerCase() +".jpg")}/>
         </div>
       </Col>
        );
