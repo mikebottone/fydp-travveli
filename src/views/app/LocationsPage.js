@@ -35,7 +35,7 @@ class LocationsPage extends Component{
   renderCountryCards(){
     //displays all countries
     var output = this.state.countries.map((country) =>
-      <Col  key={country.TagID}>
+      <Col md="3" key={country.TagID}>
         <div>
             <CountryCard
             TagID = {country.TagID}

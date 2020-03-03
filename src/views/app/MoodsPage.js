@@ -21,22 +21,31 @@ import MoodCard from "components/Cards/MoodCard";
 class MoodsPage extends Component{
   constructor(props){
     super(props);
-    this.renderMoodCategoryCards = this.renderMoodCategoryCards.bind(this);
+    this.state = {
+      moods:[]
+    }
+    this.getMoods = this.getMoods.bind(this);
+    this. renderMoodCategoryCards = this.renderMoodCategoryCards.bind(this);
   }
 
-  renderMoodCategoryCards(){
-      var output = constants.MOODS.map((mood) =>
-      <Col  key={mood}>
-        <div>
-          <Link to={{
-              pathname: "/mood-specific",
-              state: {
-                tag: mood
-              }
-            }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
+  componentDidMount(){
+    this.getMoods();
+  }
+ getMoods(){
+  fetch('http://localhost:4000/moods')
+  .then(res => res.json())
+  .then(moods => this.setState({ moods }))
+ }
 
-            <MoodCard pic={require("assets/img/faces/erik-lucatero-2.jpg")} mood={mood}  icon="nc-icon nc-spaceship"/>
-          </Link>
+
+  renderMoodCategoryCards(){
+      var output = this.state.moods.map((moods) =>
+      <Col md="3" key={moods.TagID}>
+        <div>
+            <MoodCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+            mood={moods.TagName}
+            TagID={moods.TagID}
+            icon="nc-icon nc-spaceship"/>
         </div>
       </Col>
        );

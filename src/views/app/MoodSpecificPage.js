@@ -37,7 +37,7 @@ class MoodSpecificPage extends Component{
         <div className="main">
           <div className="section">
             <Container>
-             <h3>{this.props.location.state.tag}</h3>
+             <h3>{this.props.location.state.mood}</h3>
               <this.renderCards/>
             </Container>
             <AppFooter/>
@@ -49,7 +49,7 @@ class MoodSpecificPage extends Component{
 }
 
 MoodSpecificPage.propTypes = {
-  tag: PropTypes.string,
+  mood: PropTypes.string,
 };
 
 export default MoodSpecificPage;
