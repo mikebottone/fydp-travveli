@@ -2,7 +2,6 @@
 //displays countries and cities maybe
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Container,
@@ -11,7 +10,6 @@ import {
 } from "reactstrap";
 
 // core components
-import constants from "components/constants.js";
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProductPageHeader from "components/Headers/ProductPageHeader";
 import AppFooter from "components/Footers/AppFooter";
@@ -20,22 +18,29 @@ import CountryCard from "components/Cards/CountryCard";
 class LocationsPage extends Component{
   constructor(props){
     super(props);
+    this.state = {
+      countries: []
+    }
     this.renderCountryCards = this.renderCountryCards.bind(this);
   }
-  renderCountryCards(){
-    //displays all categories at top of page
-    var output = constants.COUNTRIES.map((country) =>
-      <Col  key={country}>
-        <div>
-          <Link to={{
-              pathname: "/country",
-              state: {
-                tag: country
-              }
-            }}> {/* passes country to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
+  componentDidMount() {
+    this.getCountries();
+  }
 
-            <CountryCard country={country} pic={require("assets/img/countries/flag-"+ country.toLowerCase() +".jpg")}/>
-          </Link>
+  getCountries(){
+    fetch('http://localhost:4000/countries')
+    .then(res => res.json())
+    .then(countries => this.setState({ countries }))
+  }
+  renderCountryCards(){
+    //displays all countries
+    var output = this.state.countries.map((country) =>
+      <Col  key={country.TagID}>
+        <div>
+            <CountryCard
+            TagID = {country.TagID}
+            TagName = {country.TagName}
+            pic={require("assets/img/countries/flag-"+ country.TagName.toLowerCase() +".jpg")}/>
         </div>
       </Col>
        );

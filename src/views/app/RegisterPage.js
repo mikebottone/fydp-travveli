@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Component } from "react";
+import {register} from "components/UserFunctions";
 
 // reactstrap components
 import {
@@ -11,19 +12,77 @@ import {
   Row,
   Col
 } from "reactstrap";
+import Select from "react-select";
 
-function RegisterPage() {
-  document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
-    document.body.classList.add("register-page");
-    document.body.classList.add("full-screen");
-    window.scrollTo(0, 75);
-    document.body.scrollTop = 0;
-    return function cleanup() {
-      document.body.classList.remove("register-page");
-      document.body.classList.remove("full-screen");
-    };
-  });
+class RegisterPage extends Component {
+  constructor(){
+    super()
+    this.state = {
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Password: "",
+      HomeAirport: null,
+      airports: []
+    }
+
+    this.getAirports = this.getAirports.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onSelect = this.onSelect.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  componentDidMount() {
+    this.getAirports();
+  }
+
+  //retrieves the list of users from Express App
+  getAirports(){
+    fetch('http://localhost:4000/airports')
+    .then(res => res.json())
+    .then(airports => {
+      const airportsDrop = airports.map((items) => {
+        const container = {};
+
+        container.value = items.AirportCode;
+        container.label=items.AirportCode + "|" + items.AirportCity;
+        return container;
+       })
+      this.setState({airports: airportsDrop});
+    })
+  }
+
+  onChange(e) {
+    this.setState({[e.target.name]: e.target.value})
+  }
+
+  onSelect = (HomeAirport) => {
+    this.setState({HomeAirport})
+  }
+
+  onSubmit(e){
+    e.preventDefault()
+    const user = {
+      FirstName: this.state.FirstName,
+      LastName: this.state.LastName,
+      Email: this.state.Email,
+      Password: this.state.Password,
+      HomeAirport: this.state.HomeAirport.value
+    }
+
+    register(user).then(res=> {
+      if(res !== "User already exists" ){
+      alert(res)
+      this.props.history.push('/login-page')
+      }
+      else{
+        alert(res);
+      }
+    })
+
+  }
+
+  render(){
   return (
     <>
       <div className="wrapper">
@@ -82,24 +141,18 @@ function RegisterPage() {
                   <CardTitle className="text-center" tag="h3">
                     Register
                   </CardTitle>
-                  <div className="social">
-                    <Button className="btn-just-icon mr-1" color="facebook">
-                      <i className="fa fa-facebook" />
-                    </Button>
-                    <Button className="btn-just-icon mr-1" color="google">
-                      <i className="fa fa-google" />
-                    </Button>
-                  </div>
                   <div className="division">
                     <div className="line l" />
-                    <span>or</span>
+                    <span><i className="fa fa-plane"/> </span>
                     <div className="line r" />
                   </div>
-                  <Form className="register-form">
-                    <Input placeholder="Email" type="text" />
-                    <Input placeholder="Password" type="password" />
-                    <Input placeholder="Confirm Password" type="password" />
-                    <Button block className="btn-round" color="default">
+                  <Form className="register-form" onSubmit={this.onSubmit}>
+                    <Input placeholder="First Name" type="text" name="FirstName" value={this.state.FirstName} onChange={this.onChange} />
+                    <Input placeholder="Last Name" type="text" name="LastName" value={this.state.LastName} onChange={this.onChange} />
+                    <Input placeholder="Email" type="email" name="Email" value={this.state.Email} onChange={this.onChange} />
+                    <Input placeholder="Password" type="password" name="Password" value={this.state.Password} onChange={this.onChange} />
+                    <Select placeholder="Choose Preferred Airport" options={this.state.airports} onChange={this.onSelect}/>
+                    <Button block className="btn-round" color="default" type="submit">
                       Register
                     </Button>
                   </Form>
@@ -125,6 +178,7 @@ function RegisterPage() {
       </div>
     </>
   );
+  }
 }
 
 export default RegisterPage;
