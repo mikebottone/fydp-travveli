@@ -11,6 +11,7 @@ import {
   Row,
   Col
 } from "reactstrap";
+import ComingSoonCard from "components/Cards/ComingSoonCard";
 
 function MultiCarousel(props) {
   // carousel items
@@ -70,20 +71,11 @@ function MultiCarousel(props) {
                   onExited={onExited}
                   key={item.src}
                 > {/* a slide of 4 cards */}
-                <Row ml-auto mr-auto>
-                  <Col md="3">
+                {/* <Row ml-auto mr-auto> */}
+                  {/* <Col md="3"> */}
                     <LocationCard pic={item.src} city={item.altText}/>
-                  </Col>
-                  <Col md="3">
-                    <LocationCard pic={item.src} city={item.altText}/>
-                  </Col>
-                  <Col md="3">
-                    <LocationCard pic={item.src} city={item.altText}/>
-                  </Col>
-                  <Col md="3">
-                    <LocationCard pic={item.src} city={item.altText}/>
-                  </Col>
-                </Row>
+                  {/* </Col> */}
+                {/* </Row> */}
                 </CarouselItem>
               );
             })}
@@ -114,6 +106,23 @@ function MultiCarousel(props) {
               <span className="sr-only">Next</span>
             </a>
           </Carousel>
+      </Col>
+    </Row>
+    <Row className="multi-item-carousel">
+      <Col md="3">
+        <ComingSoonCard pic = {require('assets/img/comingsoon1.jpg')} />
+      </Col>
+      <Col md="3">
+        <ComingSoonCard pic = {require('assets/img/comingsoon1.jpg')} />
+      </Col>
+      <Col md="3">
+        <ComingSoonCard pic = {require('assets/img/comingsoon1.jpg')} />
+      </Col>
+      <Col md="3">
+        <ComingSoonCard pic = {require('assets/img/comingsoon1.jpg')} />
+      </Col>
+      <Col md="3">
+        <ComingSoonCard pic = {require('assets/img/comingsoon1.jpg')} />
       </Col>
     </Row>
     </>
