@@ -2,7 +2,6 @@
 //lists all the mood types
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Container,
@@ -14,7 +13,6 @@ import {
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProductPageHeader from "components/Headers/ProductPageHeader";
 import AppFooter from "components/Footers/AppFooter";
-import constants from "components/constants.js";
 import MoodCard from "components/Cards/MoodCard";
 
 
@@ -25,7 +23,7 @@ class MoodsPage extends Component{
       moods:[]
     }
     this.getMoods = this.getMoods.bind(this);
-    this. renderMoodCategoryCards = this.renderMoodCategoryCards.bind(this);
+    this.renderMoodCategoryCards = this.renderMoodCategoryCards.bind(this);
   }
 
   componentDidMount(){

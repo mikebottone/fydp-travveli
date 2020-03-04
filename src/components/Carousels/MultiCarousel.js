@@ -3,11 +3,8 @@ import LocationCard from "components/Cards/LocationCard";
 
 // reactstrap components
 import {
-  Card,
   Carousel,
   CarouselItem,
-  CarouselIndicators,
-  CarouselCaption,
   Row,
   Col
 } from "reactstrap";

@@ -29,7 +29,8 @@ class ActivityCard extends Component {
         <Link to={{
               pathname: "/activity-category",
               state: {
-                tag: this.props.activity
+                primaryActivity: this.props.activity,
+                TagID: this.props.TagID
               }
             }}>
         <CardBody>
@@ -44,6 +45,7 @@ class ActivityCard extends Component {
 }
 
 ActivityCard.propTypes = {
+  TagID: PropTypes.number,
   pic: PropTypes.string,
   activity: PropTypes.string
 };

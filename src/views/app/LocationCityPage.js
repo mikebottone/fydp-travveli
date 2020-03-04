@@ -2,7 +2,6 @@
 //will display cities within the country and activities within the cities
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 // reactstrap components
 import {
@@ -32,25 +31,16 @@ class LocationCityPage extends Component{
     var output = [1,2,3].map((city) =>
       <Col key={city}>
         <div>
-          <Link to={{
-              pathname: "/detailed-activity",
-              state: {
-                tag: city
-              }
-            }}> {/* pass city to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
-
             <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
                         city= {city}
                         country= "France"
                         detail="Hiking Trip in the Alps"
               />
-          </Link>
         </div>
       </Col>
        );
       return( <Row>{output}</Row>);
   }
-
 
   render(){
     return (

@@ -17,7 +17,6 @@ import LocationCard from "components/Cards/LocationCard";
 import MoodCard from "components/Cards/MoodCard";
 import ActivityCard from "components/Cards/ActivityCard";
 import MultiCarousel from "components/Carousels/MultiCarousel";
-import DetailedActivityCarousel from "components/Carousels/DetailedActivityCarousel";
 
 class Homepage extends Component{
   constructor(props){

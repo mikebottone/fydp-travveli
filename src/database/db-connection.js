@@ -44,7 +44,7 @@ expressApp.get('/', (req, res) => { // anonymous function
     {"rel" : "aiports", "href" : "http://localhost:4000/airports"},
     {"rel" : "countries", "href" : "http://localhost:4000/countries"},
     {"rel" : "moods", "href" : "http://localhost:4000/moods"},
-    {"rel" : "primaryactivities", "href" : "http://localhost:4000/primaryactivites"},
+    {"rel" : "primaryactivities", "href" : "http://localhost:4000/primaryactivities"},
     {"rel" : "popularactivities", "href" : "http://localhost:4000/popularactivities"},
     {"rel" : "popularcities", "href" : "http://localhost:4000/popularcities"}
     ]});
@@ -86,9 +86,9 @@ expressApp.get('/popularcities', function( req,res) {
   getDBData(req,res,db_conn_info,querystring);
 });
 
-//Gets the cities for a specific country
-expressApp.get('/country-cities', function( req,res) {
-  console.log("GET request received for /country-cities");
+//Gets the cities for a specific country or secondary activity categories for a primary activity
+expressApp.get('/secondary-level', function( req,res) {
+  console.log("GET request received for /secondary-level");
   var querystring = "Select td.TagID, td1.TagName FROM `tag-details` td " +
                     "INNER JOIN `tag-heirarchy` th ON td.TagID = th.PrimaryTagID " +
                     "INNER JOIN `tag-details` td1 ON td1.TagID=th.SecondaryTagID " +
