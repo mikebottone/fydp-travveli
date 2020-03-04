@@ -3,11 +3,8 @@ import LocationCard from "components/Cards/LocationCard";
 
 // reactstrap components
 import {
-  Card,
   Carousel,
   CarouselItem,
-  CarouselIndicators,
-  CarouselCaption,
   Row,
   Col
 } from "reactstrap";
@@ -71,11 +68,20 @@ function MultiCarousel(props) {
                   onExited={onExited}
                   key={item.src}
                 > {/* a slide of 4 cards */}
-                {/* <Row ml-auto mr-auto> */}
-                  {/* <Col md="3"> */}
+                <Row ml-auto mr-auto>
+                  <Col md="3">
                     <LocationCard pic={item.src} city={item.altText}/>
-                  {/* </Col> */}
-                {/* </Row> */}
+                  </Col>
+                  <Col md="3">
+                    <LocationCard pic={item.src} city={item.altText}/>
+                  </Col>
+                  <Col md="3">
+                    <LocationCard pic={item.src} city={item.altText}/>
+                  </Col>
+                  <Col md="3">
+                    <LocationCard pic={item.src} city={item.altText}/>
+                  </Col>
+                </Row>
                 </CarouselItem>
               );
             })}

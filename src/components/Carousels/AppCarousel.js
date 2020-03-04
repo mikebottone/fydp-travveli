@@ -6,7 +6,7 @@ import "react-multi-carousel/lib/styles.css";
 import ComingSoonCard from "components/Cards/ComingSoonCard";
 import { Col } from "reactstrap";
 
-class TestCarousel extends Component {
+class AppCarousel extends Component {
 render(){
   const responsive = {
     superLargeDesktop: {
@@ -76,4 +76,4 @@ render(){
   );
 }
 }
-export default TestCarousel;
+export default AppCarousel;
