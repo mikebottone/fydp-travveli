@@ -22,7 +22,7 @@ class LocationCountryPage extends Component{
   constructor(props){
     super(props);
     this.state = {
-      TagName: "", //country
+      country: "",
       TagID: null, //country ID
       cities:[]
     };
@@ -34,14 +34,14 @@ class LocationCountryPage extends Component{
 
   componentDidMount(){
     this.setState({TagID: this.props.location.state.TagID})
-    this.setState({TagName: this.props.location.state.TagName})
+    this.setState({country: this.props.location.state.country})
     window.scrollTo(0,0);
     this.fetchCitiesFromDB();
   }
 
   fetchCitiesFromDB(){
     //gets the cities for the country from the DB
-    fetch('http://localhost:4000/country-cities?TagID='+this.props.location.state.TagID)
+    fetch('http://localhost:4000/secondary-level?TagID='+this.props.location.state.TagID)
     .then(res => res.json())
     .then(cities => this.setState({ cities }))
   }
@@ -53,7 +53,7 @@ class LocationCountryPage extends Component{
         <div>
             <LocationCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
                         city= {city.TagName}
-                        country= {this.state.TagName}//country
+                        country= {this.state.country}
                         TagID={city.TagID}
 
             />
@@ -85,7 +85,7 @@ class LocationCountryPage extends Component{
             <Col>
               <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
                         city= {this.state.TagID}
-                        country= {this.state.TagName}
+                        country= {this.state.country}
                         detail="Hiking Trip in the Alps"
               />
             </Col>
@@ -110,14 +110,14 @@ class LocationCountryPage extends Component{
     return (
       <>
         <AppNavbar />
-        <AppHeader title={this.state.TagName}
-          pic={require("assets/img/countries/flag-"+ this.props.location.state.TagName.toLowerCase() +".jpg")}
+        <AppHeader title={this.state.country}
+          pic={require("assets/img/countries/flag-"+ this.props.location.state.country.toLowerCase() +".jpg")}
         />
         <div className="main">
           <div className="section">
             <Container>
             <Row>
-              <h2> {this.state.TagName}'s Cities</h2>
+              <h2> {this.state.country}'s Cities</h2>
             </Row>
             <Row>
               <this.renderCityCards/>
@@ -134,7 +134,7 @@ class LocationCountryPage extends Component{
 }
 
 LocationCountryPage.propTypes = {
-  TagName: PropTypes.string,
+  country: PropTypes.string,
   TagID: PropTypes.number
 };
 

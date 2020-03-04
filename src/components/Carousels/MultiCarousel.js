@@ -8,6 +8,7 @@ import {
   Row,
   Col
 } from "reactstrap";
+
 import ComingSoonCard from "components/Cards/ComingSoonCard";
 
 function MultiCarousel(props) {
@@ -114,6 +115,7 @@ function MultiCarousel(props) {
           </Carousel>
       </Col>
     </Row>
+
     <Row className="multi-item-carousel">
       <Col md="3">
         <ComingSoonCard pic = {require('assets/img/comingsoon1.jpg')} />
@@ -131,6 +133,7 @@ function MultiCarousel(props) {
         <ComingSoonCard pic = {require('assets/img/comingsoon1.jpg')} />
       </Col>
     </Row>
+
     </>
   );
 }

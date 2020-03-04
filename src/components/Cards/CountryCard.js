@@ -25,13 +25,13 @@ class CountryCard extends Component {
               pathname: "/country",
               state: {
                 TagID: this.props.TagID,
-                TagName: this.props.TagName
+                country: this.props.country
               }
             }}>
           <CardImg src={this.props.pic} />
           <CardBody className="card-location">
             <CardText>
-              <h4>{this.props.TagName}</h4>
+              <h4>{this.props.country}</h4>
             </CardText>
           </CardBody>
         </Link>
@@ -43,6 +43,6 @@ class CountryCard extends Component {
 CountryCard.propTypes = {
   pic: PropTypes.string,
   TagID: PropTypes.number,
-  TagName: PropTypes.string
+  country: PropTypes.string
 };
 export default CountryCard;

@@ -35,11 +35,11 @@ class LocationsPage extends Component{
   renderCountryCards(){
     //displays all countries
     var output = this.state.countries.map((country) =>
-      <Col  key={country.TagID}>
+      <Col md="3" key={country.TagID}>
         <div>
             <CountryCard
             TagID = {country.TagID}
-            TagName = {country.TagName}
+            country = {country.TagName}
             pic={require("assets/img/countries/flag-"+ country.TagName.toLowerCase() +".jpg")}/>
         </div>
       </Col>

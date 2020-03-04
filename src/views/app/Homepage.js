@@ -17,6 +17,7 @@ import LocationCard from "components/Cards/LocationCard";
 import MoodCard from "components/Cards/MoodCard";
 import ActivityCard from "components/Cards/ActivityCard";
 import MultiCarousel from "components/Carousels/MultiCarousel";
+
 import AppCarousel from "components/Carousels/AppCarousel";
 
 class Homepage extends Component{
@@ -90,7 +91,9 @@ class Homepage extends Component{
                 pic2={require("assets/img/sections/fabio-mangione.jpg")}
                 pic3={require("assets/img/cover.jpg")}
               />
+
               <AppCarousel/>
+
               <h3>Recommended for you...</h3>
               <Row>
                 <Col md="3">

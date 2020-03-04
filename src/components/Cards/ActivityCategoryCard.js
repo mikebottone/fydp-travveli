@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -13,9 +13,7 @@ import PropTypes from 'prop-types';
 class ActivityCategoryCard extends Component {
   constructor(props) {
     super(props); //always need in a class
-    this.state = {
-
-    }
+    this.state = {}
   }
 
   render() {
@@ -27,18 +25,26 @@ class ActivityCategoryCard extends Component {
             backgroundImage:"url(" + this.props.pic + ")"
           }}
       >
-        {/* Link to correct section of the activity category page */}
+        <Link to={{
+              pathname: "/activity-specific",
+              state: {
+                secondaryActivity: this.props.activity,
+                TagID: this.props.TagID
+              }
+            }}>
         <CardBody>
           <div className="card-activity">
             <h3 className="card-category"> {this.props.activity} </h3>
           </div>
         </CardBody>
+        </Link>
       </Card>
     );
   }
 }
 
 ActivityCategoryCard.propTypes = {
+  TagID: PropTypes.number,
   pic: PropTypes.string,
   activity: PropTypes.string
 };
