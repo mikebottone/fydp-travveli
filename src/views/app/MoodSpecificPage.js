@@ -23,7 +23,7 @@ class MoodSpecificPage extends Component{
   renderCards(){
     return <ActivityDetailCard
             pic={require("assets/img/sections/leonard-cotte.jpg")}
-            detail={"words words words"}
+            title={"words words words"}
             city={"Paris"}
             country={"France"}
             />;

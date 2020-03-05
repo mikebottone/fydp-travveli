@@ -85,7 +85,7 @@ class ActivityCategoryPage extends Component{
             <Col>
             <ActivityDetailCard
               pic={require("assets/img/sections/leonard-cotte.jpg")}
-              detail={"words words words"}
+              title={"words words words"}
               city="Rome"
               country="Italy"
             />
@@ -93,7 +93,7 @@ class ActivityCategoryPage extends Component{
             <Col>
             <ActivityDetailCard
               pic={require("assets/img/sections/leonard-cotte.jpg")}
-              detail={"words words words"}
+              title={"words words words"}
               city="Rome"
               country="Italy"
             />
@@ -101,7 +101,7 @@ class ActivityCategoryPage extends Component{
             <Col>
               <ActivityDetailCard
                 pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                detail={"Some text"}
+                title={"Some text"}
                 city="Rome"
                 country="Italy"
               />

@@ -34,7 +34,7 @@ class LocationCityPage extends Component{
             <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
                         city= {city}
                         country= "France"
-                        detail="Hiking Trip in the Alps"
+                        title="Hiking Trip in the Alps"
               />
         </div>
       </Col>

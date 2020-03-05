@@ -22,11 +22,24 @@ import DetailedActivityCarousel from "components/Carousels/DetailedActivityCarou
 class DetailedActivityPage extends Component{
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      ActivityID: null,
+      city: '',
+      country:'',
+      title: ''
+
+    };
     this.getTags = this.getTags.bind(this);
     this.getPics = this.getPics.bind(this);
     this.getDescription = this.getDescription.bind(this);
     this.getDurationAndTravelPeriod = this.getDurationAndTravelPeriod.bind(this);
+  }
+
+  componentDidMount(){
+    this.setState({ActivityID: this.props.location.state.ActivityID})
+    this.setState({city: this.props.location.state.city})
+    this.setState({country: this.props.location.state.country})
+    this.setState({title: this.props.location.state.title})
   }
 
   getDescription(){
@@ -102,9 +115,9 @@ class DetailedActivityPage extends Component{
       <>
         <AppNavbar />
         <DetailedActivityHeader pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-            activity="Name of Activity"
-            city="City Name"
-            country="Country"
+            activity={this.state.title}
+            city={this.state.city}
+            country={this.state.country}
         />
         <div className="main">
           <div className="section">
@@ -136,7 +149,11 @@ class DetailedActivityPage extends Component{
 }
 
 DetailedActivityPage.propTypes = {
-  tag: PropTypes.string,
+  city: PropTypes.string,
+  country: PropTypes.string,
+  title: PropTypes.string,
+  TagID: PropTypes.number
+
 };
 
 export default DetailedActivityPage;

@@ -86,21 +86,21 @@ class LocationCountryPage extends Component{
               <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
                         city= {this.state.TagID}
                         country= {this.state.country}
-                        detail="Hiking Trip in the Alps"
+                        title="Hiking Trip in the Alps"
               />
             </Col>
             <Col>
               <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
                         city= "Paris"
                         country= "France"
-                        detail="Hiking Trip in the Alps"
+                        title="Hiking Trip in the Alps"
               />
             </Col>
             <Col>
               <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
                         city= "Paris"
                         country= "France"
-                        detail="Hiking Trip in the Alps"
+                        title="Hiking Trip in the Alps"
               />
             </Col>
           </Row>;

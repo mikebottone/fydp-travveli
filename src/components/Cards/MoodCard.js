@@ -48,6 +48,6 @@ MoodCard.propTypes = {
   pic: PropTypes.string,
   icon: PropTypes.string,
   mood: PropTypes.string,
-  TagID: PropTypes.string
+  TagID: PropTypes.number
 };
 export default MoodCard;

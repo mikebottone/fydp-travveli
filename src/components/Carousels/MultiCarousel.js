@@ -116,6 +116,7 @@ function MultiCarousel(props) {
       </Col>
     </Row>
 
+    {/* Scroll bar of cards */}
     <Row className="multi-item-carousel">
       <Col md="3">
         <ComingSoonCard pic = {require('assets/img/comingsoon1.jpg')} />
