@@ -15,7 +15,7 @@ expressApp.use(bodyParser.urlencoded({extended: false}))
 const path = require('path')
 const dev = expressApp.get('env') !== 'production';
 if (!dev){
-  expressApp.use(express.static(path.resolve('./src/index.js')));
+  expressApp.use(express.static(path.resolve('./','src', 'index.js')));
   expressApp.get('*', (req,res)=> {
     res.sendFile(path.resolve('./', 'public', 'index.html'))
   })
