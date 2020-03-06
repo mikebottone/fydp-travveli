@@ -60,10 +60,6 @@ class LoginPage extends Component {
         >
           <div className="filter" />
           <Container>
-            {/*TODO: Remove button later*/}
-          <Button to="/presentation" tag={Link} target="_blank">
-            Back to Presentation Page
-          </Button>
             <Row>
               <Col className="ml-auto mr-auto" lg="4" md="6" sm="6">
                 <Card className="card-register">
