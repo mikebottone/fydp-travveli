@@ -47,8 +47,6 @@ function LandingPageHeader() {
                 color="neutral"
                 to="register-page"
                 tag={Link}
-
-                target="_blank"
               >
                 Register
               </Button>
@@ -57,7 +55,6 @@ function LandingPageHeader() {
                 color="neutral"
                 to="login-page"
                 tag={Link}
-
                 type="button"
                 outline
               >

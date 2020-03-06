@@ -99,7 +99,6 @@ class Homepage extends Component{
       },
     };
 
-  //  const { airports } = this.state;
     return (
       <>
         <AppNavbar />
@@ -107,28 +106,6 @@ class Homepage extends Component{
         <div className="main">
           <div className="section">
             <Container>
-            {/* <div>
-            <h1>List of airports</h1>
-            {/* Check to see if any items are found
-            {airports.length ? (
-              <div>
-                {/* Render the list of items
-                {airports.map((item) => {
-                  return(
-                    <div key={item.AirportCode}>
-                      {item.AirportCode}|
-                      {item.AirportCity}
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div>
-                <h2>No List Items Found</h2>
-              </div>
-            )
-            }
-            </div> */}
               {/* Recommended for you */}
               <h3>Recommended for you...</h3>
               <Row>
@@ -137,6 +114,7 @@ class Homepage extends Component{
                         city= "Paris"
                         country= "France"
                         title="Hiking Trip in the Alps"
+                        ActivityID='1'
                   />
                 </Col>
                 <Col md="3">
@@ -144,6 +122,7 @@ class Homepage extends Component{
                         city= "Paris"
                         country= "France"
                         title="Hiking Trip in the Alps"
+                        ActivityID='1'
                   />
                 </Col>
                 <Col md="3">
@@ -151,6 +130,7 @@ class Homepage extends Component{
                         city= "Paris"
                         country= "France"
                         title="Hiking Trip in the Alps"
+                        ActivityID='1'
                   />
                 </Col>
                 <Col md="3">
@@ -158,6 +138,7 @@ class Homepage extends Component{
                         city= "Paris"
                         country= "France"
                         title="Hiking Trip in the Alps"
+                        ActivityID='1'
                   />
                 </Col>
               </Row>
@@ -193,7 +174,7 @@ class Homepage extends Component{
 
               {/* Mood */}
               <Link to="/moods">
-                <h3>Mood</h3>
+                <h3><b>Mood</b> <i className="fa fa-angle-right"/></h3>
               </Link>
                 <Carousel responsive={responsive}
                 swipeable={true} draggable={false}
@@ -222,7 +203,7 @@ class Homepage extends Component{
 
               {/* Activity */}
               <Link to="/activities">
-                <h3>Activity</h3>
+                <h3><b>Activity</b> <i className="fa fa-angle-right"/></h3>
               </Link>
               <Carousel responsive={responsive}
                 swipeable={true} draggable={false}
@@ -249,7 +230,7 @@ class Homepage extends Component{
               <hr/>
               {/* Location */}
               <Link to="/locations">
-                <h3>Location</h3>
+                <h3><b>Location</b> <i className="fa fa-angle-right"/></h3>
               </Link>
               <Carousel responsive={responsive}
                 swipeable={true} draggable={false}

@@ -47,7 +47,7 @@ class LocationCityPage extends Component{
               title={detail.Title}
               city={detail.City}
               country={detail.Country}
-              ActivityDetailCard={detail.ActivityID}
+              ActivityID={detail.ActivityID}
             />;
     </Col>
       );
@@ -80,6 +80,7 @@ class LocationCityPage extends Component{
 
 LocationCityPage.propTypes = {
   city: PropTypes.string,
+  TagID: PropTypes.string
 };
 
 export default LocationCityPage;
