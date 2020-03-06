@@ -17,7 +17,7 @@ const dev = expressApp.get('env') !== 'production';
 if (!dev){
   expressApp.use(express.static(path.resolve('./','src', 'index.js')));
   expressApp.get('*', (req,res)=> {
-    res.sendFile(path.resolve('./', 'public', 'index.html'))
+    res.sendFile(path.resolve('./', 'src', 'index.js'))
   })
 }
 
