@@ -7,6 +7,7 @@ const bodyParser = require("body-parser")
 const mysql = require('mysql');
 
 const expressApp = express();
+const port = process.env.PORT || 4000;
 expressApp.use(cors());
 expressApp.use(bodyParser.json());
 expressApp.use(bodyParser.urlencoded({extended: false}))
@@ -32,7 +33,7 @@ const queries = {
   popularcities: "SELECT tagdetails.TagID, tagdetails.TagName, tagdetails.TagType, Temp.TagCount FROM heroku_2e52a7e26390f81.`tag-details` as tagdetails JOIN(  SELECT activitydetailstags.TagID, COUNT(activitydetailstags.TagID) AS TagCount FROM heroku_2e52a7e26390f81.`activity-details-tags` as activitydetailstags  RIGHT JOIN (SELECT activity.ActivityID, activity.Title FROM heroku_2e52a7e26390f81.`activity-details` as activity  RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav  ON activity.ActivityID = fav.ActivityID    ORDER BY ActivityID ASC) AS TopActivities    ON activitydetailstags.ActivityID = TopActivities.ActivityID    GROUP BY TagID) AS TEMP ON tagdetails.TagID = Temp.TagID WHERE TagType='City' GROU BY TagID ORDER BY TagCount DESC;"
 };
 
-expressApp.listen(4000, ()=> {
+expressApp.listen(port, ()=> {
   // console.log('Go to http://localhost:4000/ to see more instruction')
 });
 
