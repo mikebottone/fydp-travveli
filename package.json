@@ -88,8 +88,8 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mikebottone/fypd-travveli/issues"
+    "url": "https://github.com/mikebottone/fydp-travveli/issues"
   },
-  "homepage": "https://github.com/mikebottone/fypd-travveli#readme",
+  "homepage": "https://github.com/mikebottone/fydp-travveli#readme",
   "proxy": "http://localhost:4000"
 }

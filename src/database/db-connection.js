@@ -12,6 +12,15 @@ expressApp.use(cors());
 expressApp.use(bodyParser.json());
 expressApp.use(bodyParser.urlencoded({extended: false}))
 
+const path = require('path')
+const dev = expressApp.get('env') !== 'production';
+if (!dev){
+  expressApp.use(express.static(path.resolve('./src/index.js')));
+  expressApp.get('*', (req,res)=> {
+    res.sendFile(path.resolve('./', 'public', 'index.html'))
+  })
+}
+
 var db_conn_info = {
   host: 'us-cdbr-iron-east-04.cleardb.net',
   user: 'ba709ddde64af9',
