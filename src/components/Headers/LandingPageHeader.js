@@ -47,6 +47,7 @@ function LandingPageHeader() {
                 color="neutral"
                 to="register-page"
                 tag={Link}
+
                 target="_blank"
               >
                 Register
@@ -56,6 +57,7 @@ function LandingPageHeader() {
                 color="neutral"
                 to="login-page"
                 tag={Link}
+
                 type="button"
                 outline
               >
