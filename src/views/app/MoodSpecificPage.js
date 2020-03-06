@@ -49,6 +49,7 @@ class MoodSpecificPage extends Component{
               title={detail.Title}
               city={detail.City}
               country={detail.Country}
+              ActivityID={detail.ActivityID}
             />;
        </div>
      </Col>

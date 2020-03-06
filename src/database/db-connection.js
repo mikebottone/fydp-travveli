@@ -96,15 +96,24 @@ expressApp.get('/secondary-level', function( req,res) {
   getDBData(req,res,db_conn_info,querystring);
 });
 
-//Gets the activity details a specific TagID
+//Gets the activity details for a specific TagID to be used in the ActivityDetailCard
 expressApp.get('/activity-details', function( req,res) {
   console.log("GET request received for /activity-details");
-  var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.ShortDescription, ad.LongDescription, ad.City, ad.Country " +
+  var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country " +
                     "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " +
                     "ON adt.ActivityID = ad.ActivityID " +
                     "Where TagID=" + req.query.TagID + ";";
   getDBData(req,res,db_conn_info,querystring);
 });
+
+//Gets the activity details a specific ActivityID for the DetailedActivityPage
+expressApp.get('/detailed-activity-info', function( req,res) {
+  console.log("GET request received for /detailed-activity-info");
+  var querystring = "SELECT * FROM `activity-details` " +
+                    "Where ActivityID=" + req.query.ActivityID + ";";
+  getDBData(req,res,db_conn_info,querystring);
+});
+
 
 //Execute Query
 function getDBData(req, res, db_conn_info, inputstring) {

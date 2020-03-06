@@ -26,13 +26,16 @@ class DetailedActivityPage extends Component{
       ActivityID: null,
       city: '',
       country:'',
-      title: ''
+      title: '',
+      activityInfo: []
 
     };
     this.getTags = this.getTags.bind(this);
     this.getPics = this.getPics.bind(this);
     this.getDescription = this.getDescription.bind(this);
+    this.getCarousel = this.getCarousel.bind(this);
     this.getDurationAndTravelPeriod = this.getDurationAndTravelPeriod.bind(this);
+    this.fetchDetailedActivityInfo = this.fetchDetailedActivityInfo.bind(this);
   }
 
   componentDidMount(){
@@ -41,67 +44,139 @@ class DetailedActivityPage extends Component{
     this.setState({country: this.props.location.state.country})
     this.setState({title: this.props.location.state.title})
     window.scrollTo(0,0)
+    this.fetchDetailedActivityInfo();
+  }
+
+  fetchDetailedActivityInfo(){
+    fetch('http://localhost:4000/detailed-activity-info?ActivityID='+this.props.location.state.ActivityID)
+    .then(res => res.json())
+    .then(activityInfo => this.setState({ activityInfo }))
   }
 
   getDescription(){
-    return <div>
-            <h3>Some title of the activity</h3>
-            <p>A few sentences that talk about the activity.
-            A few sentences that talk about the activity.
-            A few sentences that talk about the activity.
-            A few sentences that talk about the activity.
-            </p>
-          </div>
+    return this.state.activityInfo.map((data)=>{
+      return <div key={data.ActivityID}>
+        {data.ShortDescription !== null ?
+        (<h3>
+          {data.ShortDescription}
+        </h3>)
+        :
+        (<div>
+        </div>)
+        }
+        {data.LongDescription !== null ?
+        (<div>
+          {data.LongDescription}
+        </div>)
+        :
+        (<div>
+          Take a look at the page to discover more about the activity!
+        </div>)
+        }
+      </div>
+    })
+  }
+
+  getCarousel(){
+    return this.state.activityInfo.map((data) => {
+      return <DetailedActivityCarousel
+                  pic1={
+                    data.CardImagePath !== null ?
+                    (require(data.CardImagePath))
+                    :
+                    (require("assets/img/sections/pedro-lastra.jpg"))
+                  }
+                  pic2={
+                    data.CardImagePath !== null ?
+                    (require(data.CardImagePath))
+                    :
+                    (require("assets/img/sections/fabio-mangione.jpg"))
+                  }
+                  pic3={
+                    data.CardImagePath !== null ?
+                    (require(data.CardImagePath))
+                    :
+                    (require("assets/img/cover.jpg"))
+                  }
+                />
+      })
   }
 
   getDurationAndTravelPeriod(){
-    return <div className="durationBox">
+    return this.state.activityInfo.map((data) => {
+      return <div key={data.ActivityID} className="durationBox">
       <div>
         <i className="fa fa-hourglass-half"/> <strong>Duration:</strong>
-        <p>*from db*</p>
+        {data.DurationMins !== null ?
+        (<p>{data.DurationMins}</p>)
+        :
+        (<p> Varies </p>)
+        }
       </div>
       <div>
         <i className="fa fa-calendar"/> <strong>Ideal Travel Period:</strong>
-        <p>*from db*</p>
+        {data.PrimeTime !== null ?
+        (<p>{data.PrimeTime}</p>)
+        :
+        (<p> Anytime </p>)
+        }
       </div>
     </div>
+    })
   }
 
   getPics(){
-    return(
-    <Row>
-      <Col md="3" sm="4">
-        <Card>
-          <img
-            alt="..."
-            className="img-rounded img-responsive"
-            src={require("assets/img/sections/pavel-kosov.jpg")}
-          />
-        </Card>
-      </Col>
-      <Col md="5" sm="4">
-        <Card>
-          <img
-            alt="..."
-            className="img-rounded img-responsive"
-            src={require("assets/img/sections/pavel-kosov.jpg")}
-          />
-        </Card>
-      </Col>
-      <Col md="4" sm="4">
-        <Card>
-          <img
-            alt="..."
-            className="img-rounded img-responsive"
-            src={require("assets/img/sections/pavel-kosov.jpg")}
-          />
-        </Card>
-      </Col>
-    </Row>
-    );
+    return this.state.activityInfo.map((data) => {
+      return(
+      <Row>
+        <Col md="3" sm="4">
+          <Card>
+            <img
+              alt="..."
+              className="img-rounded img-responsive"
+              src={
+                data.CardImagePath !== null ?
+                (require(data.CardImagePath))
+                :
+                (require("assets/img/sections/pavel-kosov.jpg"))
+              }
+            />
+          </Card>
+        </Col>
+        <Col md="5" sm="4">
+          <Card>
+            <img
+              alt="..."
+              className="img-rounded img-responsive"
+              src={
+                data.CardImagePath !== null ?
+                (require(data.CardImagePath))
+                :
+                (require("assets/img/sections/pavel-kosov.jpg"))
+              }
+            />
+          </Card>
+        </Col>
+        <Col md="4" sm="4">
+          <Card>
+            <img
+              alt="..."
+              className="img-rounded img-responsive"
+              src={
+                data.CardImagePath !== null ?
+                (require(data.CardImagePath))
+                :
+                (require("assets/img/sections/pavel-kosov.jpg"))
+              }
+            />
+          </Card>
+        </Col>
+      </Row>
+      )
+    })
   }
 
-  getTags(){
+  getTags(){ //TODO
     var testTag = ["Monument","Rome","Italy","Family-friendly","Walking","Historical"];
       var output = testTag.map((index) =>
       <div key={index} className="tags">
@@ -115,7 +190,7 @@ class DetailedActivityPage extends Component{
     return (
       <>
         <AppNavbar />
-        <DetailedActivityHeader pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+        <DetailedActivityHeader pic={require("assets/img/faces/erik-lucatero-2.jpg")} //TODO - pull from db
             activity={this.state.title}
             city={this.state.city}
             country={this.state.country}
@@ -133,11 +208,7 @@ class DetailedActivityPage extends Component{
                 </div>
               </Row>
               <Row>
-              <DetailedActivityCarousel
-                pic1={require("assets/img/sections/pedro-lastra.jpg")}
-                pic2={require("assets/img/sections/fabio-mangione.jpg")}
-                pic3={require("assets/img/cover.jpg")}
-              />
+              <this.getCarousel/>
               </Row>
                 {this.getPics()}
             </Container>
@@ -153,7 +224,7 @@ DetailedActivityPage.propTypes = {
   city: PropTypes.string,
   country: PropTypes.string,
   title: PropTypes.string,
-  TagID: PropTypes.number
+  ActivityID: PropTypes.number
 
 };
 

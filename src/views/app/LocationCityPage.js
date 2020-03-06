@@ -47,6 +47,7 @@ class LocationCityPage extends Component{
               title={detail.Title}
               city={detail.City}
               country={detail.Country}
+              ActivityDetailCard={detail.ActivityID}
             />;
     </Col>
       );

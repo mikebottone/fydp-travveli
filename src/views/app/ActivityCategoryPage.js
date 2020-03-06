@@ -111,7 +111,7 @@ class ActivityCategoryPage extends Component{
               secondaryActivity: secondaryActivity.TagName,
               TagID: secondaryActivity.TagID
             }
-          }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
+          }}>
           <h4>{secondaryActivity.TagName}</h4>
         </Link>
         {this.getSecondaryCategoryCards()}

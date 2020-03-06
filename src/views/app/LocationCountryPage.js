@@ -25,12 +25,14 @@ class LocationCountryPage extends Component{
     this.state = {
       country: "",
       TagID: null, //country ID
-      cities:[]
+      cities:[],
+      activityDetails: []
     };
     this.fetchCitiesFromDB = this.fetchCitiesFromDB.bind(this);
     this.getCityCards = this.getCityCards.bind(this);
     this.renderCityList = this.renderCityList.bind(this);
     this.renderCityCards = this.renderCityCards.bind(this);
+    this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
   }
 
   componentDidMount(){
@@ -45,6 +47,12 @@ class LocationCountryPage extends Component{
     fetch('http://localhost:4000/secondary-level?TagID='+this.props.location.state.TagID)
     .then(res => res.json())
     .then(cities => this.setState({ cities }))
+  }
+
+  fetchActivityDetails(){
+    fetch('http://localhost:4000/activity-details?TagID='+ this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(activityDetails => this.setState({ activityDetails }))
   }
 
   renderCityCards(){
@@ -111,31 +119,50 @@ class LocationCountryPage extends Component{
       return( <div>{output}</div>);
   }
 
-  getCityCards(){
-    //TODO
-    return <Row>
-            <Col>
-              <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                        city= {this.state.TagID}
-                        country= {this.state.country}
-                        title="Hiking Trip in the Alps"
-              />
-            </Col>
-            <Col>
-              <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                        city= "Paris"
-                        country= "France"
-                        title="Hiking Trip in the Alps"
-              />
-            </Col>
-            <Col>
-              <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                        city= "Paris"
-                        country= "France"
-                        title="Hiking Trip in the Alps"
-              />
-            </Col>
-          </Row>;
+  getCityCards(){//Need to fetch the secondary level activity details not the first level
+    const responsive = {
+      superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5,
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 4,
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+      },
+      mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+      },
+    };
+
+    return <Carousel responsive={responsive}
+        swipeable={true} draggable={false}
+        showDots={false}  ssr={true} // means to render carousel on server-side.
+        infinite={true}  autoPlay={false}
+        autoPlaySpeed={3000} keyBoardControl={true}
+        containerClass=""    renderButtonGroupOutside={false}
+        renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+        dotListClass=""  itemClass=""  additionalTransfrom={10}   arrows={true}
+        className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+        slidesToSlide={4}
+        >
+          {this.state.activityDetails.map((data) => {
+          return(
+              <Col key={data.ActivityID}>
+                    <ActivityDetailCard title={data.Title}
+                    city={data.City}
+                    country={data.Country}
+                    ActivityID={data.ActivityID}
+                    pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+              </Col>
+            );
+          })}
+        </Carousel>
   }
 
   render(){
