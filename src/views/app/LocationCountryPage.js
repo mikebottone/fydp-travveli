@@ -170,7 +170,7 @@ class LocationCountryPage extends Component{
       <>
         <AppNavbar />
         <AppHeader title={this.state.country}
-          pic={require("assets/img/countries/flag-"+ this.props.location.state.country.toLowerCase() +".jpg")}
+          pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")}
         />
         <div className="main">
           <div className="section">

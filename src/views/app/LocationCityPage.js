@@ -12,9 +12,9 @@ import {
 
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
-import ProductPageHeader from "components/Headers/ProductPageHeader";
 import AppFooter from "components/Footers/AppFooter";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
+import AppHeader from "components/Headers/AppHeader";
 
 class LocationCityPage extends Component{
   constructor(props){
@@ -58,7 +58,10 @@ class LocationCityPage extends Component{
     return (
       <>
         <AppNavbar />
-        <ProductPageHeader/>
+        <AppHeader
+          title={this.props.location.state.city}
+          pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")}
+        />
         <div className="main">
           <div className="section">
             <Container>
