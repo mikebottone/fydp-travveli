@@ -12,6 +12,7 @@ function AppFooter() {
         <Container>
           <br/>
             <div className="text-center">
+                Travveli-
                 {new Date().getFullYear()}
                 <i className="fa fa-heart heart" />
                 <i className="fa fa-plane fa-spin" />
