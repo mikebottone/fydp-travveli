@@ -15,85 +15,155 @@ import {
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import ProductPageHeader from "components/Headers/ProductPageHeader";
 import AppFooter from "components/Footers/AppFooter";
-import constants from "components/constants";
 import ActivityCategoryCard from "components/Cards/ActivityCategoryCard";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
+import Carousel from "react-multi-carousel";
 
 class ActivityCategoryPage extends Component{
   constructor(props){
     super(props);
-    this.state = {};
-    this.getCategoryCards = this.getCategoryCards.bind(this);
-    this.renderActivityCategoriesList = this.renderActivityCategoriesList.bind(this);
+    this.state = {
+      primaryActivity: "", //primary activity name
+      TagID: null, //primary activity ID
+      secondaryActivities:[],
+      activityDetails: []
+    };
+    this.getSecondaryCategoryCards = this.getSecondaryCategoryCards.bind(this);
+    this.renderSecondaryActivityCategoriesList = this.renderSecondaryActivityCategoriesList.bind(this);
+    this.renderSecondaryActivityCategoryCards = this.renderSecondaryActivityCategoryCards.bind(this);
+    this.fetchSecondaryActivitiesFromDB = this.fetchSecondaryActivitiesFromDB.bind(this);
+    this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
   }
 
-  getCategoryCards(){
-    return <Row>
-            <Col>
-            <ActivityDetailCard
-              pic={require("assets/img/sections/leonard-cotte.jpg")}
-              detail={"words words words"}
-              city="Rome"
-              country="Italy"
-            />
-            </Col>
-            <Col>
-            <ActivityDetailCard
-              pic={require("assets/img/sections/leonard-cotte.jpg")}
-              detail={"words words words"}
-              city="Rome"
-              country="Italy"
-            />
-            </Col>
-            <Col>
-              <ActivityDetailCard
-                pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                detail={"Some text"}
-                city="Rome"
-                country="Italy"
-              />
-            </Col>
-          </Row>;
-  }
-  renderActivityCategoryCards(){
-    //TODO: fetch the correct 2nd level categories
-    //displays all categories at top of page
-    var output = constants.ACTIVITY_CATEGORIES.map((category) =>
-      <Col key={category}>
-        <div>
-          <Link to={{
-              pathname: "/activity-specific",
-              state: {
-                tag: category
-              }
-            }}> {/*Passes category to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
-
-              <ActivityCategoryCard activity={category}
-              pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-            />
-          </Link>
-        </div>
-      </Col>
-       );
-      return( <Row>{output}</Row>);
+  componentDidMount(){
+    this.setState({TagID: this.props.location.state.TagID})
+    this.setState({primaryActivity: this.props.location.state.primaryActivity})
+    window.scrollTo(0,0);
+    this.fetchSecondaryActivitiesFromDB();
+    this.fetchActivityDetails();
   }
 
-  renderActivityCategoriesList(){
-    //TODO: get the correct 2nd level activity categories
-    var output = constants.ACTIVITY_CATEGORIES.map((category) =>
-      <div key={category}>
+  fetchSecondaryActivitiesFromDB(){
+    //gets the secondary activity category of the primary activity from the DB
+    fetch('http://localhost:4000/secondary-level?TagID='+this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(secondaryActivities => this.setState({ secondaryActivities }))
+  }
+
+  fetchActivityDetails(){
+    fetch('http://localhost:4000/activity-details?TagID='+ this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(activityDetails => this.setState({ activityDetails }))
+  }
+
+  renderSecondaryActivityCategoryCards(){
+    //displays all secondary categories at top of page
+    const responsive = {
+      superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5,
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 4,
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+      },
+      mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+      },
+    };
+
+    return <Carousel responsive={responsive}
+        swipeable={true} draggable={false}
+        showDots={false}  ssr={true} // means to render carousel on server-side.
+        infinite={true}  autoPlay={false}
+        autoPlaySpeed={3000} keyBoardControl={true}
+        containerClass=""    renderButtonGroupOutside={false}
+        renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+        dotListClass=""  itemClass=""  additionalTransfrom={10}   arrows={true}
+        className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+        slidesToSlide={1}
+        >
+          {this.state.secondaryActivities.map((secondaryActivity) => {
+            return(
+            <Col key={secondaryActivity.TagID}>
+                <ActivityCategoryCard activity={secondaryActivity.TagName}
+                  TagID={secondaryActivity.TagID}
+                  pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                />
+            </Col>
+          )})}
+       </Carousel>
+  }
+
+  renderSecondaryActivityCategoriesList(){
+    //Links with each secondary category
+    var output = this.state.secondaryActivities.map((secondaryActivity) =>
+      <div key={secondaryActivity.TagID}>
         <Link to={{
-            pathname: "/activity-category",
+            pathname: "/activity-specific",
             state: {
-              tag: category
+              secondaryActivity: secondaryActivity.TagName,
+              TagID: secondaryActivity.TagID
             }
-          }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
-          <h4>{category}</h4>
+          }}>
+          <h4>{secondaryActivity.TagName}</h4>
         </Link>
-        {this.getCategoryCards()}
+        {this.getSecondaryCategoryCards()}
       </div>
        );
       return( <div>{output}</div>);
+  }
+
+  getSecondaryCategoryCards(){ //Need to fetch the secondary level activity details not the first level
+    const responsive = {
+      superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5,
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 4,
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+      },
+      mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+      },
+    };
+
+    return <Carousel responsive={responsive}
+        swipeable={true} draggable={false}
+        showDots={false}  ssr={true} // means to render carousel on server-side.
+        infinite={true}  autoPlay={false}
+        autoPlaySpeed={3000} keyBoardControl={true}
+        containerClass=""    renderButtonGroupOutside={false}
+        renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+        dotListClass=""  itemClass=""  additionalTransfrom={10}   arrows={true}
+        className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+        slidesToSlide={4}
+        >
+          {this.state.activityDetails.map((data) => {
+          return(
+              <Col key={data.ActivityID}>
+                    <ActivityDetailCard title={data.Title}
+                    city={data.City}
+                    country={data.Country}
+                    ActivityID={data.ActivityID}
+                    pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+              </Col>
+            );
+          })}
+        </Carousel>
   }
 
   render(){
@@ -105,11 +175,11 @@ class ActivityCategoryPage extends Component{
           <div className="section">
             <Container>
             <Row>
-              <h2>{this.props.location.state.tag} Categories</h2>
-              {/* <this.renderActivityCategoryCards/> */}
+              <h2>{this.props.location.state.primaryActivity} Categories</h2>
             </Row>
+              <this.renderSecondaryActivityCategoryCards/>
             <hr/>
-              {/* <this.renderActivityCategoriesList/> */}
+              <this.renderSecondaryActivityCategoriesList/>
             </Container>
             <AppFooter/>
           </div>
@@ -120,7 +190,8 @@ class ActivityCategoryPage extends Component{
 }
 
 ActivityCategoryPage.propTypes = {
-  tag: PropTypes.string,
+  primaryActivity: PropTypes.string,
+  TagID: PropTypes.number
 };
 
 export default ActivityCategoryPage;

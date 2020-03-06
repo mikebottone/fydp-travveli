@@ -42,9 +42,17 @@ class ActivityDetailCard extends Component {
     return (
 
       <Card className="app-card" >
-        <Link to="/detailed-activity">
+        <Link to={{
+              pathname: "/detailed-activity",
+              state: {
+                city: this.props.city,
+                ActivityID: this.props.ActivityID,
+                country: this.props.country,
+                title: this.props.title
+              }
+            }}>
           <CardImg src={this.props.pic}/>
-          <CardTitle className="card-activity-detail text-center"> <h4> {this.props.detail} </h4> </CardTitle>
+          <CardTitle className="card-activity-detail text-center"> <h4> {this.props.title} </h4> </CardTitle>
         </Link>
           <CardFooter className="card-activity-detail">
             <hr/>
@@ -122,6 +130,7 @@ ActivityDetailCard.propTypes = {
   pic: PropTypes.string,
   city: PropTypes.string,
   country: PropTypes.string,
-  detail: PropTypes.string
+  title: PropTypes.string,
+  ActivityID: PropTypes.number
 };
 export default ActivityDetailCard;

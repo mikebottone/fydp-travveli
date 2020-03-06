@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import { Link, withRouter} from "react-router-dom";
 // JavaScript plugin that hides or shows a component based on your scroll
-import Headroom from "headroom.js";
+// import Headroom from "headroom.js";
 // reactstrap components
 import {
   Button,
@@ -10,7 +10,6 @@ import {
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
-  NavbarBrand,
   Navbar,
   NavItem,
   Nav,
@@ -19,23 +18,31 @@ import {
 } from "reactstrap";
 // core components
 
-function AppNavbar() {
-  const [bodyClick, setBodyClick] = React.useState(false);
-  const [collapseOpen, setCollapseOpen] = React.useState(false);
-  React.useEffect(() => {
-    let headroom = new Headroom(document.getElementById("navbar-main"));
-    // initialise
-    headroom.init();
-  });
+class AppNavbar extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      bodyClick: false,
+      setBodyClick: false,
+      collapseOpen: false,
+      setCollapseOpen: false,
+    }
+  }
+  logOut(e){
+    e.preventDefault();
+    localStorage.removeItem('usertoken');
+    this.props.history.push('/')
+  }
+  render(){
   return (
     <>
-      {bodyClick ? (
+      {this.state.bodyClick ? (
         <div
           id="bodyClick"
           onClick={() => {
             document.documentElement.classList.toggle("nav-open");
-            setBodyClick(false);
-            setCollapseOpen(false);
+            // setBodyClick(false);
+            // setCollapseOpen(false);
           }}
         />
       ) : null}
@@ -46,56 +53,12 @@ function AppNavbar() {
         color="success"
       > {/*see _variables.scss for colour variables*/}
         <Container>
-          <NavbarBrand to="/homepage" tag={Link}>
+          <Button to="/homepage" tag={Link}>
             <i className="fa fa-globe" />
-           Travveli
-          </NavbarBrand>
-          <Collapse navbar isOpen={collapseOpen}>
+           Travveli Home
+          </Button>
+          <Collapse navbar isOpen={this.state.collapseOpen}>
             <Nav className="ml-auto" navbar>
-              <UncontrolledDropdown nav inNavbar>
-                {/* TODO: Remove Examples dropdown later */}
-                <DropdownToggle color="default" caret nav>
-                  Examples
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-danger" right>
-                <DropdownItem to="/index" tag={Link}>
-                    <i className="nc-icon nc-world-2" />
-                    All Components
-                  </DropdownItem>
-                  <DropdownItem to="/project-test" tag={Link}>
-                    <i className="nc-icon nc-world-2" />
-                    Project Test
-                  </DropdownItem>
-                  <DropdownItem to="/homepage" tag={Link}>
-                    <i className="fa fa-home" />
-                    Homepage
-                  </DropdownItem>
-                  <DropdownItem to="/about-us" tag={Link}>
-                    <i className="nc-icon nc-bank" />
-                    About-us
-                  </DropdownItem>
-                  <DropdownItem to="/blog-post" tag={Link}>
-                    <i className="nc-icon nc-badge" />
-                    Blog Post
-                  </DropdownItem>
-                  <DropdownItem to="/landing-page" tag={Link}>
-                    <i className="nc-icon nc-spaceship" />
-                    Landing Page
-                  </DropdownItem>
-                  <DropdownItem to="/login-page" tag={Link}>
-                    <i className="nc-icon nc-lock-circle-open" />
-                    Login Page
-                  </DropdownItem>
-                  <DropdownItem to="/product-page" tag={Link}>
-                    <i className="nc-icon nc-album-2" />
-                    Product Page
-                  </DropdownItem>
-                  <DropdownItem to="/twitter-redesign" tag={Link}>
-                    <i className="nc-icon nc-tie-bow" />
-                    Twitter
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
               <NavItem>
                 <Button
                   className="btn-just-icon btn-round"
@@ -135,8 +98,7 @@ function AppNavbar() {
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem
-                    onClick={e => e.preventDefault()} //will have to perform sign-out on click
-                    to="/login-page" tag={Link}
+                    onClick={this.logOut.bind(this)}
                   >
                     <i className="fa fa-lock" />
                     Sign out
@@ -150,5 +112,6 @@ function AppNavbar() {
     </>
   );
 }
+}
 
-export default AppNavbar;
+export default withRouter(AppNavbar);

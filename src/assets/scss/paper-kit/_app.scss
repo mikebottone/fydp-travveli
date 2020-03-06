@@ -49,6 +49,12 @@ overflow: hidden;
   width: 75%;
 }
 
+.multi-item-carousel{
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
 .rightCol{
   float: right;
   width: 25%;

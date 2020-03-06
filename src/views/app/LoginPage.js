@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import {login} from "components/UserFunctions";
 // reactstrap components
 import {
   Button,
@@ -12,18 +13,41 @@ import {
   Col
 } from "reactstrap";
 
-function LoginPage() {
-  document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
-    document.body.classList.add("login-page");
-    document.body.classList.add("full-screen");
-    window.scrollTo(0, 75);
-    document.body.scrollTop = 0;
-    return function cleanup() {
-      document.body.classList.remove("login-page");
-      document.body.classList.remove("full-screen");
-    };
-  });
+class LoginPage extends Component {
+  constructor(){
+    super()
+    this.state = {
+      Email: "",
+      Password: ""
+    }
+
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  onChange(e) {
+    this.setState({[e.target.name]: e.target.value})
+  }
+
+  onSubmit(e){
+    e.preventDefault()
+    const user = {
+      Email: this.state.Email,
+      Password: this.state.Password
+    }
+
+    login(user).then(res=> {
+      if(res !== "Invalid Email or Password"){
+        this.props.history.push('/homepage')
+      }
+      else{
+        alert(res)
+      }
+    })
+
+  }
+
+  render(){
   return (
     <>
       <div className="wrapper">
@@ -36,30 +60,31 @@ function LoginPage() {
         >
           <div className="filter" />
           <Container>
-            {/*TODO: Remove button later*/}
-          <Button to="/presentation" tag={Link} target="_blank">
-            Back to Presentation Page
-          </Button>
             <Row>
               <Col className="ml-auto mr-auto" lg="4" md="6" sm="6">
                 <Card className="card-register">
                   <CardTitle tag="h3">Welcome</CardTitle>
-                  <Form className="register-form">
+                  <Form className="register-form" onSubmit={this.onSubmit}>
                     <label>Email</label>
                     <Input
                       className="no-border"
                       placeholder="Email"
                       type="email"
+                      name="Email"
+                      value={this.state.Email}
+                      onChange={this.onChange}
                     />
                     <label>Password</label>
                     <Input
                       className="no-border"
                       placeholder="Password"
                       type="password"
+                      name="Password"
+                      value={this.state.Password}
+                      onChange={this.onChange}
                     />
                     <Button block className="btn-round" color="danger"
-                      onClick={e => e.preventDefault()} //verify login and redirect to discover page
-                      to="/login-page" tag={Link}
+                    type="submit"
                     >
                      Login
                     </Button>
@@ -73,7 +98,7 @@ function LoginPage() {
                       </p>
                     </div>
                   </Form>
-                  <div className="forgot">
+                  {/* <div className="forgot">
                     <Button
                       className="btn-link"
                       color="default"
@@ -82,7 +107,7 @@ function LoginPage() {
                     >
                       Forgot password?
                     </Button>
-                  </div>
+                  </div> */}
                 </Card>
               </Col>
             </Row>
@@ -96,6 +121,7 @@ function LoginPage() {
       </div>
     </>
   );
+}
 }
 
 export default LoginPage;

@@ -2,7 +2,6 @@
 //will display cities within the country and activities within the cities
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 // reactstrap components
 import {
@@ -20,34 +19,40 @@ import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 class LocationCityPage extends Component{
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      TagID: null,
+      activityDetails: []
+    };
     this.renderActivityCards = this.renderActivityCards.bind(this);
+    this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
+  }
+  componentDidMount(){
+    window.scrollTo(0,0);
+    this.setState({TagID: this.props.location.state.TagID});
+    this.fetchActivityDetails();
+  }
+
+  fetchActivityDetails(){
+    fetch('http://localhost:4000/activity-details?TagID='+ this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(activityDetails => this.setState({ activityDetails }))
   }
 
   renderActivityCards(){
-    //displays all activities in a city
-    var output = [1,2,3].map((city) =>
-      <Col key={city}>
-        <div>
-          <Link to={{
-              pathname: "/detailed-activity",
-              state: {
-                tag: city
-              }
-            }}> {/* pass city to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
-
-            <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                        city= {city}
-                        country= "France"
-                        detail="Hiking Trip in the Alps"
-              />
-          </Link>
-        </div>
-      </Col>
-       );
-      return( <Row>{output}</Row>);
+    //displays all detailed activity cards
+    var output = this.state.activityDetails.map((detail) =>
+    <Col md="3" key={detail.ActivityID}>
+            <ActivityDetailCard
+              pic={require("assets/img/placeholder.jpg")}
+              title={detail.Title}
+              city={detail.City}
+              country={detail.Country}
+              ActivityDetailCard={detail.ActivityID}
+            />;
+    </Col>
+      );
+    return( <Row>{output}</Row>);
   }
-
 
   render(){
     return (
@@ -58,7 +63,7 @@ class LocationCityPage extends Component{
           <div className="section">
             <Container>
             <Row>
-              <h2> {this.props.location.state.tag}</h2>
+              <h2> {this.props.location.state.city}</h2>
             </Row>
             <Row>
               <this.renderActivityCards/>
@@ -74,7 +79,7 @@ class LocationCityPage extends Component{
 }
 
 LocationCityPage.propTypes = {
-  tag: PropTypes.string,
+  city: PropTypes.string,
 };
 
 export default LocationCityPage;

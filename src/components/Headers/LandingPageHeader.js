@@ -2,6 +2,7 @@ import React from "react";
 
 // reactstrap components
 import { Button, Container } from "reactstrap";
+import { Link } from "react-router-dom";
 
 // core components
 
@@ -44,7 +45,9 @@ function LandingPageHeader() {
               <Button
                 className="btn-round mr-1"
                 color="neutral"
-              //  href=""
+                to="register-page"
+                tag={Link}
+
                 target="_blank"
               >
                 Register
@@ -52,7 +55,9 @@ function LandingPageHeader() {
               <Button
                 className="btn-round"
                 color="neutral"
-              //  href+""
+                to="login-page"
+                tag={Link}
+
                 type="button"
                 outline
               >

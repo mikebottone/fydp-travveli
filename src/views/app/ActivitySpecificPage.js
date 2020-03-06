@@ -5,26 +5,96 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 // reactstrap components
 import {
-  Container
+  Container,
+  Col,
+  Row,
+
 } from "reactstrap";
 
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppFooter from "components/Footers/AppFooter";
+import ProductPageHeader from "components/Headers/ProductPageHeader";
+import ActivityDetailCard from "components/Cards/ActivityDetailCard";
+import ComingSoonCard from "components/Cards/ComingSoonCard";
 
 class ActivitySpecificPage extends Component{
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      TagID: null,
+      activityDetails: []
+    };
+    this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
+    this.renderActivityCards = this.renderActivityCards.bind(this);
   }
+
+  componentDidMount(){
+    window.scrollTo(0,0);
+    this.setState({TagID: this.props.location.state.TagID});
+    this.fetchActivityDetails();
+  }
+
+  fetchActivityDetails(){
+    fetch('http://localhost:4000/activity-details?TagID='+ this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(activityDetails => this.setState({ activityDetails }))
+  }
+
+  renderActivityCards(){
+    //displays all detailed activity cards
+    var output = this.state.activityDetails.map((detail) =>
+    <Col md="3" key={detail.ActivityID}>
+      <div>
+            <ActivityDetailCard
+              pic={require("assets/img/placeholder.jpg")}
+              title={detail.Title}
+              city={detail.City}
+              country={detail.Country}
+              ActivityID={detail.ActivityID}
+            />;
+      </div>
+    </Col>
+      );
+    return( <Row>{output}</Row>);
+  }
+
   render(){
     return (
       <>
         <AppNavbar />
+        <ProductPageHeader/>
         <div className="main">
           <div className="section">
             <Container>
+            <Row>
+              <h2> {this.props.location.state.secondaryActivity}</h2>
+            </Row>
 
+            {this.state.activityDetails.length ? (
+              <Row>
+                <this.renderActivityCards/>
+              </Row>
+            ) : (
+              <Row>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+              </Row>
+            )
+            }
+
+
+            <hr/>
             </Container>
           <AppFooter/>
           </div>
@@ -35,7 +105,8 @@ class ActivitySpecificPage extends Component{
 }
 
 ActivitySpecificPage.propTypes = {
-  tag: PropTypes.string,
+  secondaryActivity: PropTypes.string,
+  TagID: PropTypes.number
 };
 
 export default ActivitySpecificPage;

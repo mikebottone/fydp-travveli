@@ -12,9 +12,7 @@ import PropTypes from 'prop-types';
 class MoodCard extends Component {
   constructor(props) {
     super(props); //always need in a class
-    this.state = {
-
-    }
+    this.state = {}
   }
 
   render() {
@@ -29,7 +27,8 @@ class MoodCard extends Component {
         <Link to={{
               pathname: "/mood-specific",
               state: {
-                tag: this.props.mood
+                mood: this.props.mood,
+                TagID: this.props.TagID
               }
             }}>
         <CardBody>
@@ -49,6 +48,7 @@ class MoodCard extends Component {
 MoodCard.propTypes = {
   pic: PropTypes.string,
   icon: PropTypes.string,
-  mood: PropTypes.string
+  mood: PropTypes.string,
+  TagID: PropTypes.number
 };
 export default MoodCard;

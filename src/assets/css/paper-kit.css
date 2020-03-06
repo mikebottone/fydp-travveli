@@ -6355,15 +6355,15 @@ textarea.form-control {
   .footer-transparent .container, .subscribe-line-transparent .container {
     z-index: 2;
     position: relative; }
-  
+
   .footer-transparent hr,
   .subscribe-line-transparent hr {
     border-color: #A49E9E; }
-  
+
   .footer-transparent .copyright,
   .subscribe-line-transparent .copyright {
     color: #A49E9E; }
-    
+
     .footer-transparent .copyright ul > li a:not(.btn),
     .subscribe-line-transparent .copyright ul > li a:not(.btn) {
       color: #A49E9E; }
@@ -7109,7 +7109,7 @@ video {
 .card-register {
   background-color: #FF8F5E;
   border-radius: 8px;
-  color: #fff;
+  color: black;
   max-width: 350px;
   margin: 20px 0 70px;
   min-height: 400px;
