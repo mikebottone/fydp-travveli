@@ -27,7 +27,8 @@ class MoodCard extends Component {
         <Link to={{
               pathname: "/mood-specific",
               state: {
-                mood: this.props.mood
+                mood: this.props.mood,
+                TagID: this.props.TagID
               }
             }}>
         <CardBody>

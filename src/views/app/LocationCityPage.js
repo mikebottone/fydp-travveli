@@ -19,27 +19,38 @@ import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 class LocationCityPage extends Component{
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      TagID: null,
+      activityDetails: []
+    };
     this.renderActivityCards = this.renderActivityCards.bind(this);
+    this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
   }
   componentDidMount(){
     window.scrollTo(0,0);
+    this.setState({TagID: this.props.location.state.TagID});
+    this.fetchActivityDetails();
+  }
+
+  fetchActivityDetails(){
+    fetch('http://localhost:4000/activity-details?TagID='+ this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(activityDetails => this.setState({ activityDetails }))
   }
 
   renderActivityCards(){
-    //displays all activities in a city
-    var output = [1,2,3].map((city) =>
-      <Col key={city}>
-        <div>
-            <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                        city= {city}
-                        country= "France"
-                        title="Hiking Trip in the Alps"
-              />
-        </div>
-      </Col>
-       );
-      return( <Row>{output}</Row>);
+    //displays all detailed activity cards
+    var output = this.state.activityDetails.map((detail) =>
+    <Col md="3" key={detail.ActivityID}>
+            <ActivityDetailCard
+              pic={require("assets/img/placeholder.jpg")}
+              title={detail.Title}
+              city={detail.City}
+              country={detail.Country}
+            />;
+    </Col>
+      );
+    return( <Row>{output}</Row>);
   }
 
   render(){

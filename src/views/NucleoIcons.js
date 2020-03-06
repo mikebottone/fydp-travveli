@@ -142,7 +142,7 @@ function NucleoIcons() {
               <i className="nc-icon nc-bulb-63"></i>
               <p>nc-bulb-63</p>
               <em>\ea14</em>
-              <input type="text" maxLength="1" readOnly={true} />
+              <input type="text" maxLength="1.5" readOnly={true} />
             </li>
             <li>
               <i className="nc-icon nc-bullet-list-67"></i>

@@ -17,6 +17,7 @@ import AppHeader from "components/Headers/AppHeader";
 import AppFooter from "components/Footers/AppFooter";
 import LocationCard from "components/Cards/LocationCard";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
+import Carousel from "react-multi-carousel";
 
 class LocationCountryPage extends Component{
   constructor(props){
@@ -48,19 +49,48 @@ class LocationCountryPage extends Component{
 
   renderCityCards(){
     //displays all categories at top of page
-    var output = this.state.cities.map((city) =>
-      <Col key={city.TagID}>
-        <div>
-            <LocationCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
-                        city= {city.TagName}
-                        country= {this.state.country}
-                        TagID={city.TagID}
+    const responsive = {
+      superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5,
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 4,
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+      },
+      mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+      },
+    };
 
-            />
-        </div>
-      </Col>
-       );
-      return( <Row>{output}</Row>);
+    return <Carousel responsive={responsive}
+        swipeable={true} draggable={false}
+        showDots={false}  ssr={true} // means to render carousel on server-side.
+        infinite={true}  autoPlay={false}
+        autoPlaySpeed={3000} keyBoardControl={true}
+        containerClass=""    renderButtonGroupOutside={false}
+        renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+        dotListClass=""  itemClass=""  additionalTransfrom={25}   arrows={true}
+        className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+        slidesToSlide={1}
+        >
+          {this.state.cities.map((city) => {
+            return(
+            <Col key={city.TagID}>
+                  <LocationCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                              city= {city.TagName}
+                              country= {this.state.country}
+                              TagID={city.TagID}
+                  />
+            </Col>
+          )})}
+        </Carousel>
   }
 
   renderCityList(){
@@ -69,7 +99,8 @@ class LocationCountryPage extends Component{
         <Link to={{
             pathname: "/city",
             state: {
-              city: city.TagName
+              city: city.TagName,
+              TagID: city.TagID
             }
           }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
           <h4>{city.TagName}</h4>
@@ -81,6 +112,7 @@ class LocationCountryPage extends Component{
   }
 
   getCityCards(){
+    //TODO
     return <Row>
             <Col>
               <ActivityDetailCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
@@ -119,9 +151,7 @@ class LocationCountryPage extends Component{
             <Row>
               <h2> {this.state.country}'s Cities</h2>
             </Row>
-            <Row>
               <this.renderCityCards/>
-            </Row>
             <hr/>
               <this.renderCityList/>
             </Container>
