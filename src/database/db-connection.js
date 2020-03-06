@@ -89,10 +89,20 @@ expressApp.get('/popularcities', function( req,res) {
 //Gets the cities for a specific country or secondary activity categories for a primary activity
 expressApp.get('/secondary-level', function( req,res) {
   console.log("GET request received for /secondary-level");
-  var querystring = "Select td.TagID, td1.TagName FROM `tag-details` td " +
+  var querystring = "Select td1.TagID, td1.TagID, td1.TagName FROM `tag-details` td " +
                     "INNER JOIN `tag-heirarchy` th ON td.TagID = th.PrimaryTagID " +
                     "INNER JOIN `tag-details` td1 ON td1.TagID=th.SecondaryTagID " +
                     "Where td.TagID=" + req.query.TagID + ";";
+  getDBData(req,res,db_conn_info,querystring);
+});
+
+//Gets the activity details a specific TagID
+expressApp.get('/activity-details', function( req,res) {
+  console.log("GET request received for /activity-details");
+  var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.ShortDescription, ad.LongDescription, ad.City, ad.Country " +
+                    "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " +
+                    "ON adt.ActivityID = ad.ActivityID " +
+                    "Where TagID=" + req.query.TagID + ";";
   getDBData(req,res,db_conn_info,querystring);
 });
 

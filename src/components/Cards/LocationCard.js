@@ -24,7 +24,8 @@ class LocationCard extends Component {
         <Link to={{
               pathname: "/city",
               state: {
-                city: this.props.city
+                city: this.props.city,
+                TagID: this.props.TagID
               }
             }}> {/* TODO: Pass in link to appropriate page*/}
           <CardImg src={this.props.pic} />

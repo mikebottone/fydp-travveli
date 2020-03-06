@@ -165,7 +165,6 @@ class Homepage extends Component{
             <hr/>
 
             <h3>Popular Activities</h3>
-            {console.log(this.state.popularActivities)}
             <Carousel responsive={responsive}
                 swipeable={true} draggable={false}
                 showDots={false}  ssr={true} // means to render carousel on server-side.

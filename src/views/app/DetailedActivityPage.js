@@ -40,6 +40,7 @@ class DetailedActivityPage extends Component{
     this.setState({city: this.props.location.state.city})
     this.setState({country: this.props.location.state.country})
     this.setState({title: this.props.location.state.title})
+    window.scrollTo(0,0)
   }
 
   getDescription(){
