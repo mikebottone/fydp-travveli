@@ -80,6 +80,7 @@ class DetailedActivityPage extends Component{
   getCarousel(){
     return this.state.activityInfo.map((data) => {
       return <DetailedActivityCarousel
+                  key={data.ActivityID}
                   pic1={
                     data.CardImagePath !== null ?
                     (require(data.CardImagePath))
@@ -128,7 +129,7 @@ class DetailedActivityPage extends Component{
   getPics(){
     return this.state.activityInfo.map((data) => {
       return(
-      <Row>
+      <Row key={data.ActivityID}>
         <Col md="3" sm="4">
           <Card>
             <img
