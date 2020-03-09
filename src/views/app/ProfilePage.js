@@ -35,7 +35,6 @@ class ProfilePage extends Component {
       Email: decoded.Email,
       HomeAirport: decoded.HomeAirport
     })
-
   }
   render(){
   return (
@@ -59,7 +58,7 @@ class ProfilePage extends Component {
                   </div>
                   <div className="name">
                     <h4 className="title text-center">
-                      {this.state.FirstName} {this.state.LastName} <br />
+                      {this.state.FirstName} {this.state.LastName}<br />
                       <small>{this.state.Email}</small> <br/>
                       <small>Home Airport: {this.state.HomeAirport}</small>
                     </h4>

@@ -65,7 +65,7 @@ class AppNavbar extends Component {
                   color="default"
                   to="/favourites" tag={Link}
                 >
-                  <i className="fa fa-suitcase" />
+                  <i className="fa fa-heart" />
                 </Button>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>

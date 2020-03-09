@@ -93,24 +93,9 @@ class DetailedActivityPage extends Component{
     return this.state.activityInfo.map((data) => {
       return <DetailedActivityCarousel
                   key={data.ActivityID}
-                  pic1={
-                    data.CardImagePath !== null ?
-                    (require(data.CardImagePath))
-                    :
-                    (require("assets/img/sections/pedro-lastra.jpg"))
-                  }
-                  pic2={
-                    data.CardImagePath !== null ?
-                    (require(data.CardImagePath))
-                    :
-                    (require("assets/img/sections/fabio-mangione.jpg"))
-                  }
-                  pic3={
-                    data.CardImagePath !== null ?
-                    (require(data.CardImagePath))
-                    :
-                    (require("assets/img/cover.jpg"))
-                  }
+                  pic1={require("assets/img/sections/pedro-lastra.jpg")}
+                  pic2={require("assets/img/sections/fabio-mangione.jpg")}
+                  pic3={require("assets/img/cover.jpg")}
                 />
       })
   }
@@ -147,12 +132,7 @@ class DetailedActivityPage extends Component{
             <img
               alt="..."
               className="img-rounded img-responsive"
-              src={
-                data.CardImagePath !== null ?
-                (require(data.CardImagePath))
-                :
-                (require("assets/img/sections/pavel-kosov.jpg"))
-              }
+              src={require("assets/img/sections/pavel-kosov.jpg")}
             />
           </Card>
         </Col>
@@ -161,12 +141,7 @@ class DetailedActivityPage extends Component{
             <img
               alt="..."
               className="img-rounded img-responsive"
-              src={
-                data.CardImagePath !== null ?
-                (require(data.CardImagePath))
-                :
-                (require("assets/img/sections/pavel-kosov.jpg"))
-              }
+              src={require("assets/img/sections/pavel-kosov.jpg")}
             />
           </Card>
         </Col>
@@ -175,12 +150,7 @@ class DetailedActivityPage extends Component{
             <img
               alt="..."
               className="img-rounded img-responsive"
-              src={
-                data.CardImagePath !== null ?
-                (require(data.CardImagePath))
-                :
-                (require("assets/img/sections/pavel-kosov.jpg"))
-              }
+              src={require("assets/img/sections/pavel-kosov.jpg")}
             />
           </Card>
         </Col>
@@ -208,7 +178,7 @@ class DetailedActivityPage extends Component{
     return (
       <>
         <AppNavbar />
-        <DetailedActivityHeader pic={require("assets/img/faces/erik-lucatero-2.jpg")} //TODO - pull from db
+        <DetailedActivityHeader pic={require("assets/img/faces/erik-lucatero-2.jpg")} //TODO - pull from folder
             activity={this.state.title}
             city={this.state.city}
             country={this.state.country}

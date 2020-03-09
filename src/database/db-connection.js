@@ -52,7 +52,7 @@ expressApp.get('/', (req, res) => { // anonymous function
 //Get Airports
 expressApp.get('/airports', function( req,res) {
   console.log("GET request received for /airports");
-  var querystring = "SELECT * FROM airports;"; // Where AirportCode = " + req.query.q +";"
+  var querystring = "SELECT * FROM airports;";
   getDBData(req,res,db_conn_info,querystring);
 });
 //Get Countries
@@ -126,6 +126,19 @@ expressApp.get('/activity-tags', function( req,res) {
                     "ORDER BY ActivityID ASC;"
   getDBData(req,res,db_conn_info,querystring);
 });
+
+//Gets the activity details a specific ActivityID for the DetailedActivityPage
+expressApp.get('/favourites-details', function( req,res) {
+  console.log("GET request received for /favourites-details");
+  var querystring = "SELECT uf.ActivityID, ad.Title, ad.City, ad.Country " +
+                    "From `user-favourites` uf " +
+                    "LEFT JOIN `activity-details` ad " +
+                    "ON uf.ActivityID = ad.ActivityID " +
+                    "Where UserID=" + req.query.UserID + " " +
+                    "ORDER BY uf.ActivityID;"
+  getDBData(req,res,db_conn_info,querystring);
+});
+
 
 
 //Execute Query
