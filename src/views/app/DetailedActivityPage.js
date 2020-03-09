@@ -27,7 +27,8 @@ class DetailedActivityPage extends Component{
       city: '',
       country:'',
       title: '',
-      activityInfo: []
+      activityInfo: [],
+      activityTags: []
 
     };
     this.getTags = this.getTags.bind(this);
@@ -36,6 +37,7 @@ class DetailedActivityPage extends Component{
     this.getCarousel = this.getCarousel.bind(this);
     this.getDurationAndTravelPeriod = this.getDurationAndTravelPeriod.bind(this);
     this.fetchDetailedActivityInfo = this.fetchDetailedActivityInfo.bind(this);
+    this.fetchActivityTags = this.fetchActivityTags.bind(this);
   }
 
   componentDidMount(){
@@ -44,7 +46,14 @@ class DetailedActivityPage extends Component{
     this.setState({country: this.props.location.state.country})
     this.setState({title: this.props.location.state.title})
     window.scrollTo(0,0)
+    this.fetchActivityTags();
     this.fetchDetailedActivityInfo();
+  }
+
+  fetchActivityTags(){
+    fetch('http://localhost:4000/activity-tags?ActivityID='+this.props.location.state.ActivityID)
+    .then(res => res.json())
+    .then(activityTags => this.setState({ activityTags }))
   }
 
   fetchDetailedActivityInfo(){
@@ -62,6 +71,9 @@ class DetailedActivityPage extends Component{
         </h3>)
         :
         (<div>
+          <h3>
+            {data.Title}
+          </h3>
         </div>)
         }
         {data.LongDescription !== null ?
@@ -177,14 +189,19 @@ class DetailedActivityPage extends Component{
     })
   }
 
-  getTags(){ //TODO
-    var testTag = ["Monument","Rome","Italy","Family-friendly","Walking","Historical"];
-      var output = testTag.map((index) =>
-      <div key={index} className="tags">
-      <Badge className="btn-round mr-1 btn btn-outline-default"> {index} </Badge>
-      </div>
-      );
-      return(<div className="tag-parent">{output}</div>);
+  getTags(){
+    var output = this.state.activityTags.map((data) =>
+    <div key={data.ActivityID} className="tags">
+        {data.TagName !== null ?
+        (
+        <Badge className="btn-round mr-1 btn btn-outline-default"> {data.TagName} </Badge>
+        )
+        :
+        (<span></span>)
+        }
+    </div>
+    );
+    return(<div className="tag-parent">{output}</div>)
   }
 
   render(){
