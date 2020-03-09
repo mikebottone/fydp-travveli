@@ -4,6 +4,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import jwt_decode from 'jwt-decode';
 // reactstrap components
 import {
   Container,
@@ -26,7 +27,8 @@ class ActivityCategoryPage extends Component{
       primaryActivity: "", //primary activity name
       TagID: null, //primary activity ID
       secondaryActivities:[],
-      activityDetails: []
+      activityDetails: [],
+      favs: []
     };
     this.getSecondaryCategoryCards = this.getSecondaryCategoryCards.bind(this);
     this.renderSecondaryActivityCategoriesList = this.renderSecondaryActivityCategoriesList.bind(this);
@@ -41,6 +43,13 @@ class ActivityCategoryPage extends Component{
     window.scrollTo(0,0);
     this.fetchSecondaryActivitiesFromDB();
     this.fetchActivityDetails();
+    this.getFavourites();
+  }
+
+  getFavourites(){
+    fetch('http://localhost:4000/check-favs?UserID=' + jwt_decode(localStorage.usertoken).UserID)
+    .then(res => res.json())
+    .then(favs => this.setState({favs}))
   }
 
   fetchSecondaryActivitiesFromDB(){
@@ -159,6 +168,7 @@ class ActivityCategoryPage extends Component{
                     city={data.City}
                     country={data.Country}
                     ActivityID={data.ActivityID}
+                    favs={this.state.favs}
                     pic={require("assets/img/sections/leonard-cotte.jpg")}/>
               </Col>
             );

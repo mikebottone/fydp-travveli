@@ -4,6 +4,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import jwt_decode from 'jwt-decode';
 // reactstrap components
 import {
   Container,
@@ -26,7 +27,8 @@ class LocationCountryPage extends Component{
       country: "",
       TagID: null, //country ID
       cities:[],
-      activityDetails: []
+      activityDetails: [],
+      favs: []
     };
     this.fetchCitiesFromDB = this.fetchCitiesFromDB.bind(this);
     this.getCityCards = this.getCityCards.bind(this);
@@ -40,6 +42,13 @@ class LocationCountryPage extends Component{
     this.setState({country: this.props.location.state.country})
     window.scrollTo(0,0);
     this.fetchCitiesFromDB();
+    this.getFavourites();
+  }
+
+  getFavourites(){
+    fetch('http://localhost:4000/check-favs?UserID=' + jwt_decode(localStorage.usertoken).UserID)
+    .then(res => res.json())
+    .then(favs => this.setState({favs}))
   }
 
   fetchCitiesFromDB(){
@@ -158,6 +167,7 @@ class LocationCountryPage extends Component{
                     city={data.City}
                     country={data.Country}
                     ActivityID={data.ActivityID}
+                    favs={this.state.favs}
                     pic={require("assets/img/sections/leonard-cotte.jpg")}/>
               </Col>
             );

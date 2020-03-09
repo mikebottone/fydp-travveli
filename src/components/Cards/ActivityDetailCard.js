@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import constants from "components/constants.js";
+import jwt_decode from 'jwt-decode';
 
 // reactstrap components
 import {
@@ -10,7 +10,7 @@ import {
   CardImg,
   Row,
   Col,
-  UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle
+  Button
 } from "reactstrap";
 import PropTypes from 'prop-types';
 
@@ -19,24 +19,47 @@ class ActivityDetailCard extends Component {
   constructor(props) {
     super(props); //always need in a class
     this.state = {
-      listNum: null
+      UserID: null,
+      selected: false
     }
+    this.checkIfSelected = this.checkIfSelected.bind(this)
+    this.updateFavourites = this.updateFavourites.bind(this);
   }
-  addtoList1 = () => {
-    this.setState(state => ({listNum: 1}));
-  };
+  componentDidMount(){
+    const token = localStorage.usertoken
+    const decoded = jwt_decode(token)
+    this.setState({
+      UserID: decoded.UserID
+    })
+    this.checkIfSelected()
+  }
+  checkIfSelected(){
+   this.props.favs.map((fav) => {
+     console.log(fav.ActivityID + "=" + this.props.ActivityID)
+     if(fav.ActivityID === this.props.ActivityID){
+       this.setState({selected: true})
+     }
+   })
+  }
 
-  addtoList2 = () => {
-    this.setState(state => ({listNum: 2}));
-  };
+  updateFavourites(e){
+    e.preventDefault();
+    const fav = {
+      UserID: this.state.UserID,
+      ActivityID: this.props.ActivityID
+    }
+    if(this.state.selected){
+      //remove from favourites
+      this.setState({selected: false})
+    }
+    else {
+      //add to favourites
+      this.setState({selected: true})
+    }
 
-  addtoList3 = () => {
-    this.setState(state => ({listNum: 3}));
-  };
 
-  removeFromList = () => {
-    this.setState(state => ({listNum: null}));
-  };
+
+  }
 
   render() {
     return (
@@ -60,65 +83,13 @@ class ActivityDetailCard extends Component {
             <Col>
               <h6> {this.props.city}, {this.props.country} </h6>
             </Col>
-
-            {this.state.listNum}
-            <UncontrolledDropdown direction="left">
-              <DropdownToggle className="btn-just-icon btn-sm btn-danger heart-btn-right">
-                <i className="fa fa-heart" />
-              </DropdownToggle>
-              <DropdownMenu aria-labelledby="dLabel" right>
-
-              {/* List 1 Symbol and function to add */}
-                <DropdownItem>
-                <div className="action-line"
-                  onClick={this.addtoList1}
-                >
-                  <Row>
-                    <Col sm="2">
-                    <i className= {constants.LIST1_SYMBOL} />
-                    </Col>
-                    <Col sm="9">
-                    Add to List 1
-                    </Col>
-                  </Row>
-                </div>
-                </DropdownItem>
-                <DropdownItem divider />
-
-                {/* List 2 Symbol and function to add */}
-                <DropdownItem>
-                <div className="action-line"
-                  onClick={this.addtoList2}
-                >
-                  <Row>
-                    <Col sm="2">
-                    <i className= {constants.LIST2_SYMBOL} />
-                    </Col>
-                    <Col sm="9">
-                      Add to List 2
-                    </Col>
-                  </Row>
-                </div>
-                </DropdownItem>
-                <DropdownItem divider />
-
-                {/* List 3 Symbol and function to add */}
-                <DropdownItem>
-                <div className="action-line"
-                  onClick={this.addtoList3}
-                >
-                  <Row>
-                    <Col sm="2">
-                    <i className= {constants.LIST3_SYMBOL} />
-                    </Col>
-                    <Col sm="9">
-                    Add to List 3
-                    </Col>
-                  </Row>
-                </div>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            <div>
+              <Button className="btn-just-icon btn-sm btn-danger heart-btn-right"
+                onClick={this.updateFavourites}
+              >
+                <i className="fa fa-heart" style={{color: this.state.selected ? 'palegreen' : 'white'}}/>
+              </Button>
+            </div>
           </Row>
           </CardFooter>
       </Card>
@@ -131,6 +102,7 @@ ActivityDetailCard.propTypes = {
   city: PropTypes.string,
   country: PropTypes.string,
   title: PropTypes.string,
-  ActivityID: PropTypes.number
+  ActivityID: PropTypes.number,
+  favs: PropTypes.array
 };
 export default ActivityDetailCard;

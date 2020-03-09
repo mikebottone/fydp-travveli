@@ -28,13 +28,13 @@ class Homepage extends Component{
       primaryActivities: [],
       moods: [],
       countries: [],
-      token: ''
+      token: '',
+      favs: []
     }
   }
 
   //fetch users on first mount
   componentDidMount() {
-    // this.getAirports()
     this.getCountries();
     this.getMoods();
     this.getPrimaryActivities();
@@ -44,6 +44,13 @@ class Homepage extends Component{
     this.setState({
       token: decoded.token
     })
+    this.getFavourites()
+  }
+
+  getFavourites(){
+    fetch('http://localhost:4000/check-favs?UserID=' + jwt_decode(localStorage.usertoken).UserID)
+    .then(res => res.json())
+    .then(favs => this.setState({favs}))
   }
 
   getCountries(){
@@ -115,6 +122,7 @@ class Homepage extends Component{
                         country= "France"
                         title="Hiking Trip in the Alps"
                         ActivityID='1'
+                        favs= {this.state.favs}
                   />
                 </Col>
                 <Col md="3">
@@ -123,6 +131,7 @@ class Homepage extends Component{
                         country= "France"
                         title="Hiking Trip in the Alps"
                         ActivityID='1'
+                        favs= {this.state.favs}
                   />
                 </Col>
                 <Col md="3">
@@ -131,6 +140,7 @@ class Homepage extends Component{
                         country= "France"
                         title="Hiking Trip in the Alps"
                         ActivityID='1'
+                        favs= {this.state.favs}
                   />
                 </Col>
                 <Col md="3">
@@ -139,6 +149,7 @@ class Homepage extends Component{
                         country= "France"
                         title="Hiking Trip in the Alps"
                         ActivityID='1'
+                        favs= {this.state.favs}
                   />
                 </Col>
               </Row>
@@ -164,6 +175,7 @@ class Homepage extends Component{
                             city={data.City}
                             country={data.Country}
                             ActivityID={data.ActivityID}
+                            favs= {this.state.favs}
                             pic={require("assets/img/sections/leonard-cotte.jpg")}/>
                       </Col>
                     );

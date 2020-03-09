@@ -137,6 +137,14 @@ expressApp.get('/favourites-details', function( req,res) {
                     "Where UserID=" + req.query.UserID + " " +
                     "ORDER BY uf.ActivityID;"
   getDBData(req,res,db_conn_info,querystring);
+
+  //check favourites for ActivityID
+expressApp.get('/check-favs', function( req,res) {
+  console.log("GET request received for /check-favs");
+  var querystring = "SELECT ActivityID FROM `user-favourites` " +
+                    "Where UserID=" + req.query.UserID + ";";
+  getDBData(req,res,db_conn_info,querystring);
+});
 });
 
 

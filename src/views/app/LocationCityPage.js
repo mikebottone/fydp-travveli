@@ -3,6 +3,7 @@
 
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
+import jwt_decode from 'jwt-decode';
 // reactstrap components
 import {
   Container,
@@ -21,7 +22,8 @@ class LocationCityPage extends Component{
     super(props);
     this.state = {
       TagID: null,
-      activityDetails: []
+      activityDetails: [],
+      favs: []
     };
     this.renderActivityCards = this.renderActivityCards.bind(this);
     this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
@@ -30,6 +32,13 @@ class LocationCityPage extends Component{
     window.scrollTo(0,0);
     this.setState({TagID: this.props.location.state.TagID});
     this.fetchActivityDetails();
+    this.getFavourites();
+  }
+
+  getFavourites(){
+    fetch('http://localhost:4000/check-favs?UserID=' + jwt_decode(localStorage.usertoken).UserID)
+    .then(res => res.json())
+    .then(favs => this.setState({favs}))
   }
 
   fetchActivityDetails(){
@@ -48,6 +57,7 @@ class LocationCityPage extends Component{
               city={detail.City}
               country={detail.Country}
               ActivityID={detail.ActivityID}
+              favs={this.state.favs}
             />;
     </Col>
       );
