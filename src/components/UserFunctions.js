@@ -45,3 +45,24 @@ export const login = user => {
     console.log(err)
   })
 }
+
+//Add favourite
+export const addFav = fav => {
+  return axios
+  .post('user-favourites/add-fav',{
+    UserID: fav.UserID,
+    ActivityID: fav.ActivityID
+  })
+  .then(res => {
+    var msg = JSON.parse(JSON.stringify(res.data));
+    if(msg.status === 'Something went wrong!'){
+      return msg.status;
+    }
+    else{
+      return msg.status;
+    }
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}

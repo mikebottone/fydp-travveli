@@ -137,7 +137,7 @@ expressApp.get('/favourites-details', function( req,res) {
                     "Where UserID=" + req.query.UserID + " " +
                     "ORDER BY uf.ActivityID;"
   getDBData(req,res,db_conn_info,querystring);
-
+});
   //check favourites for ActivityID
 expressApp.get('/check-favs', function( req,res) {
   console.log("GET request received for /check-favs");
@@ -145,9 +145,6 @@ expressApp.get('/check-favs', function( req,res) {
                     "Where UserID=" + req.query.UserID + ";";
   getDBData(req,res,db_conn_info,querystring);
 });
-});
-
-
 
 //Execute Query
 function getDBData(req, res, db_conn_info, inputstring) {
@@ -168,6 +165,18 @@ function getDBData(req, res, db_conn_info, inputstring) {
   });
 }
 
+//Handle delete of favourites
+expressApp.delete('/delete-fav', function(req,res){
+  var querystring = "DELETE FROM `user-favourites` "+
+                    "WHERE UserID="+ req.query.UserID + " AND " +
+                    "ActivityID=" + req.query.ActivityID + ";" ;
+  getDBData(req,res,db_conn_info,querystring);
+});
+
 //Handle User Post
 var Users = require("../database/UsersRoute");
 expressApp.use("/users",Users);
+
+//add favourite
+var Favourites = require("../database/FavouritesRoute");
+expressApp.use("/user-favourites",Favourites);

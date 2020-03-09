@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
+import {addFav} from "components/UserFunctions";
 
 // reactstrap components
 import {
@@ -35,11 +36,11 @@ class ActivityDetailCard extends Component {
   }
   checkIfSelected(){
    this.props.favs.map((fav) => {
-     console.log(fav.ActivityID + "=" + this.props.ActivityID)
      if(fav.ActivityID === this.props.ActivityID){
        this.setState({selected: true})
      }
-   })
+     return true;
+   });
   }
 
   updateFavourites(e){
@@ -50,15 +51,21 @@ class ActivityDetailCard extends Component {
     }
     if(this.state.selected){
       //remove from favourites
+      fetch('/delete-fav?UserID=' + this.state.UserID + '&ActivityID=' + this.props.ActivityID, {method: 'delete'})
+      .then(res =>
+        res.json().then(json => {
+          alert("Activity was removed from your favourites")
+        })
+      );
       this.setState({selected: false})
     }
     else {
       //add to favourites
+      addFav(fav).then(res =>
+        alert("Activity was added to your favourites")
+      )
       this.setState({selected: true})
     }
-
-
-
   }
 
   render() {

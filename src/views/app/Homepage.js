@@ -35,6 +35,7 @@ class Homepage extends Component{
 
   //fetch users on first mount
   componentDidMount() {
+    this.getFavourites()
     this.getCountries();
     this.getMoods();
     this.getPrimaryActivities();
@@ -44,7 +45,6 @@ class Homepage extends Component{
     this.setState({
       token: decoded.token
     })
-    this.getFavourites()
   }
 
   getFavourites(){

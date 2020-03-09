@@ -9,6 +9,7 @@ usersRoute.use(cors());
 process.env.SECRET_KEY = 'secret';
 
 //Handle Post Methods
+//Register
 usersRoute.post('/register', (req, res)=>{
   const today = new Date()
   const userData = {
@@ -47,6 +48,7 @@ usersRoute.post('/register', (req, res)=>{
 
 })
 
+//Login
 usersRoute.post('/login', (req, res) => {
   User.findOne({
     where: {
