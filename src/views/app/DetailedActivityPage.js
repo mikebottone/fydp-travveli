@@ -28,7 +28,8 @@ class DetailedActivityPage extends Component{
       country:'',
       title: '',
       activityInfo: [],
-      activityTags: []
+      activityTags: [],
+      activityPicUrls: []
 
     };
     this.getTags = this.getTags.bind(this);
@@ -38,6 +39,7 @@ class DetailedActivityPage extends Component{
     this.getDurationAndTravelPeriod = this.getDurationAndTravelPeriod.bind(this);
     this.fetchDetailedActivityInfo = this.fetchDetailedActivityInfo.bind(this);
     this.fetchActivityTags = this.fetchActivityTags.bind(this);
+    this.fetchActivityPics = this.fetchActivityPics.bind(this);
   }
 
   componentDidMount(){
@@ -48,6 +50,7 @@ class DetailedActivityPage extends Component{
     window.scrollTo(0,0)
     this.fetchActivityTags();
     this.fetchDetailedActivityInfo();
+    this.fetchActivityPics();
   }
 
   fetchActivityTags(){
@@ -61,6 +64,13 @@ class DetailedActivityPage extends Component{
     .then(res => res.json())
     .then(activityInfo => this.setState({ activityInfo }))
   }
+
+  fetchActivityPics(){
+    fetch('http://localhost:4000/activity-pictures?ActivityID='+this.props.location.state.ActivityID)
+    .then(res => res.json())
+    .then(activityPicUrls => this.setState({ activityPicUrls }))
+  }
+
 
   getDescription(){
     return this.state.activityInfo.map((data)=>{
@@ -124,36 +134,50 @@ class DetailedActivityPage extends Component{
   }
 
   getPics(){
-    return this.state.activityInfo.map((data) => {
+    return this.state.activityPicUrls.map((data) => {
       return(
       <Row key={data.ActivityID}>
-        <Col md="3" sm="4">
-          <Card>
-            <img
-              alt="..."
-              className="img-rounded img-responsive"
-              src={require("assets/img/sections/pavel-kosov.jpg")}
-            />
-          </Card>
-        </Col>
-        <Col md="5" sm="4">
-          <Card>
-            <img
-              alt="..."
-              className="img-rounded img-responsive"
-              src={require("assets/img/sections/pavel-kosov.jpg")}
-            />
-          </Card>
-        </Col>
-        <Col md="4" sm="4">
-          <Card>
-            <img
-              alt="..."
-              className="img-rounded img-responsive"
-              src={require("assets/img/sections/pavel-kosov.jpg")}
-            />
-          </Card>
-        </Col>
+        {data.img1 !== null ?
+        (<Col md="3" sm="4">
+        <Card>
+          <img
+            alt="..."
+            className="img-rounded img-responsive"
+            src={data.img1}
+          />
+        </Card>
+        </Col>)
+        :
+        (<span></span>)
+        }
+
+        {data.img2 !== null ?
+        (<Col md="5" sm="4">
+        <Card>
+          <img
+            alt="..."
+            className="img-rounded img-responsive"
+            src={data.img2}
+          />
+        </Card>
+        </Col>)
+        :
+        (<span></span>)
+        }
+
+        {data.img3 !== null ?
+        (<Col md="4" sm="4">
+        <Card>
+          <img
+            alt="..."
+            className="img-rounded img-responsive"
+            src={data.img3}
+          />
+        </Card>
+        </Col>)
+        :
+        (<span></span>)
+        }
       </Row>
       )
     })
@@ -195,10 +219,10 @@ class DetailedActivityPage extends Component{
                 {this.getDurationAndTravelPeriod()}
                 </div>
               </Row>
+                {this.getPics()}
               <Row>
               <this.getCarousel/>
               </Row>
-                {this.getPics()}
             </Container>
           <AppFooter/>
           </div>

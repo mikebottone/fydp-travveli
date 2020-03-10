@@ -18,6 +18,17 @@ var db_conn_info = {
   database: 'heroku_2e52a7e26390f81'
 }
 
+const path = require('path');
+const port = process.env.PORT || 4000;
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  expressApp.use(express.static(path.join(__dirname, 'build')));
+// Handle React routing, return all requests to React app
+  expressApp.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
+
 //keep in alphabetical
 const queries = {
   addUser: "",
@@ -32,7 +43,7 @@ const queries = {
   popularcities: "SELECT tagdetails.TagID, tagdetails.TagName, tagdetails.TagType, Temp.TagCount FROM heroku_2e52a7e26390f81.`tag-details` as tagdetails JOIN(  SELECT activitydetailstags.TagID, COUNT(activitydetailstags.TagID) AS TagCount FROM heroku_2e52a7e26390f81.`activity-details-tags` as activitydetailstags  RIGHT JOIN (SELECT activity.ActivityID, activity.Title FROM heroku_2e52a7e26390f81.`activity-details` as activity  RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav  ON activity.ActivityID = fav.ActivityID    ORDER BY ActivityID ASC) AS TopActivities    ON activitydetailstags.ActivityID = TopActivities.ActivityID    GROUP BY TagID) AS TEMP ON tagdetails.TagID = Temp.TagID WHERE TagType='City' GROU BY TagID ORDER BY TagCount DESC;"
 };
 
-expressApp.listen(4000, ()=> {
+expressApp.listen(port, ()=> {
   console.log('Go to http://localhost:4000/ to see more instruction')
 });
 
@@ -49,6 +60,15 @@ expressApp.get('/', (req, res) => { // anonymous function
     {"rel" : "popularcities", "href" : "http://localhost:4000/popularcities"}
     ]});
 })
+
+//Gets the activity pictures for a given activity
+expressApp.get('/activity-pictures', function( req,res) {
+  console.log("GET request received for /activity-pictures");
+  var querystring = "SELECT * FROM `activity-pictures` " +
+                    "Where ActivityID=" + req.query.ActivityID + ";";
+  getDBData(req,res,db_conn_info,querystring);
+});
+
 //Get Airports
 expressApp.get('/airports', function( req,res) {
   console.log("GET request received for /airports");
@@ -106,7 +126,7 @@ expressApp.get('/activity-details', function( req,res) {
   getDBData(req,res,db_conn_info,querystring);
 });
 
-//Gets the activity details a specific ActivityID for the DetailedActivityPage
+//Gets the activity details for a specific ActivityID for the DetailedActivityPage
 expressApp.get('/detailed-activity-info', function( req,res) {
   console.log("GET request received for /detailed-activity-info");
   var querystring = "SELECT * FROM `activity-details` " +
@@ -114,7 +134,7 @@ expressApp.get('/detailed-activity-info', function( req,res) {
   getDBData(req,res,db_conn_info,querystring);
 });
 
-//Gets the activity details a specific ActivityID for the DetailedActivityPage
+//Gets the activity detail tags a specific ActivityID for the DetailedActivityPage
 expressApp.get('/activity-tags', function( req,res) {
   console.log("GET request received for /activity-tags");
   var querystring = "SELECT activity.ActivityID, activity.Title, details.TagID, tagdetails.TagType, tagdetails.TagName "+
@@ -127,7 +147,7 @@ expressApp.get('/activity-tags', function( req,res) {
   getDBData(req,res,db_conn_info,querystring);
 });
 
-//Gets the activity details a specific ActivityID for the DetailedActivityPage
+//Gets the favourites details for the Favourites page
 expressApp.get('/favourites-details', function( req,res) {
   console.log("GET request received for /favourites-details");
   var querystring = "SELECT uf.ActivityID, ad.Title, ad.City, ad.Country " +
