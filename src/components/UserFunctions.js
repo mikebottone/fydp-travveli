@@ -13,11 +13,11 @@ export const register = newUser => {
   .then(res => {
     var msg = JSON.parse(JSON.stringify(res.data));
     if(msg.status === "User already exists"){
-      console.log(msg.status)
+      // console.log(msg.status)
       return msg.status;
     }
     else{
-      console.log(msg.status)
+      // console.log(msg.status)
       return msg.status;
     }
 
@@ -36,13 +36,13 @@ export const login = user => {
       return msg.status;
     }
     else{
-      console.log(res.data)
+      // console.log(res.data)
       localStorage.setItem('usertoken', res.data)
       return res.data;
     }
   })
   .catch(err => {
-    console.log(err)
+    // console.log(err)
   })
 }
 
