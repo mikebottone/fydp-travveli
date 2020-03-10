@@ -22,10 +22,10 @@ const path = require('path');
 const port = process.env.PORT || 4000;
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
-  expressApp.use(express.static(path.join(__dirname, 'build')));
+  expressApp.use(express.static(path.join('./', 'build')));
 // Handle React routing, return all requests to React app
   expressApp.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join('./', 'build', 'index.html'));
   });
 }
 
