@@ -44,8 +44,7 @@
     "typescript": "3.5.2"
   },
   "scripts": {
-    "start:prod": "concurrently \"npm:expressApp\" \"npm:start-react\"",
-    "start": "react-scripts start",
+    "start": "concurrently \"npm:expressApp\" \"npm:start-react\"",
     "start-react": "npm run lint && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -91,5 +90,6 @@
   "bugs": {
     "url": "https://github.com/mikebottone/fydp-travveli/issues"
   },
-  "homepage": "https://github.com/mikebottone/fydp-travveli"
+  "homepage": "https://github.com/mikebottone/fydp-travveli",
+  "proxy": "http://localhost:4000"
 }
