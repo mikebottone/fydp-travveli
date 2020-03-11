@@ -1,7 +1,7 @@
 const express = require("express");
 const favsRoute = express.Router();
 const cors = require('cors');
-const Favourite = require("../database/models/Favourite");
+const Favourite = require("./models/Favourite");
 favsRoute.use(cors());
 
 //add favourite

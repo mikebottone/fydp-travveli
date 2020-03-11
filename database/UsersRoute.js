@@ -4,7 +4,7 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const User = require("../database/models/User");
+const User = require("./models/User");
 usersRoute.use(cors());
 process.env.SECRET_KEY = 'secret';
 
