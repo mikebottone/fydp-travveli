@@ -48,31 +48,31 @@ class Homepage extends Component{
   }
 
   getFavourites(){
-    fetch('http://localhost:4000/check-favs?UserID=' + jwt_decode(localStorage.usertoken).UserID)
+    fetch('/check-favs?UserID=' + jwt_decode(localStorage.usertoken).UserID)
     .then(res => res.json())
     .then(favs => this.setState({favs}))
   }
 
   getCountries(){
-    fetch('http://localhost:4000/countries')
+    fetch('/countries')
     .then(res => res.json())
     .then(countries => this.setState({ countries }))
   }
 
   getMoods(){
-    fetch('http://localhost:4000/moods')
+    fetch('/moods')
     .then(res => res.json())
     .then(moods => this.setState({ moods }))
    }
 
   getPrimaryActivities(){
-    fetch('http://localhost:4000/primaryactivities')
+    fetch('/primaryactivities')
     .then(res => res.json())
     .then(primaryActivities => this.setState({ primaryActivities }))
   }
 
   getPopularActivities(){
-    fetch('http://localhost:4000/popularactivities')
+    fetch('/popularactivities')
     .then(res => res.json())
     .then(popularActivities => this.setState({ popularActivities }))
   }

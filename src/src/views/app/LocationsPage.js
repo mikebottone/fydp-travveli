@@ -28,7 +28,7 @@ class LocationsPage extends Component{
   }
 
   getCountries(){
-    fetch('http://localhost:4000/countries')
+    fetch('/countries')
     .then(res => res.json())
     .then(countries => this.setState({ countries }))
   }

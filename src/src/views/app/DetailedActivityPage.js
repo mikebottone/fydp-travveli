@@ -54,19 +54,19 @@ class DetailedActivityPage extends Component{
   }
 
   fetchActivityTags(){
-    fetch('http://localhost:4000/activity-tags?ActivityID='+this.props.location.state.ActivityID)
+    fetch('/activity-tags?ActivityID='+this.props.location.state.ActivityID)
     .then(res => res.json())
     .then(activityTags => this.setState({ activityTags }))
   }
 
   fetchDetailedActivityInfo(){
-    fetch('http://localhost:4000/detailed-activity-info?ActivityID='+this.props.location.state.ActivityID)
+    fetch('/detailed-activity-info?ActivityID='+this.props.location.state.ActivityID)
     .then(res => res.json())
     .then(activityInfo => this.setState({ activityInfo }))
   }
 
   fetchActivityPics(){
-    fetch('http://localhost:4000/activity-pictures?ActivityID='+this.props.location.state.ActivityID)
+    fetch('/activity-pictures?ActivityID='+this.props.location.state.ActivityID)
     .then(res => res.json())
     .then(activityPicUrls => this.setState({ activityPicUrls }))
   }

@@ -30,7 +30,7 @@ class MoodsPage extends Component{
     this.getMoods();
   }
  getMoods(){
-  fetch('http://localhost:4000/moods')
+  fetch('/moods')
   .then(res => res.json())
   .then(moods => this.setState({ moods }))
  }

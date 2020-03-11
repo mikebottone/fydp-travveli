@@ -32,7 +32,7 @@ class FavouritesPage extends Component{
   }
 
   fetchUserFavourites(){
-    fetch('http://localhost:4000/favourites-details?UserID=' + jwt_decode(localStorage.usertoken).UserID)
+    fetch('/favourites-details?UserID=' + jwt_decode(localStorage.usertoken).UserID)
     .then(res => res.json())
     .then(favourites => this.setState({ favourites }))
   }

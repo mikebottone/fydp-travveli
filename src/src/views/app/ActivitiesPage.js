@@ -30,7 +30,7 @@ class ActivitiesPage extends Component{
   }
 
   getPrimaryActivities(){
-    fetch('http://localhost:4000/primaryactivities')
+    fetch('/primaryactivities')
     .then(res => res.json())
     .then(primaryActivities => this.setState({ primaryActivities }))
   }

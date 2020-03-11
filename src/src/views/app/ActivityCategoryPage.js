@@ -47,20 +47,20 @@ class ActivityCategoryPage extends Component{
   }
 
   getFavourites(){
-    fetch('http://localhost:4000/check-favs?UserID=' + jwt_decode(localStorage.usertoken).UserID)
+    fetch('/check-favs?UserID=' + jwt_decode(localStorage.usertoken).UserID)
     .then(res => res.json())
     .then(favs => this.setState({favs}))
   }
 
   fetchSecondaryActivitiesFromDB(){
     //gets the secondary activity category of the primary activity from the DB
-    fetch('http://localhost:4000/secondary-level?TagID='+this.props.location.state.TagID)
+    fetch('/secondary-level?TagID='+this.props.location.state.TagID)
     .then(res => res.json())
     .then(secondaryActivities => this.setState({ secondaryActivities }))
   }
 
   fetchActivityDetails(){
-    fetch('http://localhost:4000/activity-details?TagID='+ this.props.location.state.TagID)
+    fetch('/activity-details?TagID='+ this.props.location.state.TagID)
     .then(res => res.json())
     .then(activityDetails => this.setState({ activityDetails }))
   }

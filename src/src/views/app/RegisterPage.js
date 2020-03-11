@@ -38,7 +38,7 @@ class RegisterPage extends Component {
 
   //retrieves the list of users from Express App
   getAirports(){
-    fetch('http://localhost:4000/airports')
+    fetch('/airports')
     .then(res => res.json())
     .then(airports => {
       const airportsDrop = airports.map((items) => {
@@ -107,7 +107,7 @@ class RegisterPage extends Component {
                   </div>
                   <div className="description">
                     <h3><b>We've got you covered</b></h3>
-                    <p> 
+                    <p>
                     Everything you need to know to finalize your next vacation destination, we have it here.
                     </p>
                   </div>
@@ -130,20 +130,20 @@ class RegisterPage extends Component {
                   <div className="description">
                     <h3> <b>Discover with no fear </b> </h3>
                     <p>
-                      Spend multiple hours discovering  new places and learn about all the activities available in your favorite cities without worrying about being cached by pricing predators.  
+                      Spend multiple hours discovering  new places and learn about all the activities available in your favorite cities without worrying about being cached by pricing predators.
                     </p>
                   </div>
                 </div>
               </Col>
-          
+
               <Col className="mr-auto" lg="6" md="6" sm="4" xs="12">
                 <Card className="card-register">
                   <CardTitle className="text-center" tag="h3">
-                   <b>Register</b> 
+                   <b>Register</b>
                   </CardTitle>
                   <div className="division">
                     <div className="line l" />
-  
+
                     <div className="line r" />
                   </div>
                   <br></br>
@@ -152,20 +152,20 @@ class RegisterPage extends Component {
                     <Input placeholder="Last Name" type="text" name="LastName" value={this.state.LastName} onChange={this.onChange} /> &nbsp;
                     <Input placeholder="Email" type="email" name="Email" value={this.state.Email} onChange={this.onChange} /> &nbsp;
                     <Input placeholder="Password" type="password" name="Password" value={this.state.Password} onChange={this.onChange} /> &nbsp;
-                    <Select placeholder="Choose Preferred Airport" options={this.state.airports} onChange={this.onSelect}/> 
+                    <Select placeholder="Choose Preferred Airport" options={this.state.airports} onChange={this.onSelect}/>
                     <Button block className="btn-round" color="default" type="submit">
                      <b>  Register</b>
-                     <br></br> 
+                     <br></br>
                     </Button>
                   </Form>
                   <div className="login">
                     <p>
-                     <br></br> 
+                     <br></br>
                      &ensp; &ensp; Already have an account?{" "}
                       <a href="/login-page">
                         Log-in
                       </a>
-                      
+
                     </p>
                   </div>
                 </Card>
