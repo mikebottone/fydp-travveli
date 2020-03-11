@@ -100,7 +100,7 @@ class LocationCountryPage extends Component{
           {this.state.cities.map((city) => {
             return(
             <Col key={city.TagID}>
-                  <LocationCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                  <LocationCard pic={require("assets/TagImages/Cities and Countries/"+ city.TagID +"/Card.jpg")}
                               city= {city.TagName}
                               country= {this.state.country}
                               TagID={city.TagID}

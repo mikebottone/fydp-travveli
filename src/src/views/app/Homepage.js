@@ -205,7 +205,7 @@ class Homepage extends Component{
                             <MoodCard mood={data.TagName}
                             icon="nc-icon nc-spaceship"
                             TagID={data.TagID}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                            pic={require("assets/TagImages/Cities and Countries/"+ data.TagID +"/Card.jpg")}/>
                       </Col>
                     );
                   })}
@@ -233,7 +233,7 @@ class Homepage extends Component{
                       <Col key={data.TagID}>
                             <ActivityCard activity={data.TagName}
                             TagID={data.TagID}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                            pic={require("assets/TagImages/Cities and Countries/"+ data.TagID +"/Card.jpg")}/>
                       </Col>
                     );
                   })}

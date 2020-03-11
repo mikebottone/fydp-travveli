@@ -40,7 +40,7 @@ class MoodsPage extends Component{
       var output = this.state.moods.map((moods) =>
       <Col md="3" key={moods.TagID}>
         <div>
-            <MoodCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+            <MoodCard pic={require("assets/TagImages/Cities and Countries/"+ moods.TagID +"/Card.jpg")}
             mood={moods.TagName}
             TagID={moods.TagID}
             icon="nc-icon nc-spaceship"/>

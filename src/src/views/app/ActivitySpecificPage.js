@@ -15,7 +15,7 @@ import {
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppFooter from "components/Footers/AppFooter";
-import ProductPageHeader from "components/Headers/ProductPageHeader";
+import AppHeader from "components/Headers/AppHeader";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 import ComingSoonCard from "components/Cards/ComingSoonCard";
 
@@ -73,7 +73,7 @@ class ActivitySpecificPage extends Component{
     return (
       <>
         <AppNavbar />
-        <ProductPageHeader/>
+        <AppHeader pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")}/>
         <div className="main">
           <div className="section">
             <Container>

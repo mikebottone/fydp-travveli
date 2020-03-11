@@ -42,7 +42,7 @@ class ActivitiesPage extends Component{
         <div>
             <ActivityCard activity={primaryActivity.TagName}
              TagID={primaryActivity.TagID}
-            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+             pic={require("assets/TagImages/Cities and Countries/"+ primaryActivity.TagID +"/Card.jpg")}/>
         </div>
       </Col>
        );

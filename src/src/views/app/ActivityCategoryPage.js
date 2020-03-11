@@ -14,7 +14,7 @@ import {
 
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
-import ProductPageHeader from "components/Headers/ProductPageHeader";
+import AppHeader from "components/Headers/AppHeader";
 import AppFooter from "components/Footers/AppFooter";
 import ActivityCategoryCard from "components/Cards/ActivityCategoryCard";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
@@ -103,7 +103,7 @@ class ActivityCategoryPage extends Component{
             <Col key={secondaryActivity.TagID}>
                 <ActivityCategoryCard activity={secondaryActivity.TagName}
                   TagID={secondaryActivity.TagID}
-                  pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                  pic={require("assets/TagImages/Cities and Countries/"+ secondaryActivity.TagID +"/Card.jpg")}
                 />
             </Col>
           )})}
@@ -180,7 +180,7 @@ class ActivityCategoryPage extends Component{
     return (
       <>
         <AppNavbar />
-        <ProductPageHeader/>
+        <AppHeader pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")} />
         <div className="main">
           <div className="section">
             <Container>
