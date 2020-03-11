@@ -102,12 +102,12 @@ class DetailedActivityPage extends Component{
   }
 
   getCarousel(){
-    return this.state.activityInfo.map((data) => {
+    return this.state.activityPicUrls.map((data) => {
       return <DetailedActivityCarousel
                   key={data.ActivityID}
-                  pic1={require("assets/img/sections/pedro-lastra.jpg")}
-                  pic2={require("assets/img/sections/fabio-mangione.jpg")}
-                  pic3={require("assets/img/cover.jpg")}
+                  pic1={data.img4}
+                  pic2={data.img5}
+                  pic3={data.img6}
                 />
       })
   }
@@ -324,9 +324,7 @@ class DetailedActivityPage extends Component{
                 </div>
               </Row>
                 {this.getPics()}
-              <Row>
               <this.getCarousel/>
-              </Row>
             </Container>
           <AppFooter/>
           </div>
