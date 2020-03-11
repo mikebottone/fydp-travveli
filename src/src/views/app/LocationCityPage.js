@@ -16,6 +16,7 @@ import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppFooter from "components/Footers/AppFooter";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 import AppHeader from "components/Headers/AppHeader";
+import ComingSoonCard from "components/Cards/ComingSoonCard";
 
 class LocationCityPage extends Component{
   constructor(props){
@@ -31,8 +32,8 @@ class LocationCityPage extends Component{
   componentDidMount(){
     window.scrollTo(0,0);
     this.setState({TagID: this.props.location.state.TagID});
-    this.fetchActivityDetails();
     this.getFavourites();
+    this.fetchActivityDetails();
   }
 
   getFavourites(){
@@ -78,9 +79,30 @@ class LocationCityPage extends Component{
             <Row>
               <h2> {this.props.location.state.city}</h2>
             </Row>
-            <Row>
+            {this.state.activityDetails.length ?
+            (<Row>
               <this.renderActivityCards/>
-            </Row>
+            </Row>)
+            :
+            (
+              <Row>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+              </Row>
+            )
+            }
+
+
             <hr/>
             </Container>
             <AppFooter/>

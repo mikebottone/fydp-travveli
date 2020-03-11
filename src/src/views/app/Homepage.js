@@ -34,8 +34,8 @@ class Homepage extends Component{
   }
 
   //fetch users on first mount
-  componentDidMount() {
-    this.getFavourites()
+  async componentDidMount() {
+    this.getFavourites();
     this.getCountries();
     this.getMoods();
     this.getPrimaryActivities();
