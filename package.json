@@ -45,6 +45,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm-run-all -p expressApp start-react\"",
+    "start:prod": "react-scripts start",
     "start-react": "npm run lint && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
