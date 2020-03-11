@@ -25,7 +25,7 @@ import "assets/scss/paper-kit.scss";
 import "assets/demo/demo.css";
 import "assets/demo/react-demo.css";
 // pages
-import ProjectTest from "views/app/ProjectTest.js";
+// import ProjectTest from "views/app/ProjectTest.js;"
 import ActivitiesPage from "views/app/ActivitiesPage.js";
 import ActivityCategoryPage from "views/app/ActivityCategoryPage.js";
 import ActivitySpecificPage from "views/app/ActivitySpecificPage.js";
@@ -65,7 +65,7 @@ import TwitterRedesign from "views/examples/TwitterRedesign.js";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/project-test" render={props => <ProjectTest {...props} />} />
+      {/* <Route path="/project-test" render={props => <ProjectTest {...props} />} /> */}
 
       <Route path="/activities" render={props => <ActivitiesPage {...props} />} />
       <Route path="/activity-category" render={props => <ActivityCategoryPage {...props} />} />
