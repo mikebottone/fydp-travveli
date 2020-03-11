@@ -56,7 +56,6 @@ class MoodsPage extends Component{
         <AppNavbar />
         <ProductPageHeader/>
         <div className="main">
-          <div className="section">
             <Container>
             <Row>
               <h2>Mood Categories</h2>
@@ -64,7 +63,6 @@ class MoodsPage extends Component{
             </Row>
             </Container>
             <AppFooter/>
-          </div>
         </div>
       </>
     );

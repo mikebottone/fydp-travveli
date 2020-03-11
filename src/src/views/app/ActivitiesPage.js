@@ -55,7 +55,6 @@ class ActivitiesPage extends Component{
         <AppNavbar />
         <ProductPageHeader/>
         <div className="main">
-          <div className="section">
             <Container>
             <Row>
               <h2>Activity Categories</h2>
@@ -63,7 +62,6 @@ class ActivitiesPage extends Component{
             </Row>
             </Container>
             <AppFooter/>
-          </div>
         </div>
       </>
     );

@@ -75,7 +75,6 @@ class ActivitySpecificPage extends Component{
         <AppNavbar />
         <AppHeader pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")}/>
         <div className="main">
-          <div className="section">
             <Container>
             <Row>
               <h2> {this.props.location.state.secondaryActivity}</h2>
@@ -102,12 +101,9 @@ class ActivitySpecificPage extends Component{
               </Row>
             )
             }
-
-
             <hr/>
             </Container>
           <AppFooter/>
-          </div>
         </div>
       </>
     );

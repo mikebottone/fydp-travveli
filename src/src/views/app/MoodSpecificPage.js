@@ -73,7 +73,6 @@ class MoodSpecificPage extends Component{
         <AppNavbar />
         <AppHeader pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")} />
         <div className="main">
-          <div className="section">
             <Container>
              <h2>{this.props.location.state.mood}</h2>
 
@@ -100,7 +99,6 @@ class MoodSpecificPage extends Component{
             }
             </Container>
             <AppFooter/>
-          </div>
         </div>
       </>
     );

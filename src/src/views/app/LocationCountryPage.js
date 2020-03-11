@@ -104,6 +104,7 @@ class LocationCountryPage extends Component{
                               city= {city.TagName}
                               country= {this.state.country}
                               TagID={city.TagID}
+                              description={city.TagLongDescription}
                   />
             </Col>
           )})}
@@ -183,8 +184,11 @@ class LocationCountryPage extends Component{
           pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")}
         />
         <div className="main">
-          <div className="section">
             <Container>
+            <div>
+              <h1>{this.state.country}</h1>
+              {this.props.location.state.description}
+            </div>
             <Row>
               <h2> {this.state.country}'s Cities</h2>
             </Row>
@@ -193,7 +197,6 @@ class LocationCountryPage extends Component{
               <this.renderCityList/>
             </Container>
             <AppFooter/>
-          </div>
         </div>
       </>
     );
@@ -202,7 +205,8 @@ class LocationCountryPage extends Component{
 
 LocationCountryPage.propTypes = {
   country: PropTypes.string,
-  TagID: PropTypes.number
+  TagID: PropTypes.number,
+  description: PropTypes.string
 };
 
 export default LocationCountryPage;

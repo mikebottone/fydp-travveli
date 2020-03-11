@@ -111,7 +111,6 @@ class Homepage extends Component{
         <AppNavbar />
         <ProfilePageHeader />
         <div className="main">
-          <div className="section">
             <Container>
               {/* Recommended for you */}
               <h3>Recommended for you...</h3>
@@ -260,6 +259,7 @@ class Homepage extends Component{
                     <Col key={data.TagID}>
                           <CountryCard country={data.TagName}
                           TagID={data.TagID}
+                          description={data.TagLongDescription}
                           pic={require("assets/img/countries/flag-"+ data.TagName.toLowerCase() +".jpg")}/>
                     </Col>
                     );
@@ -267,7 +267,6 @@ class Homepage extends Component{
                 </Carousel>
               <AppFooter/>
             </Container>
-          </div>
         </div>
       </>
     );
