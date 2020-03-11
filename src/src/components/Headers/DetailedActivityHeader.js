@@ -10,7 +10,7 @@ class DetailedActivityHeader extends Component {
   // }
   static defaultProps = {
     activity: "Coming Soon",
-    pic: require("assets/img/faces/erik-lucatero-2.jpg"),
+    pic: require("assets/img/sections/rawpixel-comm.jpg"),
     city:"Coming",
     country:"Soon"
   }

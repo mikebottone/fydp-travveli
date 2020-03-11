@@ -41,6 +41,7 @@ class DetailedActivityPage extends Component{
     this.fetchDetailedActivityInfo = this.fetchDetailedActivityInfo.bind(this);
     this.fetchActivityTags = this.fetchActivityTags.bind(this);
     this.fetchActivityPics = this.fetchActivityPics.bind(this);
+    this.getDetailedActivityHeader = this.getDetailedActivityHeader.bind(this);
   }
 
   componentDidMount(){
@@ -292,15 +293,24 @@ class DetailedActivityPage extends Component{
     return(<div className="tag-parent">{output}</div>)
   }
 
+  getDetailedActivityHeader(){
+    return this.state.activityPicUrls.map((data) => {
+      return(
+        <DetailedActivityHeader key={data.ActivityID}
+        pic={data.CoverImage}
+        city={this.state.city}
+        country={this.state.country}
+        activity={this.state.title}
+        />
+      )
+    })
+  }
+
   render(){
     return (
       <>
         <AppNavbar />
-        <DetailedActivityHeader pic={require("assets/img/faces/erik-lucatero-2.jpg")} //TODO - pull from folder
-            activity={this.state.title}
-            city={this.state.city}
-            country={this.state.country}
-        />
+        <this.getDetailedActivityHeader />
         <div className="main">
           <div className="section">
             <Container>
