@@ -12,7 +12,8 @@
     "install": "concurrently \"(cd src && npm install)\"  \"(cd database && npm install)\"",
     "start": "concurrently \"cd src && npm start\" \"cd database && npm start\"",
     "start:prod": "cd database && npm run start:prod",
-    "lint": "eslint ./src --fix-dry-run --color"
+    "lint": "eslint ./src --fix-dry-run --color",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
