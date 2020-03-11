@@ -166,9 +166,9 @@ expressApp.delete('/delete-fav', function (req, res) {
 });
 
 //Handle User Post
-var Users = require("../database/UsersRoute");
+var Users = require("../UsersRoute");
 expressApp.use("/users", Users);
 
 //add favourite
-var Favourites = require("../database/FavouritesRoute");
+var Favourites = require("../FavouritesRoute");
 expressApp.use("/user-favourites", Favourites);
