@@ -18,6 +18,7 @@ import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppFooter from "components/Footers/AppFooter";
 import DetailedActivityHeader from "components/Headers/DetailedActivityHeader.js";
 import DetailedActivityCarousel from "components/Carousels/DetailedActivityCarousel";
+import { Link } from "react-router-dom";
 
 class DetailedActivityPage extends Component{
   constructor(props){
@@ -188,7 +189,100 @@ class DetailedActivityPage extends Component{
     <div key={data.ActivityID} className="tags">
         {data.TagName !== null ?
         (
-        <Badge className="btn-round mr-1 btn btn-outline-default"> {data.TagName} </Badge>
+          //check if tag type is country
+          data.TagType === 'Country' ?
+          (
+          <Badge className="btn-round mr-1 btn btn-outline-default"
+          to={{
+            pathname: "/country",
+            state: {
+              country: data.TagName,
+              TagID: data.TagID,
+              description: data.TagLongDescription
+            }
+          }}
+          tag={Link}
+          >
+          {data.TagName}
+          </Badge>
+          )
+          :
+          (
+            //check if tag type is city
+            data.TagType === 'City' ? (
+            <Badge className="btn-round mr-1 btn btn-outline-default"
+            to={{
+              pathname: "/city",
+              state: {
+                city: data.TagName,
+                TagID: data.TagID,
+                description: data.TagLongDescription
+              }
+            }}
+            tag={Link}
+            >
+            {data.TagName}
+            </Badge>
+            )
+            :
+            (
+              //check if tag type is mood
+              data.TagType === 'Mood' ? (
+              <Badge className="btn-round mr-1 btn btn-outline-default"
+              to={{
+                pathname: "/mood-specific",
+                state: {
+                  mood: data.TagName,
+                  TagID: data.TagID
+                }
+              }}
+              tag={Link}
+              >
+              {data.TagName}
+              </Badge>
+              )
+              :
+              (
+                //check if tag type is PrimaryActivity
+                data.TagType === 'PrimaryActivity' ? (
+                <Badge className="btn-round mr-1 btn btn-outline-default"
+                to={{
+                  pathname: "/activity-category",
+                  state: {
+                    primaryActivity: data.TagName,
+                    TagID: data.TagID
+                  }
+                }}
+                tag={Link}
+                >
+                {data.TagName}
+                </Badge>
+                )
+                :
+                (
+                  //check if tag type is SecondaryActivity
+                  data.TagType === 'SecondaryActivity' ? (
+                  <Badge className="btn-round mr-1 btn btn-outline-default"
+                  to={{
+                    pathname: "/activity-specific",
+                    state: {
+                      secondaryActivity: data.TagName,
+                      TagID: data.TagID
+                    }
+                  }}
+                  tag={Link}
+                  >
+                  {data.TagName}
+                  </Badge>
+                  )
+                  :
+                  (
+                    <span></span>
+                  )
+                )
+              )
+            )
+          )
         )
         :
         (<span></span>)

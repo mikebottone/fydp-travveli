@@ -58,7 +58,7 @@ router.get('/', (req, res) => {
 //Gets the activity pictures for a given activity
 router.get('/activity-pictures', function (req, res) {
   console.log("GET request received for /activity-pictures");
-  var querystring = "SELECT * FROM `activity-pictures` " + "Where ActivityID=" + req.query.ActivityID + ";";
+  var querystring = "SELECT * FROM `activity-pictures` Where ActivityID=" + req.query.ActivityID + ";";
   getDBData(req, res, db_conn_info, querystring);
 });
 
@@ -124,7 +124,12 @@ router.get('/detailed-activity-info', function (req, res) {
 //Gets the activity detail tags a specific ActivityID for the DetailedActivityPage
 router.get('/activity-tags', function (req, res) {
   console.log("GET request received for /activity-tags");
-  var querystring = "SELECT activity.ActivityID, activity.Title, details.TagID, tagdetails.TagType, tagdetails.TagName " + "FROM `activity-details` as activity " + "LEFT JOIN `activity-details-tags` as details ON activity.ActivityID = details.ActivityID " + "LEFT JOIN `tag-details` as tagdetails ON tagdetails.TagID = details.TagID " + "Where activity.ActivityID=" + req.query.ActivityID + " " + "GROUP BY ActivityID, TagID " + "ORDER BY ActivityID ASC;";
+  var querystring = "SELECT activity.ActivityID, activity.Title, details.TagID, tagdetails.TagType, tagdetails.TagName, tagdetails.TagLongDescription " +
+                    "FROM `activity-details` as activity " +
+                    "LEFT JOIN `activity-details-tags` as details ON activity.ActivityID = details.ActivityID " +
+                    "LEFT JOIN `tag-details` as tagdetails ON tagdetails.TagID = details.TagID " +
+                    "Where activity.ActivityID=" + req.query.ActivityID + " " +
+                    "GROUP BY ActivityID, TagID " + "ORDER BY ActivityID ASC;";
   getDBData(req, res, db_conn_info, querystring);
 });
 
