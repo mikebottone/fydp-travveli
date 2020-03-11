@@ -79,7 +79,7 @@ class AppNavbar extends Component {
                     <img
                       alt="..."
                       className="img-circle img-responsive img-no-padding"
-                      src={require("assets/img/faces/joe-gardner-2.jpg")}
+                      src={require("assets/img/user-icon.png")}
                     />
                   </div>
                 </DropdownToggle>

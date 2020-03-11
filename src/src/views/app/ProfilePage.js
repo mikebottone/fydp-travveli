@@ -53,7 +53,7 @@ class ProfilePage extends Component {
                   <div className="fileinput-new img-no-padding">
                     <img
                       alt="..."
-                      src={require("assets/img/faces/joe-gardner-2.jpg")}
+                      src={require("assets/img/placeholder.jpg")}
                     />
                   </div>
                   <div className="name">
