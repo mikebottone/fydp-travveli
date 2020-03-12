@@ -17,7 +17,7 @@ import {
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppFooter from "components/Footers/AppFooter";
 import DetailedActivityHeader from "components/Headers/DetailedActivityHeader.js";
-import DetailedActivityCarousel from "components/Carousels/DetailedActivityCarousel";
+
 import { Link } from "react-router-dom";
 
 class DetailedActivityPage extends Component{
@@ -36,7 +36,7 @@ class DetailedActivityPage extends Component{
     this.getTags = this.getTags.bind(this);
     this.getPics = this.getPics.bind(this);
     this.getDescription = this.getDescription.bind(this);
-    this.getCarousel = this.getCarousel.bind(this);
+
     this.getDurationAndTravelPeriod = this.getDurationAndTravelPeriod.bind(this);
     this.fetchDetailedActivityInfo = this.fetchDetailedActivityInfo.bind(this);
     this.fetchActivityTags = this.fetchActivityTags.bind(this);
@@ -101,16 +101,7 @@ class DetailedActivityPage extends Component{
     })
   }
 
-  getCarousel(){
-    return this.state.activityPicUrls.map((data) => {
-      return <DetailedActivityCarousel
-                  key={data.ActivityID}
-                  pic1={data.img4}
-                  pic2={data.img5}
-                  pic3={data.img6}
-                />
-      })
-  }
+
 
   getDurationAndTravelPeriod(){
     return this.state.activityInfo.map((data) => {
@@ -154,7 +145,7 @@ class DetailedActivityPage extends Component{
         }
 
         {data.img2 !== null ?
-        (<Col md="5" sm="4">
+        (<Col md="4" sm="4">
         <Card>
           <img
             alt="..."
@@ -168,7 +159,7 @@ class DetailedActivityPage extends Component{
         }
 
         {data.img3 !== null ?
-        (<Col md="4" sm="4">
+        (<Col md="3" sm="4">
         <Card>
           <img
             alt="..."
@@ -180,6 +171,46 @@ class DetailedActivityPage extends Component{
         :
         (<span></span>)
         }
+        {data.img4 !== null ?
+        (<Col md="4" sm="4">
+        <Card>
+          <img
+            alt="..."
+            className="img-rounded img-responsive"
+            src={data.img4}
+          />
+        </Card>
+        </Col>)
+        :
+        (<span></span>)
+        }
+        {data.img5 !== null ?
+        (<Col md="3" sm="4">
+        <Card>
+          <img
+            alt="..."
+            className="img-rounded img-responsive"
+            src={data.img5}
+          />
+        </Card>
+        </Col>)
+        :
+        (<span></span>)
+        }
+
+      {data.img6 !== null ?
+      (<Col md="4" sm="4">
+      <Card>
+        <img
+          alt="..."
+          className="img-rounded img-responsive"
+          src={data.img6}
+        />
+      </Card>
+      </Col>)
+      :
+      (<span></span>)
+      }
       </Row>
       )
     })
@@ -324,7 +355,6 @@ class DetailedActivityPage extends Component{
                 </div>
               </Row>
                 {this.getPics()}
-              <this.getCarousel/>
             </Container>
           <AppFooter/>
           </div>
