@@ -163,7 +163,11 @@ class FavouritesPage extends Component{
                 <Card>
                   <CardHeader className="top-favs">
                     <h4>Top Moods</h4>
+                    {this.state.favMoods.length !== 0 ? (
                     <this.getTopMoods />
+                    ):(
+                      <h6>Go favourite more activities</h6>
+                    )}
                   </CardHeader>
                 </Card>
                 </Col>
@@ -171,7 +175,11 @@ class FavouritesPage extends Component{
                 <Card>
                   <CardHeader className="top-favs">
                     <h4>Top Activities</h4>
+                    {this.state.favActivities.length !== 0 ? (
                     <this.getTopActivities />
+                    ):(
+                      <h6>Go favourite more activities</h6>
+                    )}
                   </CardHeader>
                 </Card>
                 </Col>
@@ -179,7 +187,11 @@ class FavouritesPage extends Component{
                 <Card>
                   <CardHeader className="top-favs">
                     <h4>Top Countries</h4>
-                    <this.getTopCountries />
+                    {this.state.favCountries.length !== 0 ? (
+                      <this.getTopCountries />
+                    ):(
+                      <h6>Go favourite more activities</h6>
+                    )}
                   </CardHeader>
                 </Card>
                 </Col>
@@ -187,7 +199,11 @@ class FavouritesPage extends Component{
                 <Card>
                   <CardHeader className="top-favs">
                     <h4>Top Cities</h4>
+                    {this.state.favCountries.length !== 0 ? (
                     <this.getTopCities />
+                    ):(
+                      <h6>Go favourite more activities</h6>
+                    )}
                   </CardHeader>
                 </Card>
                 </Col>
@@ -203,7 +219,7 @@ class FavouritesPage extends Component{
               :
               (<Col><h4>You currently have no favourited activities. <br/>
                 To add to your favourites, click
-                the <Button className="btn-just-icon btn-sm btn-danger heart-btn-right">
+                the <Button className="btn-just-icon btn-sm btn-neutral heart-btn-right">
                 <i className="fa fa-heart" />
                 </Button> button on the activities you are interested in.</h4></Col>)}
             <AppFooter />

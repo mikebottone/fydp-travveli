@@ -68,12 +68,6 @@ class ProfilePage extends Component {
             </Row>
             <Row>
               <Col className="ml-auto mr-auto text-center" md="6">
-                <p>
-                  An artist of considerable range, Chet Faker — the name taken
-                  by Melbourne-raised, Brooklyn-based Nick Murphy — writes,
-                  performs and records all of his own music, giving it a warm,
-                  intimate feel with a solid groove structure.
-                </p>
                 <br />
                 <Button to="/settings" tag={Link} className="btn-round" color="default" outline>
                   <i className="fa fa-cog mr-1" />
