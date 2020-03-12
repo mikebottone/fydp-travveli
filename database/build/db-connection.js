@@ -146,6 +146,64 @@ router.get('/check-favs', function (req, res) {
   getDBData(req, res, db_conn_info, querystring);
 });
 
+//Gets Top3 Moods
+router.get('/fav-moods', function( req,res) {
+  console.log("GET request received for /fav-moods");
+  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName "+
+                      "FROM heroku_2e52a7e26390f81.`activity-details` as activity "+
+                      "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID "+
+                      "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID "+
+                      "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID "+
+                      "WHERE fav.UserID ="+ req.query.UserID +" AND tagdetails.TagType = 'Mood' "+
+                      "GROUP BY activity.ActivityID, details.TagID "+
+                      "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC "+
+                      "Limit 3;";
+  getDBData(req,res,db_conn_info,querystring);
+});
+
+//Gets Top3 SecondaryAcitivities
+router.get('/fav-secondary-activities', function( req,res) {
+  console.log("GET request received for /fav-secondary-activties");
+  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName "+
+                      "FROM heroku_2e52a7e26390f81.`activity-details` as activity "+
+                      "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID "+
+                      "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID "+
+                      "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID "+
+                      "WHERE fav.UserID ="+ req.query.UserID +" AND tagdetails.TagType = 'SecondaryActivity' "+
+                      "GROUP BY activity.ActivityID, details.TagID "+
+                      "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC "+
+                      "Limit 3;";
+  getDBData(req,res,db_conn_info,querystring);
+});
+//Gets Top3 Countries
+router.get('/fav-countries', function( req,res) {
+  console.log("GET request received for /fav-countries");
+  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName "+
+                      "FROM heroku_2e52a7e26390f81.`activity-details` as activity "+
+                      "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID "+
+                      "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID "+
+                      "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID "+
+                      "WHERE fav.UserID ="+ req.query.UserID +" AND tagdetails.TagType = 'Country' "+
+                      "GROUP BY activity.ActivityID, details.TagID "+
+                      "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC "+
+                      "Limit 3;";
+  getDBData(req,res,db_conn_info,querystring);
+});
+//Gets Top3 Cities
+router.get('/fav-cities', function( req,res) {
+  console.log("GET request received for /fav-cities");
+  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName "+
+                      "FROM heroku_2e52a7e26390f81.`activity-details` as activity "+
+                      "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID "+
+                      "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID "+
+                      "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID "+
+                      "WHERE fav.UserID ="+ req.query.UserID +" AND tagdetails.TagType = 'City' "+
+                      "GROUP BY activity.ActivityID, details.TagID "+
+                      "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC "+
+                      "Limit 3;";
+  getDBData(req,res,db_conn_info,querystring);
+});
+
 //Execute Query
 function getDBData(req, res, db_conn_info, inputstring) {
   var con = mysql.createConnection(db_conn_info);

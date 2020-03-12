@@ -6,7 +6,6 @@ import {
   Carousel,
   CarouselItem,
   CarouselIndicators,
-  CarouselCaption,
   Row,
   Col
 } from "reactstrap";
@@ -71,7 +70,7 @@ function DetailedActivityCarousel(props) {
                   onExited={onExited}
                   key={item.src}
                 >
-                  <img src={item.src} />
+                  <img src={item.src} alt={''} />
                 </CarouselItem>
               );
             })}
