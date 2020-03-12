@@ -55,7 +55,7 @@ router.get('/', (req, res) => {
     "links": [{ "rel": "main", "href": "http://localhost:4000/" }, { "rel": "aiports", "href": "http://localhost:4000/airports" }, { "rel": "countries", "href": "http://localhost:4000/countries" }, { "rel": "moods", "href": "http://localhost:4000/moods" }, { "rel": "primaryactivities", "href": "http://localhost:4000/primaryactivities" }, { "rel": "popularactivities", "href": "http://localhost:4000/popularactivities" }, { "rel": "popularcities", "href": "http://localhost:4000/popularcities" }] });
 });
 
-//Gets the activity pictures for a given activity
+//Gets the recommended for you activities
 router.get('/recommended', function (req, res) {
   console.log("GET request received for /recommended");
   var querystring = "SELECT activity.ActivityID, activity.Title, activity.City, activity.Country " +
@@ -140,6 +140,24 @@ router.get('/activity-tags', function (req, res) {
                     "LEFT JOIN `tag-details` as tagdetails ON tagdetails.TagID = details.TagID " +
                     "Where activity.ActivityID=" + req.query.ActivityID + " " +
                     "GROUP BY ActivityID, TagID " + "ORDER BY ActivityID ASC;";
+  getDBData(req, res, db_conn_info, querystring);
+});
+
+//Gets the nearby activities for Detailed Activity page carousel
+router.get('/nearby-activities', function (req, res) {
+  console.log("GET request received for /nearby-activities");
+  var querystring = "SELECT ad2.ActivityID, ad2.Title, ad2.City, ad2.Country " +
+                    "FROM `activity-details` as ad1 LEFT JOIN `activity-details` as ad2 ON ad1.City = ad2.City " +
+                    "Where ad1.ActivityID=" + req.query.ActivityID + " LIMIT 20;";
+  getDBData(req, res, db_conn_info, querystring);
+});
+
+//Gets the similar activities for Detailed Activity page carousel
+router.get('/similar-activities', function (req, res) {
+  console.log("GET request received for /similar-activities");
+  var querystring = "SELECT ad2.ActivityID, ad2.Title, ad2.City, ad2.Country " +
+                    "FROM `activity-details` as ad1 LEFT JOIN `activity-details` as ad2 ON ad1.City = ad2.City " +
+                    "Where ad1.ActivityID=" + req.query.ActivityID + " LIMIT 20;";
   getDBData(req, res, db_conn_info, querystring);
 });
 

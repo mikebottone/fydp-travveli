@@ -4,7 +4,6 @@ import jwt_decode from 'jwt-decode';
 // reactstrap components
 import {
   Container,
-  Row,
   Col
 } from "reactstrap";
 

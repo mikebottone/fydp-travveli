@@ -20,6 +20,9 @@ import {
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppFooter from "components/Footers/AppFooter";
 import DetailedActivityHeader from "components/Headers/DetailedActivityHeader.js";
+import ActivityDetailCard from "components/Cards/ActivityDetailCard";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 import { Link } from "react-router-dom";
 
@@ -34,17 +37,20 @@ class DetailedActivityPage extends Component{
       activityInfo: [],
       activityTags: [],
       activityPicUrls: [],
+      nearbyActivities: [],
+      similarActivities: [],
       UserID: null,
       selected: false
     };
     this.getTags = this.getTags.bind(this);
     this.getPics = this.getPics.bind(this);
     this.getDescription = this.getDescription.bind(this);
-
     this.getDurationAndTravelPeriod = this.getDurationAndTravelPeriod.bind(this);
     this.fetchDetailedActivityInfo = this.fetchDetailedActivityInfo.bind(this);
     this.fetchActivityTags = this.fetchActivityTags.bind(this);
     this.fetchActivityPics = this.fetchActivityPics.bind(this);
+    this.fetchNearbyActivities = this.fetchNearbyActivities.bind(this);
+    this.fetchSimilarActivities = this.fetchSimilarActivities.bind(this);
     this.getDetailedActivityHeader = this.getDetailedActivityHeader.bind(this);
     this.checkIfSelected = this.checkIfSelected.bind(this);
     this.updateFavourites = this.updateFavourites.bind(this);
@@ -65,6 +71,8 @@ class DetailedActivityPage extends Component{
     this.fetchActivityTags();
     this.fetchDetailedActivityInfo();
     this.fetchActivityPics();
+    this.fetchNearbyActivities();
+    this.fetchSimilarActivities();
   }
 
   checkIfSelected(){
@@ -119,6 +127,18 @@ class DetailedActivityPage extends Component{
     .then(activityPicUrls => this.setState({ activityPicUrls }))
   }
 
+  fetchSimilarActivities(){
+    fetch('/similar-activities?ActivityID='+this.props.location.state.ActivityID)
+    .then(res => res.json())
+    .then(similarActivities => this.setState({ similarActivities }))
+  }
+
+  fetchNearbyActivities(){
+    fetch('/nearby-activities?ActivityID='+this.props.location.state.ActivityID)
+    .then(res => res.json())
+    .then(nearbyActivities => this.setState({ nearbyActivities }))
+  }
+
   getDescription(){
     return this.state.activityInfo.map((data)=>{
       return <div key={data.ActivityID}>
@@ -145,8 +165,6 @@ class DetailedActivityPage extends Component{
       </div>
     })
   }
-
-
 
   getDurationAndTravelPeriod(){
     return this.state.activityInfo.map((data) => {
@@ -383,6 +401,25 @@ class DetailedActivityPage extends Component{
   }
 
   render(){
+    const responsive = {
+      superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5,
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 4,
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+      },
+      mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+      },
+    };
     return (
       <>
         <AppNavbar />
@@ -405,6 +442,58 @@ class DetailedActivityPage extends Component{
                 </div>
               </Row>
                 {this.getPics()}
+              <hr/>
+                <h3>Nearby Activities</h3>
+                <Carousel responsive={responsive}
+                swipeable={true} draggable={false}
+                showDots={false}  ssr={true} // means to render carousel on server-side.
+                infinite={true}  autoPlay={false}
+                autoPlaySpeed={3000} keyBoardControl={true}
+                containerClass=""    renderButtonGroupOutside={false}
+                renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+                dotListClass=""  itemClass=""  additionalTransfrom={25}   arrows={true}
+                className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+                slidesToSlide={4}
+                >
+                  {this.state.nearbyActivities.map((data) => {
+                  return(
+                      <Col key={data.ActivityID}>
+                            <ActivityDetailCard title={data.Title}
+                            city={data.City}
+                            country={data.Country}
+                            ActivityID={data.ActivityID}
+                            favs= {this.props.location.state.favs}
+                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                      </Col>
+                    );
+                  })}
+                </Carousel>
+            <hr/>
+                <h3>Similar Activities</h3>
+                <Carousel responsive={responsive}
+                swipeable={true} draggable={false}
+                showDots={false}  ssr={true} // means to render carousel on server-side.
+                infinite={true}  autoPlay={false}
+                autoPlaySpeed={3000} keyBoardControl={true}
+                containerClass=""    renderButtonGroupOutside={false}
+                renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+                dotListClass=""  itemClass=""  additionalTransfrom={25}   arrows={true}
+                className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+                slidesToSlide={4}
+                >
+                  {this.state.similarActivities.map((data) => {
+                  return(
+                      <Col key={data.ActivityID}>
+                            <ActivityDetailCard title={data.Title}
+                            city={data.City}
+                            country={data.Country}
+                            ActivityID={data.ActivityID}
+                            favs= {this.props.location.state.favs}
+                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                      </Col>
+                    );
+                  })}
+                </Carousel>
             </Container>
           <AppFooter/>
           </div>
