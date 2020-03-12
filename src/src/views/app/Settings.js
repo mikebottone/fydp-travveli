@@ -13,9 +13,9 @@ import {
 } from "reactstrap";
 
 // core components
-import ColorNavbar from "components/Navbars/ColorNavbar.js";
-import SettingsHeader from "components/Headers/SettingsHeader.js";
-import FooterWhite from "components/Footers/FooterWhite.js";
+import AppNavbar from "components/Navbars/AppNavbar.js";
+import AppHeader from "components/Headers/AppHeader.js";
+import AppFooter from "components/Footers/AppFooter.js";
 import ImageUpload from "components/CustomUpload/ImageUpload.js";
 
 function Settings() {
@@ -30,9 +30,9 @@ function Settings() {
   });
   return (
     <>
-      <ColorNavbar />
+      <AppNavbar />
       <div className="wrapper">
-        <SettingsHeader />
+        <AppHeader />
         <div className="profile-content section">
           <Container>
             <Row>
@@ -131,7 +131,7 @@ function Settings() {
           </Container>
         </div>
       </div>
-      <FooterWhite />
+      <AppFooter />
     </>
   );
 }
