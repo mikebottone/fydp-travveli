@@ -22,11 +22,11 @@ var db_conn_info = {
 };
 
 // if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  const staticFiles = express.static(path.join('__dirname', '../../src/build'));
-  // Handle React routing, return all requests to React app
-  expressApp.use(staticFiles)
-  // });
+// Serve any static files
+const staticFiles = express.static(path.join('__dirname', '../../src/build'));
+// Handle React routing, return all requests to React app
+expressApp.use(staticFiles);
+// });
 // }
 
 //keep in alphabetical
@@ -34,7 +34,7 @@ const queries = {
   addUser: "",
   //Generic Table Pulls
   airports: "SELECT * FROM airports;",
-  countries: "SELECT TagID, TagName, TagLongDescription FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;",
+  countries: "SELECT TagID, TagName, TagLongDescription  FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;",
   moods: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Mood' Order by TagName ASC;",
   primaryactivities: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'PrimaryActivity' Order by TagName ASC;",
 
@@ -102,8 +102,7 @@ router.get('/popularcities', function (req, res) {
 //Gets the cities for a specific country or secondary activity categories for a primary activity
 router.get('/secondary-level', function (req, res) {
   // console.log("GET request received for /secondary-level");
-  var querystring = "Select td1.TagID, td1.TagLongDescription, td1.TagName FROM `tag-details` td " + "INNER JOIN `tag-heirarchy` th ON td.TagID = th.PrimaryTagID " +
-                    "INNER JOIN `tag-details` td1 ON td1.TagID=th.SecondaryTagID " + "Where td.TagID=" + req.query.TagID + ";";
+  var querystring = "Select td1.TagID, td1.TagLongDescription, td1.TagName FROM `tag-details` td " + "INNER JOIN `tag-heirarchy` th ON td.TagID = th.PrimaryTagID " + "INNER JOIN `tag-details` td1 ON td1.TagID=th.SecondaryTagID " + "Where td.TagID=" + req.query.TagID + ";";
   getDBData(req, res, db_conn_info, querystring);
 });
 
@@ -124,12 +123,7 @@ router.get('/detailed-activity-info', function (req, res) {
 //Gets the activity detail tags a specific ActivityID for the DetailedActivityPage
 router.get('/activity-tags', function (req, res) {
   console.log("GET request received for /activity-tags");
-  var querystring = "SELECT activity.ActivityID, activity.Title, details.TagID, tagdetails.TagType, tagdetails.TagName, tagdetails.TagLongDescription " +
-                    "FROM `activity-details` as activity " +
-                    "LEFT JOIN `activity-details-tags` as details ON activity.ActivityID = details.ActivityID " +
-                    "LEFT JOIN `tag-details` as tagdetails ON tagdetails.TagID = details.TagID " +
-                    "Where activity.ActivityID=" + req.query.ActivityID + " " +
-                    "GROUP BY ActivityID, TagID " + "ORDER BY ActivityID ASC;";
+  var querystring = "SELECT activity.ActivityID, activity.Title, details.TagID, tagdetails.TagType, tagdetails.TagName, tagdetails.TagLongDescription " + "FROM `activity-details` as activity " + "LEFT JOIN `activity-details-tags` as details ON activity.ActivityID = details.ActivityID " + "LEFT JOIN `tag-details` as tagdetails ON tagdetails.TagID = details.TagID " + "Where activity.ActivityID=" + req.query.ActivityID + " " + "GROUP BY ActivityID, TagID " + "ORDER BY ActivityID ASC;";
   getDBData(req, res, db_conn_info, querystring);
 });
 
@@ -147,61 +141,29 @@ router.get('/check-favs', function (req, res) {
 });
 
 //Gets Top3 Moods
-router.get('/fav-moods', function( req,res) {
+router.get('/fav-moods', function (req, res) {
   console.log("GET request received for /fav-moods");
-  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName "+
-                      "FROM heroku_2e52a7e26390f81.`activity-details` as activity "+
-                      "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID "+
-                      "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID "+
-                      "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID "+
-                      "WHERE fav.UserID ="+ req.query.UserID +" AND tagdetails.TagType = 'Mood' "+
-                      "GROUP BY activity.ActivityID, details.TagID "+
-                      "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC "+
-                      "Limit 3;";
-  getDBData(req,res,db_conn_info,querystring);
+  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName " + "FROM heroku_2e52a7e26390f81.`activity-details` as activity " + "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID " + "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID " + "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID " + "WHERE fav.UserID =" + req.query.UserID + " AND tagdetails.TagType = 'Mood' " + "GROUP BY activity.ActivityID, details.TagID " + "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC " + "Limit 3;";
+  getDBData(req, res, db_conn_info, querystring);
 });
 
 //Gets Top3 SecondaryAcitivities
-router.get('/fav-secondary-activities', function( req,res) {
+router.get('/fav-secondary-activities', function (req, res) {
   console.log("GET request received for /fav-secondary-activties");
-  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName "+
-                      "FROM heroku_2e52a7e26390f81.`activity-details` as activity "+
-                      "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID "+
-                      "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID "+
-                      "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID "+
-                      "WHERE fav.UserID ="+ req.query.UserID +" AND tagdetails.TagType = 'SecondaryActivity' "+
-                      "GROUP BY activity.ActivityID, details.TagID "+
-                      "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC "+
-                      "Limit 3;";
-  getDBData(req,res,db_conn_info,querystring);
+  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName " + "FROM heroku_2e52a7e26390f81.`activity-details` as activity " + "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID " + "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID " + "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID " + "WHERE fav.UserID =" + req.query.UserID + " AND tagdetails.TagType = 'SecondaryActivity' " + "GROUP BY activity.ActivityID, details.TagID " + "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC " + "Limit 3;";
+  getDBData(req, res, db_conn_info, querystring);
 });
 //Gets Top3 Countries
-router.get('/fav-countries', function( req,res) {
+router.get('/fav-countries', function (req, res) {
   console.log("GET request received for /fav-countries");
-  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName "+
-                      "FROM heroku_2e52a7e26390f81.`activity-details` as activity "+
-                      "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID "+
-                      "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID "+
-                      "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID "+
-                      "WHERE fav.UserID ="+ req.query.UserID +" AND tagdetails.TagType = 'Country' "+
-                      "GROUP BY activity.ActivityID, details.TagID "+
-                      "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC "+
-                      "Limit 3;";
-  getDBData(req,res,db_conn_info,querystring);
+  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName " + "FROM heroku_2e52a7e26390f81.`activity-details` as activity " + "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID " + "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID " + "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID " + "WHERE fav.UserID =" + req.query.UserID + " AND tagdetails.TagType = 'Country' " + "GROUP BY activity.ActivityID, details.TagID " + "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC " + "Limit 3;";
+  getDBData(req, res, db_conn_info, querystring);
 });
 //Gets Top3 Cities
-router.get('/fav-cities', function( req,res) {
+router.get('/fav-cities', function (req, res) {
   console.log("GET request received for /fav-cities");
-  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName "+
-                      "FROM heroku_2e52a7e26390f81.`activity-details` as activity "+
-                      "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID "+
-                      "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID "+
-                      "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID "+
-                      "WHERE fav.UserID ="+ req.query.UserID +" AND tagdetails.TagType = 'City' "+
-                      "GROUP BY activity.ActivityID, details.TagID "+
-                      "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC "+
-                      "Limit 3;";
-  getDBData(req,res,db_conn_info,querystring);
+  var querystring = "SELECT DISTINCT details.TagID, tagdetails.TagName " + "FROM heroku_2e52a7e26390f81.`activity-details` as activity " + "JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID " + "LEFT JOIN heroku_2e52a7e26390f81.`activity-details-tags` as details ON activity.ActivityID = details.ActivityID " + "LEFT JOIN heroku_2e52a7e26390f81.`tag-details` as tagdetails ON tagdetails.TagID = details.TagID " + "WHERE fav.UserID =" + req.query.UserID + " AND tagdetails.TagType = 'City' " + "GROUP BY activity.ActivityID, details.TagID " + "ORDER BY Count(tagdetails.TagName) DESC, TagID ASC " + "Limit 3;";
+  getDBData(req, res, db_conn_info, querystring);
 });
 
 //Execute Query
@@ -230,7 +192,7 @@ router.delete('/delete-fav', function (req, res) {
 });
 
 expressApp.use(router);
-expressApp.use('/*', staticFiles)
+expressApp.use('/*', staticFiles);
 
 //Handle User Post
 var Users = require("./UsersRoute");

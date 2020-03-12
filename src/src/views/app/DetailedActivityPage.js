@@ -3,6 +3,8 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import jwt_decode from 'jwt-decode';
+import {addFav} from "components/UserFunctions";
 
 // reactstrap components
 import {
@@ -10,7 +12,8 @@ import {
   Row,
   Card,
   Col,
-  Badge
+  Badge,
+  Button
 } from "reactstrap";
 
 // core components
@@ -30,8 +33,9 @@ class DetailedActivityPage extends Component{
       title: '',
       activityInfo: [],
       activityTags: [],
-      activityPicUrls: []
-
+      activityPicUrls: [],
+      UserID: null,
+      selected: false
     };
     this.getTags = this.getTags.bind(this);
     this.getPics = this.getPics.bind(this);
@@ -42,6 +46,8 @@ class DetailedActivityPage extends Component{
     this.fetchActivityTags = this.fetchActivityTags.bind(this);
     this.fetchActivityPics = this.fetchActivityPics.bind(this);
     this.getDetailedActivityHeader = this.getDetailedActivityHeader.bind(this);
+    this.checkIfSelected = this.checkIfSelected.bind(this);
+    this.updateFavourites = this.updateFavourites.bind(this);
   }
 
   componentDidMount(){
@@ -49,10 +55,50 @@ class DetailedActivityPage extends Component{
     this.setState({city: this.props.location.state.city})
     this.setState({country: this.props.location.state.country})
     this.setState({title: this.props.location.state.title})
+    const token = localStorage.usertoken
+    const decoded = jwt_decode(token)
+    this.setState({
+      UserID: decoded.UserID
+    })
+    this.checkIfSelected();
     window.scrollTo(0,0)
     this.fetchActivityTags();
     this.fetchDetailedActivityInfo();
     this.fetchActivityPics();
+  }
+
+  checkIfSelected(){
+    this.props.location.state.favs.map((fav) => {
+      if(fav.ActivityID === this.props.location.state.ActivityID){
+        this.setState({selected: true})
+      }
+      return true;
+    });
+   }
+
+   updateFavourites(e){
+    e.preventDefault();
+    const fav = {
+      UserID: this.state.UserID,
+      ActivityID: this.props.location.state.ActivityID
+    }
+    if(this.state.selected){
+      //remove from favourites
+      fetch('/delete-fav?UserID=' + this.state.UserID + '&ActivityID=' + this.props.location.state.ActivityID, {method: 'delete'})
+      .then(res =>
+        res.json().then(json => {
+          alert("Activity was removed from your favourites")
+        })
+      );
+      this.setState({selected: false})
+    }
+    else {
+      //add to favourites
+      addFav(fav).then(res =>
+        alert("Activity was added to your favourites")
+      )
+      this.setState({selected: true})
+    }
   }
 
   fetchActivityTags(){
@@ -72,7 +118,6 @@ class DetailedActivityPage extends Component{
     .then(res => res.json())
     .then(activityPicUrls => this.setState({ activityPicUrls }))
   }
-
 
   getDescription(){
     return this.state.activityInfo.map((data)=>{
@@ -320,6 +365,11 @@ class DetailedActivityPage extends Component{
                 <this.getDescription/>
                 </div>
                 <div className="rightCol">
+                <Button className="btn-just-icon btn-lg btn-neutral heart-btn-right"
+                  onClick={this.updateFavourites}
+                >
+                  <i className="fa fa-heart" style={{color: this.state.selected ? 'red' : 'white'}}/>
+                </Button>
                 {this.getDurationAndTravelPeriod()}
                 </div>
               </Row>
@@ -338,8 +388,8 @@ DetailedActivityPage.propTypes = {
   city: PropTypes.string,
   country: PropTypes.string,
   title: PropTypes.string,
-  ActivityID: PropTypes.number
-
+  ActivityID: PropTypes.number,
+  favs: PropTypes.array
 };
 
 export default DetailedActivityPage;

@@ -78,7 +78,8 @@ class ActivityDetailCard extends Component {
                 city: this.props.city,
                 ActivityID: this.props.ActivityID,
                 country: this.props.country,
-                title: this.props.title
+                title: this.props.title,
+                favs: this.props.favs
               }
             }}>
           <CardImg src={this.props.pic}/>
