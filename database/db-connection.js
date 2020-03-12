@@ -56,6 +56,16 @@ router.get('/', (req, res) => {
 });
 
 //Gets the activity pictures for a given activity
+router.get('/recommended', function (req, res) {
+  console.log("GET request received for /recommended");
+  var querystring = "SELECT activity.ActivityID, activity.Title, activity.City, activity.Country " +
+  "FROM `activity-details` as activity RIGHT JOIN `user-favourites` as fav ON activity.ActivityID = fav.ActivityID " +
+  "Where fav.UserID=" + req.query.UserID +
+  " GROUP BY ActivityID ASC LIMIT 20;";
+  getDBData(req, res, db_conn_info, querystring);
+});
+
+//Gets the activity pictures for a given activity
 router.get('/activity-pictures', function (req, res) {
   console.log("GET request received for /activity-pictures");
   var querystring = "SELECT * FROM `activity-pictures` Where ActivityID=" + req.query.ActivityID + ";";
