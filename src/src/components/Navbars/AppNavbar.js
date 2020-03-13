@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter} from "react-router-dom";
+import jwt_decode from 'jwt-decode';
 // JavaScript plugin that hides or shows a component based on your scroll
 // import Headroom from "headroom.js";
 // reactstrap components
@@ -26,13 +27,54 @@ class AppNavbar extends Component {
       setBodyClick: false,
       collapseOpen: false,
       setCollapseOpen: false,
+      favs: [],
+      randomActivity: []
     }
+    this.fetchFavourites = this.fetchFavourites.bind(this);
+    this.fetchRandomActivity = this.fetchRandomActivity.bind(this);
+    this.getRandomActivityButton = this.getRandomActivityButton.bind(this);
+  }
+  componentDidMount(){
+    this.fetchFavourites();
+    this.fetchRandomActivity();
   }
   logOut(e){
     e.preventDefault();
     localStorage.removeItem('usertoken');
     this.props.history.push('/')
   }
+
+  fetchFavourites(){
+    fetch('/check-favs?UserID=' + jwt_decode(localStorage.usertoken).UserID)
+    .then(res => res.json())
+    .then(favs => this.setState({favs}))
+  }
+
+  fetchRandomActivity(){
+    fetch('/random-activity')
+    .then(res => res.json())
+    .then(randomActivity => this.setState({randomActivity}))
+  }
+  getRandomActivityButton(){
+    return this.state.randomActivity.map((data) => {
+      return <Button to={{
+            pathname: "/detailed-activity",
+            state: {
+              city: data.City,
+              ActivityID: data.ActivityID,
+              country: data.Country,
+              title: data.Title,
+              favs: this.state.favs
+            }
+          }}
+          tag={Link}
+      >
+        <i className="fa fa-globe" />
+        Random Activity
+      </Button>
+    })
+  }
+
   render(){
   return (
     <>
@@ -57,6 +99,9 @@ class AppNavbar extends Component {
             <i className="fa fa-globe" />
            Travveli Home
           </Button>
+
+          <this.getRandomActivityButton/>
+
           <Collapse navbar isOpen={this.state.collapseOpen}>
             <Nav className="ml-auto" navbar>
               <NavItem>

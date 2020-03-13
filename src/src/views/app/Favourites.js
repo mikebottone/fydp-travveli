@@ -41,6 +41,7 @@ class FavouritesPage extends Component{
       UserID: decoded.UserID,
       FirstName: decoded.FirstName
     })
+    window.scrollTo(0,0)
     this.fetchTopMoods();
     this.fetchTopActivities();
     this.fetchTopCountries();

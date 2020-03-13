@@ -31,12 +31,12 @@ var db_conn_info = {
 
 //keep in alphabetical
 const queries = {
-  addUser: "",
   //Generic Table Pulls
   airports: "SELECT * FROM airports;",
   countries: "SELECT TagID, TagName, TagLongDescription  FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;",
   moods: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Mood' Order by TagName ASC;",
   primaryactivities: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'PrimaryActivity' Order by TagName ASC;",
+  randomActivity: "SELECT ActivityID, Title, City, Country FROM heroku_2e52a7e26390f81.`activity-details` Order By Rand() Limit 1;",
 
   //Specific Lists
   popularactivities: "SELECT activity.ActivityID, activity.Title, activity.City, activity.Country, Count(fav.ActivityID) AS 'Total Favourited' FROM heroku_2e52a7e26390f81.`activity-details` as activity RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID GROUP BY ActivityID ORDER BY Count(fav.ActivityID) DESC, ActivityID ASC LIMIT 20;",
@@ -72,10 +72,17 @@ router.get('/activity-pictures', function (req, res) {
   getDBData(req, res, db_conn_info, querystring);
 });
 
+//Get Random Activity in Navbar
+router.get('/random-activity', function (req, res) {
+  console.log("GET request received for /random-activity");
+  var querystring = queries.randomActivity;
+  getDBData(req, res, db_conn_info, querystring);
+});
+
 //Get Airports
 router.get('/airports', function (req, res) {
   console.log("GET request received for /airports");
-  var querystring = "SELECT * FROM airports;";
+  var querystring = queries.airports;
   getDBData(req, res, db_conn_info, querystring);
 });
 //Get Countries
