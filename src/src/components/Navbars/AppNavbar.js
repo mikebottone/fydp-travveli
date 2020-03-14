@@ -90,12 +90,6 @@ class AppNavbar extends Component {
                     <i className="fa fa-user-circle" />
                     Me
                   </DropdownItem>
-                  <DropdownItem
-                    to="/settings" tag={Link}
-                  >
-                    <i className="nc-icon nc-settings-gear-65" />
-                    Settings
-                  </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem
                     onClick={this.logOut.bind(this)}
