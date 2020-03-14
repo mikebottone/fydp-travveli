@@ -25,7 +25,8 @@ class LocationCard extends Component {
               pathname: "/city",
               state: {
                 city: this.props.city,
-                TagID: this.props.TagID
+                TagID: this.props.TagID,
+                description: this.props.description
               }
             }}> {/* TODO: Pass in link to appropriate page*/}
           <CardImg src={this.props.pic} />
@@ -44,6 +45,7 @@ LocationCard.propTypes = {
   pic: PropTypes.string,
   country: PropTypes.string,
   city: PropTypes.string,
-  TagID: PropTypes.number
+  TagID: PropTypes.number,
+  description: PropTypes.string
 };
 export default LocationCard;

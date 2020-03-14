@@ -16,7 +16,7 @@ class AppHeader extends Component {
     return (
       <>
         <div
-          className="page-header page-header-xs"
+          className="page-header page-header-small"
           style={{ backgroundImage:"url(" + this.props.pic + ")" }}
         >
           <div className="content-center">

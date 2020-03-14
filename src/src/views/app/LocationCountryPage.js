@@ -100,10 +100,11 @@ class LocationCountryPage extends Component{
           {this.state.cities.map((city) => {
             return(
             <Col key={city.TagID}>
-                  <LocationCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+                  <LocationCard pic={city.TagCardImage}
                               city= {city.TagName}
                               country= {this.state.country}
                               TagID={city.TagID}
+                              description={city.TagLongDescription}
                   />
             </Col>
           )})}
@@ -122,7 +123,7 @@ class LocationCountryPage extends Component{
           }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
           <h4>{city.TagName}</h4>
         </Link>
-        {this.getCityCards()}
+        {/* {this.getCityCards()} */}
       </div>
        );
       return( <div>{output}</div>);
@@ -168,7 +169,7 @@ class LocationCountryPage extends Component{
                     country={data.Country}
                     ActivityID={data.ActivityID}
                     favs={this.state.favs}
-                    pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                    pic={data.CardImage}/>
               </Col>
             );
           })}
@@ -180,11 +181,13 @@ class LocationCountryPage extends Component{
       <>
         <AppNavbar />
         <AppHeader title={this.state.country}
-          pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")}
         />
         <div className="main">
-          <div className="section">
             <Container>
+            <div>
+              <h1>{this.state.country}</h1>
+              {this.props.location.state.description}
+            </div>
             <Row>
               <h2> {this.state.country}'s Cities</h2>
             </Row>
@@ -193,7 +196,6 @@ class LocationCountryPage extends Component{
               <this.renderCityList/>
             </Container>
             <AppFooter/>
-          </div>
         </div>
       </>
     );
@@ -202,7 +204,8 @@ class LocationCountryPage extends Component{
 
 LocationCountryPage.propTypes = {
   country: PropTypes.string,
-  TagID: PropTypes.number
+  TagID: PropTypes.number,
+  description: PropTypes.string
 };
 
 export default LocationCountryPage;

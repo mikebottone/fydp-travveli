@@ -3,6 +3,8 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import jwt_decode from 'jwt-decode';
+import {addFav} from "components/UserFunctions";
 
 // reactstrap components
 import {
@@ -10,14 +12,19 @@ import {
   Row,
   Card,
   Col,
-  Badge
+  Badge,
+  Button
 } from "reactstrap";
 
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppFooter from "components/Footers/AppFooter";
 import DetailedActivityHeader from "components/Headers/DetailedActivityHeader.js";
-import DetailedActivityCarousel from "components/Carousels/DetailedActivityCarousel";
+import ActivityDetailCard from "components/Cards/ActivityDetailCard";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+import { Link } from "react-router-dom";
 
 class DetailedActivityPage extends Component{
   constructor(props){
@@ -29,17 +36,24 @@ class DetailedActivityPage extends Component{
       title: '',
       activityInfo: [],
       activityTags: [],
-      activityPicUrls: []
-
+      activityPicUrls: [],
+      nearbyActivities: [],
+      similarActivities: [],
+      UserID: null,
+      selected: false
     };
     this.getTags = this.getTags.bind(this);
     this.getPics = this.getPics.bind(this);
     this.getDescription = this.getDescription.bind(this);
-    this.getCarousel = this.getCarousel.bind(this);
     this.getDurationAndTravelPeriod = this.getDurationAndTravelPeriod.bind(this);
     this.fetchDetailedActivityInfo = this.fetchDetailedActivityInfo.bind(this);
     this.fetchActivityTags = this.fetchActivityTags.bind(this);
     this.fetchActivityPics = this.fetchActivityPics.bind(this);
+    this.fetchNearbyActivities = this.fetchNearbyActivities.bind(this);
+    this.fetchSimilarActivities = this.fetchSimilarActivities.bind(this);
+    this.getDetailedActivityHeader = this.getDetailedActivityHeader.bind(this);
+    this.checkIfSelected = this.checkIfSelected.bind(this);
+    this.updateFavourites = this.updateFavourites.bind(this);
   }
 
   componentDidMount(){
@@ -47,10 +61,52 @@ class DetailedActivityPage extends Component{
     this.setState({city: this.props.location.state.city})
     this.setState({country: this.props.location.state.country})
     this.setState({title: this.props.location.state.title})
+    const token = localStorage.usertoken
+    const decoded = jwt_decode(token)
+    this.setState({
+      UserID: decoded.UserID
+    })
+    this.checkIfSelected();
     window.scrollTo(0,0)
     this.fetchActivityTags();
     this.fetchDetailedActivityInfo();
     this.fetchActivityPics();
+    this.fetchNearbyActivities();
+    this.fetchSimilarActivities();
+  }
+
+  checkIfSelected(){
+    this.props.location.state.favs.map((fav) => {
+      if(fav.ActivityID === this.props.location.state.ActivityID){
+        this.setState({selected: true})
+      }
+      return true;
+    });
+   }
+
+   updateFavourites(e){
+    e.preventDefault();
+    const fav = {
+      UserID: this.state.UserID,
+      ActivityID: this.props.location.state.ActivityID
+    }
+    if(this.state.selected){
+      //remove from favourites
+      fetch('/delete-fav?UserID=' + this.state.UserID + '&ActivityID=' + this.props.location.state.ActivityID, {method: 'delete'})
+      .then(res =>
+        res.json().then(json => {
+          alert("Activity was removed from your favourites")
+        })
+      );
+      this.setState({selected: false})
+    }
+    else {
+      //add to favourites
+      addFav(fav).then(res =>
+        alert("Activity was added to your favourites")
+      )
+      this.setState({selected: true})
+    }
   }
 
   fetchActivityTags(){
@@ -71,6 +127,17 @@ class DetailedActivityPage extends Component{
     .then(activityPicUrls => this.setState({ activityPicUrls }))
   }
 
+  fetchSimilarActivities(){
+    fetch('/similar-activities?ActivityID='+this.props.location.state.ActivityID)
+    .then(res => res.json())
+    .then(similarActivities => this.setState({ similarActivities }))
+  }
+
+  fetchNearbyActivities(){
+    fetch('/nearby-activities?ActivityID='+this.props.location.state.ActivityID)
+    .then(res => res.json())
+    .then(nearbyActivities => this.setState({ nearbyActivities }))
+  }
 
   getDescription(){
     return this.state.activityInfo.map((data)=>{
@@ -97,17 +164,6 @@ class DetailedActivityPage extends Component{
         }
       </div>
     })
-  }
-
-  getCarousel(){
-    return this.state.activityInfo.map((data) => {
-      return <DetailedActivityCarousel
-                  key={data.ActivityID}
-                  pic1={require("assets/img/sections/pedro-lastra.jpg")}
-                  pic2={require("assets/img/sections/fabio-mangione.jpg")}
-                  pic3={require("assets/img/cover.jpg")}
-                />
-      })
   }
 
   getDurationAndTravelPeriod(){
@@ -152,7 +208,7 @@ class DetailedActivityPage extends Component{
         }
 
         {data.img2 !== null ?
-        (<Col md="5" sm="4">
+        (<Col md="4" sm="4">
         <Card>
           <img
             alt="..."
@@ -166,7 +222,7 @@ class DetailedActivityPage extends Component{
         }
 
         {data.img3 !== null ?
-        (<Col md="4" sm="4">
+        (<Col md="3" sm="4">
         <Card>
           <img
             alt="..."
@@ -178,6 +234,46 @@ class DetailedActivityPage extends Component{
         :
         (<span></span>)
         }
+        {data.img4 !== null ?
+        (<Col md="4" sm="4">
+        <Card>
+          <img
+            alt="..."
+            className="img-rounded img-responsive"
+            src={data.img4}
+          />
+        </Card>
+        </Col>)
+        :
+        (<span></span>)
+        }
+        {data.img5 !== null ?
+        (<Col md="3" sm="4">
+        <Card>
+          <img
+            alt="..."
+            className="img-rounded img-responsive"
+            src={data.img5}
+          />
+        </Card>
+        </Col>)
+        :
+        (<span></span>)
+        }
+
+      {data.img6 !== null ?
+      (<Col md="4" sm="4">
+      <Card>
+        <img
+          alt="..."
+          className="img-rounded img-responsive"
+          src={data.img6}
+        />
+      </Card>
+      </Col>)
+      :
+      (<span></span>)
+      }
       </Row>
       )
     })
@@ -188,7 +284,100 @@ class DetailedActivityPage extends Component{
     <div key={data.ActivityID} className="tags">
         {data.TagName !== null ?
         (
-        <Badge className="btn-round mr-1 btn btn-outline-default"> {data.TagName} </Badge>
+          //check if tag type is country
+          data.TagType === 'Country' ?
+          (
+          <Badge className="btn-round mr-1 btn btn-outline-default"
+          to={{
+            pathname: "/country",
+            state: {
+              country: data.TagName,
+              TagID: data.TagID,
+              description: data.TagLongDescription
+            }
+          }}
+          tag={Link}
+          >
+          {data.TagName}
+          </Badge>
+          )
+          :
+          (
+            //check if tag type is city
+            data.TagType === 'City' ? (
+            <Badge className="btn-round mr-1 btn btn-outline-default"
+            to={{
+              pathname: "/city",
+              state: {
+                city: data.TagName,
+                TagID: data.TagID,
+                description: data.TagLongDescription
+              }
+            }}
+            tag={Link}
+            >
+            {data.TagName}
+            </Badge>
+            )
+            :
+            (
+              //check if tag type is mood
+              data.TagType === 'Mood' ? (
+              <Badge className="btn-round mr-1 btn btn-outline-default"
+              to={{
+                pathname: "/mood-specific",
+                state: {
+                  mood: data.TagName,
+                  TagID: data.TagID
+                }
+              }}
+              tag={Link}
+              >
+              {data.TagName}
+              </Badge>
+              )
+              :
+              (
+                //check if tag type is PrimaryActivity
+                data.TagType === 'PrimaryActivity' ? (
+                <Badge className="btn-round mr-1 btn btn-outline-default"
+                to={{
+                  pathname: "/activity-category",
+                  state: {
+                    primaryActivity: data.TagName,
+                    TagID: data.TagID
+                  }
+                }}
+                tag={Link}
+                >
+                {data.TagName}
+                </Badge>
+                )
+                :
+                (
+                  //check if tag type is SecondaryActivity
+                  data.TagType === 'SecondaryActivity' ? (
+                  <Badge className="btn-round mr-1 btn btn-outline-default"
+                  to={{
+                    pathname: "/activity-specific",
+                    state: {
+                      secondaryActivity: data.TagName,
+                      TagID: data.TagID
+                    }
+                  }}
+                  tag={Link}
+                  >
+                  {data.TagName}
+                  </Badge>
+                  )
+                  :
+                  (
+                    <span></span>
+                  )
+                )
+              )
+            )
+          )
         )
         :
         (<span></span>)
@@ -198,15 +387,43 @@ class DetailedActivityPage extends Component{
     return(<div className="tag-parent">{output}</div>)
   }
 
+  getDetailedActivityHeader(){
+    return this.state.activityPicUrls.map((data) => {
+      return(
+        <DetailedActivityHeader key={data.ActivityID}
+        pic={data.CoverImage}
+        city={this.state.city}
+        country={this.state.country}
+        activity={this.state.title}
+        />
+      )
+    })
+  }
+
   render(){
+    const responsive = {
+      superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5,
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 4,
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+      },
+      mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+      },
+    };
     return (
       <>
         <AppNavbar />
-        <DetailedActivityHeader pic={require("assets/img/faces/erik-lucatero-2.jpg")} //TODO - pull from folder
-            activity={this.state.title}
-            city={this.state.city}
-            country={this.state.country}
-        />
+        <this.getDetailedActivityHeader />
         <div className="main">
           <div className="section">
             <Container>
@@ -216,13 +433,67 @@ class DetailedActivityPage extends Component{
                 <this.getDescription/>
                 </div>
                 <div className="rightCol">
+                <Button className="btn-just-icon btn-lg btn-neutral heart-btn-right"
+                  onClick={this.updateFavourites}
+                >
+                  <i className="fa fa-heart" style={{color: this.state.selected ? 'red' : 'white'}}/>
+                </Button>
                 {this.getDurationAndTravelPeriod()}
                 </div>
               </Row>
                 {this.getPics()}
-              <Row>
-              <this.getCarousel/>
-              </Row>
+              <hr/>
+                <h3>Nearby Activities</h3>
+                <Carousel responsive={responsive}
+                swipeable={true} draggable={false}
+                showDots={false}  ssr={true} // means to render carousel on server-side.
+                infinite={true}  autoPlay={false}
+                autoPlaySpeed={3000} keyBoardControl={true}
+                containerClass=""    renderButtonGroupOutside={false}
+                renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+                dotListClass=""  itemClass=""  additionalTransfrom={25}   arrows={true}
+                className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+                slidesToSlide={4}
+                >
+                  {this.state.nearbyActivities.map((data) => {
+                  return(
+                      <Col key={data.ActivityID}>
+                            <ActivityDetailCard title={data.Title}
+                            city={data.City}
+                            country={data.Country}
+                            ActivityID={data.ActivityID}
+                            favs= {this.props.location.state.favs}
+                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                      </Col>
+                    );
+                  })}
+                </Carousel>
+            <hr/>
+                <h3>Similar Activities</h3>
+                <Carousel responsive={responsive}
+                swipeable={true} draggable={false}
+                showDots={false}  ssr={true} // means to render carousel on server-side.
+                infinite={true}  autoPlay={false}
+                autoPlaySpeed={3000} keyBoardControl={true}
+                containerClass=""    renderButtonGroupOutside={false}
+                renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+                dotListClass=""  itemClass=""  additionalTransfrom={25}   arrows={true}
+                className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+                slidesToSlide={4}
+                >
+                  {this.state.similarActivities.map((data) => {
+                  return(
+                      <Col key={data.ActivityID}>
+                            <ActivityDetailCard title={data.Title}
+                            city={data.City}
+                            country={data.Country}
+                            ActivityID={data.ActivityID}
+                            favs= {this.props.location.state.favs}
+                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                      </Col>
+                    );
+                  })}
+                </Carousel>
             </Container>
           <AppFooter/>
           </div>
@@ -236,8 +507,8 @@ DetailedActivityPage.propTypes = {
   city: PropTypes.string,
   country: PropTypes.string,
   title: PropTypes.string,
-  ActivityID: PropTypes.number
-
+  ActivityID: PropTypes.number,
+  favs: PropTypes.array
 };
 
 export default DetailedActivityPage;

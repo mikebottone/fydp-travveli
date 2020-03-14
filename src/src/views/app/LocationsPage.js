@@ -40,7 +40,9 @@ class LocationsPage extends Component{
             <CountryCard
             TagID = {country.TagID}
             country = {country.TagName}
-            pic={require("assets/img/countries/flag-"+ country.TagName.toLowerCase() +".jpg")}/>
+            pic={country.TagCardImage}
+            description={country.TagLongDescription}
+            />
         </div>
       </Col>
        );

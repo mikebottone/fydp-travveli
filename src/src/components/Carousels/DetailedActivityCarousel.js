@@ -6,7 +6,6 @@ import {
   Carousel,
   CarouselItem,
   CarouselIndicators,
-  CarouselCaption,
   Row,
   Col
 } from "reactstrap";
@@ -15,19 +14,13 @@ function DetailedActivityCarousel(props) {
   // carousel items
   const carouselItems = [
     {
-      src: props.pic1,
-      altText: "Somewhere",
-      caption: "Somewhere"
+      src: props.pic1
     },
     {
-      src: props.pic2,
-      altText: "Somewhere else",
-      caption: "Somewhere else"
+      src: props.pic2
     },
     {
       src: props.pic3,
-      altText: "Here it is",
-      caption: "Here it is"
     }
   ];
   // carousel states and functions
@@ -77,11 +70,7 @@ function DetailedActivityCarousel(props) {
                   onExited={onExited}
                   key={item.src}
                 >
-                  <img src={item.src} alt={item.altText} />
-                  <CarouselCaption
-                    captionText={item.caption}
-                    captionHeader=""
-                  />
+                  <img src={item.src} alt={''} />
                 </CarouselItem>
               );
             })}

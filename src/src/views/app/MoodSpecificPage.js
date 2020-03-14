@@ -13,10 +13,10 @@ import {
 
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
-import ProfilePageHeader from "components/Headers/ProfilePageHeader";
 import AppFooter from "components/Footers/AppFooter";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 import ComingSoonCard from "components/Cards/ComingSoonCard";
+import AppHeader from "components/Headers/AppHeader";
 
 class MoodSpecificPage extends Component{
   constructor(props){
@@ -54,7 +54,7 @@ class MoodSpecificPage extends Component{
      <Col md="3" key={detail.ActivityID}>
        <div>
             <ActivityDetailCard
-              pic={require("assets/img/placeholder.jpg")}
+              pic={detail.CardImage}
               title={detail.Title}
               city={detail.City}
               country={detail.Country}
@@ -71,9 +71,8 @@ class MoodSpecificPage extends Component{
     return (
       <>
         <AppNavbar />
-        <ProfilePageHeader/>
+        <AppHeader />
         <div className="main">
-          <div className="section">
             <Container>
              <h2>{this.props.location.state.mood}</h2>
 
@@ -100,7 +99,6 @@ class MoodSpecificPage extends Component{
             }
             </Container>
             <AppFooter/>
-          </div>
         </div>
       </>
     );

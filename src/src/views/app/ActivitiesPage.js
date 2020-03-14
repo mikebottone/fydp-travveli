@@ -42,7 +42,8 @@ class ActivitiesPage extends Component{
         <div>
             <ActivityCard activity={primaryActivity.TagName}
              TagID={primaryActivity.TagID}
-            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+             pic={primaryActivity.TagCardImage}
+            />
         </div>
       </Col>
        );
@@ -55,7 +56,6 @@ class ActivitiesPage extends Component{
         <AppNavbar />
         <ProductPageHeader/>
         <div className="main">
-          <div className="section">
             <Container>
             <Row>
               <h2>Activity Categories</h2>
@@ -63,7 +63,6 @@ class ActivitiesPage extends Component{
             </Row>
             </Container>
             <AppFooter/>
-          </div>
         </div>
       </>
     );

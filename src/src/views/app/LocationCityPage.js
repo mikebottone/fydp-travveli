@@ -53,7 +53,7 @@ class LocationCityPage extends Component{
     var output = this.state.activityDetails.map((detail) =>
     <Col md="3" key={detail.ActivityID}>
             <ActivityDetailCard
-              pic={require("assets/img/placeholder.jpg")}
+              pic={detail.CardImage}
               title={detail.Title}
               city={detail.City}
               country={detail.Country}
@@ -71,13 +71,12 @@ class LocationCityPage extends Component{
         <AppNavbar />
         <AppHeader
           title={this.props.location.state.city}
-          pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")}
         />
         <div className="main">
-          <div className="section">
             <Container>
             <Row>
               <h2> {this.props.location.state.city}</h2>
+              {this.props.location.state.description}
             </Row>
             {this.state.activityDetails.length ?
             (<Row>
@@ -106,7 +105,6 @@ class LocationCityPage extends Component{
             <hr/>
             </Container>
             <AppFooter/>
-          </div>
         </div>
       </>
     );
@@ -115,7 +113,8 @@ class LocationCityPage extends Component{
 
 LocationCityPage.propTypes = {
   city: PropTypes.string,
-  TagID: PropTypes.string
+  TagID: PropTypes.string,
+  description: PropTypes.string
 };
 
 export default LocationCityPage;

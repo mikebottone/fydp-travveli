@@ -40,7 +40,7 @@ class MoodsPage extends Component{
       var output = this.state.moods.map((moods) =>
       <Col md="3" key={moods.TagID}>
         <div>
-            <MoodCard pic={require("assets/img/faces/erik-lucatero-2.jpg")}
+            <MoodCard pic={moods.TagCardImage}
             mood={moods.TagName}
             TagID={moods.TagID}
             icon="nc-icon nc-spaceship"/>
@@ -56,7 +56,6 @@ class MoodsPage extends Component{
         <AppNavbar />
         <ProductPageHeader/>
         <div className="main">
-          <div className="section">
             <Container>
             <Row>
               <h2>Mood Categories</h2>
@@ -64,7 +63,6 @@ class MoodsPage extends Component{
             </Row>
             </Container>
             <AppFooter/>
-          </div>
         </div>
       </>
     );

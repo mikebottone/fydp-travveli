@@ -4,7 +4,6 @@ import jwt_decode from 'jwt-decode';
 // reactstrap components
 import {
   Container,
-  Row,
   Col
 } from "reactstrap";
 
@@ -24,6 +23,7 @@ class Homepage extends Component{
   constructor(props){
     super(props);
     this.state = {
+      recommended: [],
       popularActivities:[],
       primaryActivities: [],
       moods: [],
@@ -36,6 +36,7 @@ class Homepage extends Component{
   //fetch users on first mount
   async componentDidMount() {
     this.getFavourites();
+    this.getRecommendedForYou();
     this.getCountries();
     this.getMoods();
     this.getPrimaryActivities();
@@ -77,6 +78,12 @@ class Homepage extends Component{
     .then(popularActivities => this.setState({ popularActivities }))
   }
 
+  getRecommendedForYou(){
+    fetch('/recommended?UserID=' + jwt_decode(localStorage.usertoken).UserID)
+    .then(res => res.json())
+    .then(recommended => this.setState({recommended}))
+  }
+
   getPic(){
     return require("assets/img/faces/erik-lucatero-2.jpg");
   }
@@ -111,49 +118,33 @@ class Homepage extends Component{
         <AppNavbar />
         <ProfilePageHeader />
         <div className="main">
-          <div className="section">
             <Container>
               {/* Recommended for you */}
               <h3>Recommended for you...</h3>
-              <Row>
-              <Col md="3">
-                  <ActivityDetailCard pic={this.getPic()}
-                        city= "Paris"
-                        country= "France"
-                        title="Hiking Trip in the Alps"
-                        ActivityID='1'
-                        favs= {this.state.favs}
-                  />
-                </Col>
-                <Col md="3">
-                  <ActivityDetailCard pic={this.getPic()}
-                        city= "Paris"
-                        country= "France"
-                        title="Hiking Trip in the Alps"
-                        ActivityID='1'
-                        favs= {this.state.favs}
-                  />
-                </Col>
-                <Col md="3">
-                  <ActivityDetailCard pic={this.getPic()}
-                        city= "Paris"
-                        country= "France"
-                        title="Hiking Trip in the Alps"
-                        ActivityID='1'
-                        favs= {this.state.favs}
-                  />
-                </Col>
-                <Col md="3">
-                  <ActivityDetailCard pic={this.getPic()}
-                        city= "Paris"
-                        country= "France"
-                        title="Hiking Trip in the Alps"
-                        ActivityID='1'
-                        favs= {this.state.favs}
-                  />
-                </Col>
-              </Row>
-
+              <Carousel responsive={responsive}
+                swipeable={true} draggable={false}
+                showDots={false}  ssr={true} // means to render carousel on server-side.
+                infinite={true}  autoPlay={false}
+                autoPlaySpeed={3000} keyBoardControl={true}
+                containerClass=""    renderButtonGroupOutside={false}
+                renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+                dotListClass=""  itemClass=""  additionalTransfrom={25}   arrows={true}
+                className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+                slidesToSlide={4}
+                >
+                  {this.state.recommended.map((data) => {
+                  return(
+                      <Col key={data.ActivityID}>
+                            <ActivityDetailCard title={data.Title}
+                            city={data.City}
+                            country={data.Country}
+                            ActivityID={data.ActivityID}
+                            favs= {this.state.favs}
+                            pic={data.CardImage}/>
+                      </Col>
+                    );
+                  })}
+                </Carousel>
             <hr/>
 
             <h3>Popular Activities</h3>
@@ -176,7 +167,7 @@ class Homepage extends Component{
                             country={data.Country}
                             ActivityID={data.ActivityID}
                             favs= {this.state.favs}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                            pic={data.CardImage}/>
                       </Col>
                     );
                   })}
@@ -205,7 +196,7 @@ class Homepage extends Component{
                             <MoodCard mood={data.TagName}
                             icon="nc-icon nc-spaceship"
                             TagID={data.TagID}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                            pic={data.TagCardImage}/>
                       </Col>
                     );
                   })}
@@ -233,7 +224,7 @@ class Homepage extends Component{
                       <Col key={data.TagID}>
                             <ActivityCard activity={data.TagName}
                             TagID={data.TagID}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                            pic={data.TagCardImage}/>
                       </Col>
                     );
                   })}
@@ -260,14 +251,14 @@ class Homepage extends Component{
                     <Col key={data.TagID}>
                           <CountryCard country={data.TagName}
                           TagID={data.TagID}
-                          pic={require("assets/img/countries/flag-"+ data.TagName.toLowerCase() +".jpg")}/>
+                          description={data.TagLongDescription}
+                          pic={data.TagCardImage}/>
                     </Col>
                     );
                   })}
                 </Carousel>
               <AppFooter/>
             </Container>
-          </div>
         </div>
       </>
     );

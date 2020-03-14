@@ -15,7 +15,7 @@ import {
 // core components
 import AppNavbar from "components/Navbars/AppNavbar.js";
 import AppFooter from "components/Footers/AppFooter";
-import ProductPageHeader from "components/Headers/ProductPageHeader";
+import AppHeader from "components/Headers/AppHeader";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
 import ComingSoonCard from "components/Cards/ComingSoonCard";
 
@@ -56,7 +56,7 @@ class ActivitySpecificPage extends Component{
     <Col md="3" key={detail.ActivityID}>
       <div>
             <ActivityDetailCard
-              pic={require("assets/img/placeholder.jpg")}
+              pic={detail.CardImage}
               title={detail.Title}
               city={detail.City}
               country={detail.Country}
@@ -73,18 +73,15 @@ class ActivitySpecificPage extends Component{
     return (
       <>
         <AppNavbar />
-        <ProductPageHeader/>
+        <AppHeader />
         <div className="main">
-          <div className="section">
             <Container>
             <Row>
               <h2> {this.props.location.state.secondaryActivity}</h2>
             </Row>
 
             {this.state.activityDetails.length ? (
-              <Row>
                 <this.renderActivityCards/>
-              </Row>
             ) : (
               <Row>
                 <Col>
@@ -102,12 +99,9 @@ class ActivitySpecificPage extends Component{
               </Row>
             )
             }
-
-
             <hr/>
             </Container>
           <AppFooter/>
-          </div>
         </div>
       </>
     );

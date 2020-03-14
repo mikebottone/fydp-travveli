@@ -78,7 +78,8 @@ class ActivityDetailCard extends Component {
                 city: this.props.city,
                 ActivityID: this.props.ActivityID,
                 country: this.props.country,
-                title: this.props.title
+                title: this.props.title,
+                favs: this.props.favs
               }
             }}>
           <CardImg src={this.props.pic}/>
@@ -91,10 +92,10 @@ class ActivityDetailCard extends Component {
               <h6> {this.props.city}, {this.props.country} </h6>
             </Col>
             <div>
-              <Button className="btn-just-icon btn-sm btn-danger heart-btn-right"
+              <Button className="btn-just-icon btn-sm btn-neutral heart-btn-right"
                 onClick={this.updateFavourites}
               >
-                <i className="fa fa-heart" style={{color: this.state.selected ? 'palegreen' : 'white'}}/>
+                <i className="fa fa-heart" style={{color: this.state.selected ? 'red' : 'white'}}/>
               </Button>
             </div>
           </Row>
