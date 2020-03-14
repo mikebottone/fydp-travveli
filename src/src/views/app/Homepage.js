@@ -167,7 +167,7 @@ class Homepage extends Component{
                             country={data.Country}
                             ActivityID={data.ActivityID}
                             favs= {this.state.favs}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                            pic={data.CardImage}/>
                       </Col>
                     );
                   })}
