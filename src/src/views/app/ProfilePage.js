@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 
 // reactstrap components
 import {
-  Button,
   Container,
-  Row,
-  Col
+  Row
 } from "reactstrap";
 
 // core components
@@ -66,16 +63,6 @@ class ProfilePage extends Component {
                 </div>
               </div>
             </Row>
-            <Row>
-              <Col className="ml-auto mr-auto text-center" md="6">
-                <br />
-                <Button to="/settings" tag={Link} className="btn-round" color="default" outline>
-                  <i className="fa fa-cog mr-1" />
-                  Settings
-                </Button>
-              </Col>
-            </Row>
-            <br />
           </Container>
         </div>
       </div>

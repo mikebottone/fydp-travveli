@@ -34,12 +34,12 @@ const queries = {
   addUser: "",
   //Generic Table Pulls
   airports: "SELECT * FROM airports;",
-  countries: "SELECT TagID, TagName, TagLongDescription  FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;",
-  moods: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Mood' Order by TagName ASC;",
-  primaryactivities: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'PrimaryActivity' Order by TagName ASC;",
+  countries: "SELECT TagID, TagName, TagLongDescription, TagCardImage  FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;",
+  moods: "SELECT TagID, TagName, TagCardImage FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Mood' Order by TagName ASC;",
+  primaryactivities: "SELECT TagID, TagName, TagCardImage FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'PrimaryActivity' Order by TagName ASC;",
 
   //Specific Lists
-  popularactivities: "SELECT activity.ActivityID, activity.Title, activity.City, activity.Country, Count(fav.ActivityID) AS 'Total Favourited' FROM heroku_2e52a7e26390f81.`activity-details` as activity RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID GROUP BY ActivityID ORDER BY Count(fav.ActivityID) DESC, ActivityID ASC LIMIT 20;",
+  popularactivities: "SELECT POP.AID as ActivityID,	POP.ATitle as Title,POP.ACity as City,Pop.ACountry as Country,CardImage FROM `activity-pictures` as AP RIGHT JOIN(	SELECT 	activity.ActivityID as AID,	activity.Title as ATitle, activity.City as ACity, activity.Country as ACountry, Count(fav.ActivityID) AS 'Total Favourited' FROM heroku_2e52a7e26390f81.`activity-details` as activity RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID GROUP BY fav.ActivityID ORDER BY Count(fav.ActivityID) DESC, fav.ActivityID ASC ) AS POP ON AP.activityID=POP.AID LIMIT 20;",
   popularcities: "SELECT tagdetails.TagID, tagdetails.TagName, tagdetails.TagType, Temp.TagCount FROM heroku_2e52a7e26390f81.`tag-details` as tagdetails JOIN(  SELECT activitydetailstags.TagID, COUNT(activitydetailstags.TagID) AS TagCount FROM heroku_2e52a7e26390f81.`activity-details-tags` as activitydetailstags  RIGHT JOIN (SELECT activity.ActivityID, activity.Title FROM heroku_2e52a7e26390f81.`activity-details` as activity  RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav  ON activity.ActivityID = fav.ActivityID    ORDER BY ActivityID ASC) AS TopActivities    ON activitydetailstags.ActivityID = TopActivities.ActivityID    GROUP BY TagID) AS TEMP ON tagdetails.TagID = Temp.TagID WHERE TagType='City' GROU BY TagID ORDER BY TagCount DESC;"
 };
 
@@ -58,7 +58,7 @@ router.get('/', (req, res) => {
 //Gets the recommended for you activities
 router.get('/recommended', function (req, res) {
   console.log("GET request received for /recommended");
-  var querystring = "SELECT activity.ActivityID, activity.Title, activity.City, activity.Country " + "FROM `activity-details` as activity RIGHT JOIN `user-favourites` as fav ON activity.ActivityID = fav.ActivityID " + "Where fav.UserID=" + req.query.UserID + " GROUP BY ActivityID ASC LIMIT 20;";
+  var querystring = "SELECT activity.ActivityID, activity.Title, activity.City, activity.Country, ap.CardImage " + "FROM `activity-details` as activity RIGHT JOIN `user-favourites` as fav ON activity.ActivityID = fav.ActivityID " + "INNER JOIN `activity-pictures` ap ON activity.ActivityID = ap.ActivityID " + "Where fav.UserID=" + req.query.UserID + " GROUP BY ActivityID ASC LIMIT 20;";
   getDBData(req, res, db_conn_info, querystring);
 });
 
@@ -109,14 +109,14 @@ router.get('/popularcities', function (req, res) {
 //Gets the cities for a specific country or secondary activity categories for a primary activity
 router.get('/secondary-level', function (req, res) {
   // console.log("GET request received for /secondary-level");
-  var querystring = "Select td1.TagID, td1.TagLongDescription, td1.TagName FROM `tag-details` td " + "INNER JOIN `tag-heirarchy` th ON td.TagID = th.PrimaryTagID " + "INNER JOIN `tag-details` td1 ON td1.TagID=th.SecondaryTagID " + "Where td.TagID=" + req.query.TagID + ";";
+  var querystring = "Select td1.TagID, td1.TagLongDescription, td1.TagName, td1.TagCardImage FROM `tag-details` td " + "INNER JOIN `tag-heirarchy` th ON td.TagID = th.PrimaryTagID " + "INNER JOIN `tag-details` td1 ON td1.TagID=th.SecondaryTagID " + "Where td.TagID=" + req.query.TagID + ";";
   getDBData(req, res, db_conn_info, querystring);
 });
 
 //Gets the activity details for a specific TagID to be used in the ActivityDetailCard
 router.get('/activity-details', function (req, res) {
   // console.log("GET request received for /activity-details");
-  var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country " + "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " + "ON adt.ActivityID = ad.ActivityID " + "Where TagID=" + req.query.TagID + ";";
+  var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country, ap.CardImage " + "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " + "ON adt.ActivityID = ad.ActivityID INNER JOIN `activity-pictures` ap ON adt.ActivityID = ap.ActivityID " + "Where TagID=" + req.query.TagID + ";";
   getDBData(req, res, db_conn_info, querystring);
 });
 
@@ -151,7 +151,7 @@ router.get('/similar-activities', function (req, res) {
 //Gets the favourites details for the Favourites page
 router.get('/favourites-details', function (req, res) {
   console.log("GET request received for /favourites-details");
-  var querystring = "SELECT uf.ActivityID, ad.Title, ad.City, ad.Country " + "From `user-favourites` uf " + "LEFT JOIN `activity-details` ad " + "ON uf.ActivityID = ad.ActivityID " + "Where UserID=" + req.query.UserID + " " + "ORDER BY uf.ActivityID;";
+  var querystring = "SELECT uf.ActivityID, ad.Title, ad.City, ad.Country, ap.CardImage " + "From `user-favourites` uf " + "LEFT JOIN `activity-details` ad " + "ON uf.ActivityID = ad.ActivityID " + "INNER JOIN `activity-pictures` ap ON ad.ActivityID = ap.ActivityID " + "Where UserID=" + req.query.UserID + " " + "ORDER BY uf.ActivityID;";
   getDBData(req, res, db_conn_info, querystring);
 });
 //check favourites for ActivityID
