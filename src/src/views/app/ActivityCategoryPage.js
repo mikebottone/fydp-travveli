@@ -103,7 +103,7 @@ class ActivityCategoryPage extends Component{
             <Col key={secondaryActivity.TagID}>
                 <ActivityCategoryCard activity={secondaryActivity.TagName}
                   TagID={secondaryActivity.TagID}
-                  pic={require("assets/TagImages/Cities and Countries/"+ secondaryActivity.TagID +"/Card.jpg")}
+                  pic={secondaryActivity.TagCardImage}
                 />
             </Col>
           )})}
@@ -169,7 +169,7 @@ class ActivityCategoryPage extends Component{
                     country={data.Country}
                     ActivityID={data.ActivityID}
                     favs={this.state.favs}
-                    pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                    pic={data.TagCardImage}/>
               </Col>
             );
           })}
