@@ -140,7 +140,7 @@ class Homepage extends Component{
                             country={data.Country}
                             ActivityID={data.ActivityID}
                             favs= {this.state.favs}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                            pic={data.CardImage}/>
                       </Col>
                     );
                   })}
@@ -167,7 +167,7 @@ class Homepage extends Component{
                             country={data.Country}
                             ActivityID={data.ActivityID}
                             favs= {this.state.favs}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                            pic={data.CardImage}/>
                       </Col>
                     );
                   })}
@@ -196,7 +196,7 @@ class Homepage extends Component{
                             <MoodCard mood={data.TagName}
                             icon="nc-icon nc-spaceship"
                             TagID={data.TagID}
-                            pic={require("assets/TagImages/Cities and Countries/"+ data.TagID +"/Card.jpg")}/>
+                            pic={data.TagCardImage}/>
                       </Col>
                     );
                   })}
@@ -224,7 +224,7 @@ class Homepage extends Component{
                       <Col key={data.TagID}>
                             <ActivityCard activity={data.TagName}
                             TagID={data.TagID}
-                            pic={require("assets/TagImages/Cities and Countries/"+ data.TagID +"/Card.jpg")}/>
+                            pic={data.TagCardImage}/>
                       </Col>
                     );
                   })}
@@ -252,7 +252,7 @@ class Homepage extends Component{
                           <CountryCard country={data.TagName}
                           TagID={data.TagID}
                           description={data.TagLongDescription}
-                          pic={require("assets/img/countries/flag-"+ data.TagName.toLowerCase() +".jpg")}/>
+                          pic={data.TagCardImage}/>
                     </Col>
                     );
                   })}

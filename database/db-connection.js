@@ -34,9 +34,9 @@ const queries = {
   addUser: "",
   //Generic Table Pulls
   airports: "SELECT * FROM airports;",
-  countries: "SELECT TagID, TagName, TagLongDescription  FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;",
-  moods: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Mood' Order by TagName ASC;",
-  primaryactivities: "SELECT TagID, TagName FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'PrimaryActivity' Order by TagName ASC;",
+  countries: "SELECT TagID, TagName, TagLongDescription, TagCardImage  FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Country' Order by TagName ASC;",
+  moods: "SELECT TagID, TagName, TagCardImage FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'Mood' Order by TagName ASC;",
+  primaryactivities: "SELECT TagID, TagName, TagCardImage FROM heroku_2e52a7e26390f81.`tag-details` Where TagType = 'PrimaryActivity' Order by TagName ASC;",
 
   //Specific Lists
   popularactivities: "SELECT activity.ActivityID, activity.Title, activity.City, activity.Country, Count(fav.ActivityID) AS 'Total Favourited' FROM heroku_2e52a7e26390f81.`activity-details` as activity RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID GROUP BY ActivityID ORDER BY Count(fav.ActivityID) DESC, ActivityID ASC LIMIT 20;",
@@ -112,7 +112,7 @@ router.get('/popularcities', function (req, res) {
 //Gets the cities for a specific country or secondary activity categories for a primary activity
 router.get('/secondary-level', function (req, res) {
   // console.log("GET request received for /secondary-level");
-  var querystring = "Select td1.TagID, td1.TagLongDescription, td1.TagName FROM `tag-details` td " + "INNER JOIN `tag-heirarchy` th ON td.TagID = th.PrimaryTagID " +
+  var querystring = "Select td1.TagID, td1.TagLongDescription, td1.TagName, td1.TagCardImage FROM `tag-details` td " + "INNER JOIN `tag-heirarchy` th ON td.TagID = th.PrimaryTagID " +
                     "INNER JOIN `tag-details` td1 ON td1.TagID=th.SecondaryTagID " + "Where td.TagID=" + req.query.TagID + ";";
   getDBData(req, res, db_conn_info, querystring);
 });
