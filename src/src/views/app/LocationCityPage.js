@@ -53,7 +53,7 @@ class LocationCityPage extends Component{
     var output = this.state.activityDetails.map((detail) =>
     <Col md="3" key={detail.ActivityID}>
             <ActivityDetailCard
-              pic={require("assets/img/placeholder.jpg")}
+              pic={detail.CardImage}
               title={detail.Title}
               city={detail.City}
               country={detail.Country}
@@ -71,7 +71,6 @@ class LocationCityPage extends Component{
         <AppNavbar />
         <AppHeader
           title={this.props.location.state.city}
-          pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")}
         />
         <div className="main">
             <Container>

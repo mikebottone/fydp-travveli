@@ -18,6 +18,7 @@ import AppHeader from "components/Headers/AppHeader";
 import AppFooter from "components/Footers/AppFooter";
 import ActivityCategoryCard from "components/Cards/ActivityCategoryCard";
 import ActivityDetailCard from "components/Cards/ActivityDetailCard";
+import ComingSoonCard from "components/Cards/ComingSoonCard";
 import Carousel from "react-multi-carousel";
 
 class ActivityCategoryPage extends Component{
@@ -123,7 +124,7 @@ class ActivityCategoryPage extends Component{
           }}>
           <h4>{secondaryActivity.TagName}</h4>
         </Link>
-        {this.getSecondaryCategoryCards()}
+        {/* {this.getSecondaryCategoryCards()} */}
       </div>
        );
       return( <div>{output}</div>);
@@ -169,7 +170,7 @@ class ActivityCategoryPage extends Component{
                     country={data.Country}
                     ActivityID={data.ActivityID}
                     favs={this.state.favs}
-                    pic={data.TagCardImage}/>
+                    pic={data.CardImage}/>
               </Col>
             );
           })}
@@ -180,15 +181,32 @@ class ActivityCategoryPage extends Component{
     return (
       <>
         <AppNavbar />
-        <AppHeader pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")} />
+        <AppHeader />
         <div className="main">
             <Container>
             <Row>
               <h2>{this.props.location.state.primaryActivity} Categories</h2>
             </Row>
+            {this.state.secondaryActivities.length ? (
               <this.renderSecondaryActivityCategoryCards/>
-            <hr/>
-              <this.renderSecondaryActivityCategoriesList/>
+              ):
+              ( <Row>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+                <Col>
+                  <ComingSoonCard pic={require("assets/img/comingsoon1.jpg")}/>
+                </Col>
+              </Row>)
+              }
+              <hr/>
+                <this.renderSecondaryActivityCategoriesList/>
             </Container>
             <AppFooter/>
         </div>
@@ -199,7 +217,8 @@ class ActivityCategoryPage extends Component{
 
 ActivityCategoryPage.propTypes = {
   primaryActivity: PropTypes.string,
-  TagID: PropTypes.number
+  TagID: PropTypes.number,
+  header: PropTypes.string
 };
 
 export default ActivityCategoryPage;

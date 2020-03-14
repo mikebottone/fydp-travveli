@@ -42,7 +42,8 @@ class ActivitiesPage extends Component{
         <div>
             <ActivityCard activity={primaryActivity.TagName}
              TagID={primaryActivity.TagID}
-             pic={require("assets/TagImages/Cities and Countries/"+ primaryActivity.TagID +"/Card.jpg")}/>
+             pic={primaryActivity.TagCardImage}
+            />
         </div>
       </Col>
        );

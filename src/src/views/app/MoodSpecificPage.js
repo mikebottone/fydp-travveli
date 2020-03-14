@@ -54,7 +54,7 @@ class MoodSpecificPage extends Component{
      <Col md="3" key={detail.ActivityID}>
        <div>
             <ActivityDetailCard
-              pic={require("assets/img/placeholder.jpg")}
+              pic={detail.CardImage}
               title={detail.Title}
               city={detail.City}
               country={detail.Country}
@@ -71,7 +71,7 @@ class MoodSpecificPage extends Component{
     return (
       <>
         <AppNavbar />
-        <AppHeader pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")} />
+        <AppHeader />
         <div className="main">
             <Container>
              <h2>{this.props.location.state.mood}</h2>

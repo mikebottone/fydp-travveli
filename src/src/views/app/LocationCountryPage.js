@@ -100,7 +100,7 @@ class LocationCountryPage extends Component{
           {this.state.cities.map((city) => {
             return(
             <Col key={city.TagID}>
-                  <LocationCard pic={require("assets/TagImages/Cities and Countries/"+ city.TagID +"/Card.jpg")}
+                  <LocationCard pic={city.TagCardImage}
                               city= {city.TagName}
                               country= {this.state.country}
                               TagID={city.TagID}
@@ -123,7 +123,7 @@ class LocationCountryPage extends Component{
           }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
           <h4>{city.TagName}</h4>
         </Link>
-        {this.getCityCards()}
+        {/* {this.getCityCards()} */}
       </div>
        );
       return( <div>{output}</div>);
@@ -169,7 +169,7 @@ class LocationCountryPage extends Component{
                     country={data.Country}
                     ActivityID={data.ActivityID}
                     favs={this.state.favs}
-                    pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                    pic={data.CardImage}/>
               </Col>
             );
           })}
@@ -181,7 +181,6 @@ class LocationCountryPage extends Component{
       <>
         <AppNavbar />
         <AppHeader title={this.state.country}
-          pic={require("assets/TagImages/Cities and Countries/"+ this.props.location.state.TagID +"/Cover.jpg")}
         />
         <div className="main">
             <Container>

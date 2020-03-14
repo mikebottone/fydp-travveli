@@ -58,8 +58,9 @@ router.get('/', (req, res) => {
 //Gets the recommended for you activities
 router.get('/recommended', function (req, res) {
   console.log("GET request received for /recommended");
-  var querystring = "SELECT activity.ActivityID, activity.Title, activity.City, activity.Country " +
+  var querystring = "SELECT activity.ActivityID, activity.Title, activity.City, activity.Country, ap.CardImage " +
   "FROM `activity-details` as activity RIGHT JOIN `user-favourites` as fav ON activity.ActivityID = fav.ActivityID " +
+  "INNER JOIN `activity-pictures` ap ON activity.ActivityID = ap.ActivityID " +
   "Where fav.UserID=" + req.query.UserID +
   " GROUP BY ActivityID ASC LIMIT 20;";
   getDBData(req, res, db_conn_info, querystring);
@@ -120,7 +121,10 @@ router.get('/secondary-level', function (req, res) {
 //Gets the activity details for a specific TagID to be used in the ActivityDetailCard
 router.get('/activity-details', function (req, res) {
   // console.log("GET request received for /activity-details");
-  var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country " + "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " + "ON adt.ActivityID = ad.ActivityID " + "Where TagID=" + req.query.TagID + ";";
+  var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country, ap.CardImage " +
+  "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " +
+  "ON adt.ActivityID = ad.ActivityID INNER JOIN `activity-pictures` ap ON adt.ActivityID = ap.ActivityID " +
+  "Where TagID=" + req.query.TagID + ";";
   getDBData(req, res, db_conn_info, querystring);
 });
 
@@ -164,7 +168,10 @@ router.get('/similar-activities', function (req, res) {
 //Gets the favourites details for the Favourites page
 router.get('/favourites-details', function (req, res) {
   console.log("GET request received for /favourites-details");
-  var querystring = "SELECT uf.ActivityID, ad.Title, ad.City, ad.Country " + "From `user-favourites` uf " + "LEFT JOIN `activity-details` ad " + "ON uf.ActivityID = ad.ActivityID " + "Where UserID=" + req.query.UserID + " " + "ORDER BY uf.ActivityID;";
+  var querystring = "SELECT uf.ActivityID, ad.Title, ad.City, ad.Country, ap.CardImage " +
+  "From `user-favourites` uf " + "LEFT JOIN `activity-details` ad " + "ON uf.ActivityID = ad.ActivityID " +
+  "INNER JOIN `activity-pictures` ap ON ad.ActivityID = ap.ActivityID " +
+  "Where UserID=" + req.query.UserID + " " + "ORDER BY uf.ActivityID;";
   getDBData(req, res, db_conn_info, querystring);
 });
 //check favourites for ActivityID

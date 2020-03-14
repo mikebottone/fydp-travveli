@@ -138,7 +138,7 @@ class FavouritesPage extends Component{
             country = {favourite.Country}
             title = {favourite.Title}
             favs = {this.state.favourites}
-            pic={require("assets/img/countries/flag-"+ favourite.Country.toLowerCase() +".jpg")}/>
+            pic={favourite.CardImage}/>
         </div>
       </Col>
     )
