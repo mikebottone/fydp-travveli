@@ -40,9 +40,13 @@ function LandingPage() {
           <Container>
             <Row>
               <Col className="ml-auto mr-auto" md="8">
-                <h2 className="title">Problem Statement</h2>
+                <h2 className="title">About Travveli</h2>
                 <h5>
-                  We believe a need exists to leverage consumer data for the purpose of creating more effective insights within a consumer facing travel discovery solution.
+                <p> Gone are the days of spending your precious time off lounging by the beach. Today's travelers demand cultural immersion and engaging activities.
+                </p>
+                <br>
+                </br>
+                <p> Through the use of dynamic content and personalized experiences, Travveli surfaces recomendations directly aligned with your interests.</p>
                 </h5>
                 <br />
               </Col>
@@ -132,9 +136,6 @@ function LandingPage() {
                         </h6>
                       </div>
                     </a>
-                    <p className="card-description text-center">
-                    Mr. Punctuality
-                    </p>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -165,9 +166,6 @@ function LandingPage() {
                         <h6 className="card-category text-muted">4B Management Engineering</h6>
                       </div>
                     </a>
-                    <p className="card-description text-center">
-                  I bring the markers
-                    </p>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -198,9 +196,6 @@ function LandingPage() {
                         <h6 className="card-category text-muted">4B Management Engineering</h6>
                       </div>
                     </a>
-                    <p className="card-description text-center">
-                  Code God
-                    </p>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
