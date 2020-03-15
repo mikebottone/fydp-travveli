@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {register} from "components/UserFunctions";
+import ReactGA from 'react-ga';
 
 // reactstrap components
 import {
@@ -78,6 +79,10 @@ class RegisterPage extends Component {
       else{
         alert(res);
       }
+      ReactGA.event({
+        category: "Register",
+        action: "User Registered",
+});
     })
 
   }

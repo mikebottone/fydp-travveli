@@ -1,5 +1,5 @@
 import React from "react";
-
+import ReactGA from 'react-ga';
 // reactstrap components
 import {
   Button,
@@ -26,6 +26,11 @@ function LandingPage() {
       document.body.classList.remove("landing-page");
     };
   });
+  ReactGA.event({
+    category: "Landing Page Visit",
+    action: "User viewed landing page",
+  });
+
   return (
     <>
     {/*   <LandingNavbar/> } */ }
