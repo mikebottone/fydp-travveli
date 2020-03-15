@@ -40,7 +40,7 @@ const queries = {
 
   //Specific Lists
   popularactivities: "SELECT POP.AID as ActivityID,	POP.ATitle as Title,POP.ACity as City,Pop.ACountry as Country,CardImage FROM `activity-pictures` as AP RIGHT JOIN(	SELECT 	activity.ActivityID as AID,	activity.Title as ATitle, activity.City as ACity, activity.Country as ACountry, Count(fav.ActivityID) AS 'Total Favourited' FROM heroku_2e52a7e26390f81.`activity-details` as activity RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID GROUP BY fav.ActivityID ORDER BY Count(fav.ActivityID) DESC, fav.ActivityID ASC ) AS POP ON AP.activityID=POP.AID LIMIT 20;",
-  popularcities: "SELECT tagdetails.TagID, tagdetails.TagName, tagdetails.TagType, Temp.TagCount FROM heroku_2e52a7e26390f81.`tag-details` as tagdetails JOIN(  SELECT activitydetailstags.TagID, COUNT(activitydetailstags.TagID) AS TagCount FROM heroku_2e52a7e26390f81.`activity-details-tags` as activitydetailstags  RIGHT JOIN (SELECT activity.ActivityID, activity.Title FROM heroku_2e52a7e26390f81.`activity-details` as activity  RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav  ON activity.ActivityID = fav.ActivityID    ORDER BY ActivityID ASC) AS TopActivities    ON activitydetailstags.ActivityID = TopActivities.ActivityID    GROUP BY TagID) AS TEMP ON tagdetails.TagID = Temp.TagID WHERE TagType='City' GROU BY TagID ORDER BY TagCount DESC;"
+  popularcities: "SELECT tagdetails.TagID, tagdetails.TagName, tagdetails.TagType, Temp.TagCount FROM heroku_2e52a7e26390f81.`tag-details` as tagdetails JOIN(  SELECT activitydetailstags.TagID, COUNT(activitydetailstags.TagID) AS TagCount FROM heroku_2e52a7e26390f81.`activity-details-tags` as activitydetailstags  RIGHT JOIN (SELECT activity.ActivityID, activity.Title FROM heroku_2e52a7e26390f81.`activity-details` as activity  RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav  ON activity.ActivityID = fav.ActivityID    ORDER BY ActivityID ASC) AS TopActivities    ON activitydetailstags.ActivityID = TopActivities.ActivityID    GROUP BY TagID) AS TEMP ON tagdetails.TagID = Temp.TagID WHERE TagType='City' GROU BY TagID ORDER BY TagCount DESC Limit 20;"
 };
 
 expressApp.listen(port, () => {
@@ -124,7 +124,7 @@ router.get('/activity-details', function (req, res) {
   var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country, ap.CardImage " +
   "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " +
   "ON adt.ActivityID = ad.ActivityID INNER JOIN `activity-pictures` ap ON adt.ActivityID = ap.ActivityID " +
-  "Where TagID=" + req.query.TagID + ";";
+  "Where TagID=" + req.query.TagID + " Limit 30;";
   getDBData(req, res, db_conn_info, querystring);
 });
 
