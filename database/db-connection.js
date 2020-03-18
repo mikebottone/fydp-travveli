@@ -72,6 +72,12 @@ router.get('/activity-pictures', function (req, res) {
   var querystring = "SELECT * FROM `activity-pictures` Where ActivityID=" + req.query.ActivityID + ";";
   getDBData(req, res, db_conn_info, querystring);
 });
+//Gets the details (image for header) of a given tag
+router.get('/tag-details', function (req, res) {
+  console.log("GET request received for /tag-details");
+  var querystring = "SELECT * FROM `tag-details` Where TagID=" + req.query.TagID + ";";
+  getDBData(req, res, db_conn_info, querystring);
+});
 
 //Get Airports
 router.get('/airports', function (req, res) {
@@ -124,7 +130,7 @@ router.get('/activity-details', function (req, res) {
   var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country, ap.CardImage " +
   "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " +
   "ON adt.ActivityID = ad.ActivityID INNER JOIN `activity-pictures` ap ON adt.ActivityID = ap.ActivityID " +
-  "Where TagID=" + req.query.TagID + " Limit 30;";
+  "Where TagID=" + req.query.TagID + " ORDER BY RAND() Limit 30;";
   getDBData(req, res, db_conn_info, querystring);
 });
 
