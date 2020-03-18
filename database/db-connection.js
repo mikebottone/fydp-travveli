@@ -127,7 +127,7 @@ router.get('/secondary-level', function (req, res) {
 //Gets the activity details for a specific TagID to be used in the ActivityDetailCard
 router.get('/activity-details', function (req, res) {
   // console.log("GET request received for /activity-details");
-  var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country, ap.CardImage " +
+  var querystring = "SELECT adt.ActivityID, adt.TagID, adt.TagCoverImage, ad.Title, ad.City, ad.Country, ap.CardImage " +
   "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " +
   "ON adt.ActivityID = ad.ActivityID INNER JOIN `activity-pictures` ap ON adt.ActivityID = ap.ActivityID " +
   "Where TagID=" + req.query.TagID + " ORDER BY RAND() Limit 30;";

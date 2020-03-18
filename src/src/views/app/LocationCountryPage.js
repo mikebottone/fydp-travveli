@@ -180,7 +180,8 @@ class LocationCountryPage extends Component{
     return (
       <>
         <AppNavbar />
-        <AppHeader title={this.state.country}
+        <AppHeader  title={this.state.country}
+                    pic={this.TagCoverImage} //this still isnt working please fix @Mike
         />
         <div className="main">
             <Container>
