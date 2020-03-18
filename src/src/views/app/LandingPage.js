@@ -106,6 +106,23 @@ function LandingPage() {
                 </div>
               </Col>
             </Row>
+            <Row>
+              <Col className="ml-auto mr-auto" mnd="12">
+                <h2 className="title">How it Works</h2>
+              </Col>
+                <h4>
+                  <div align="left">
+                    <ol>
+                      <li>Create an account</li>
+                      <li>Favourite activities that match your interests</li>
+                      <li>Our algorithm continuously learns from you and tailors recomendations</li>
+                      <li>We analyze your patterns and provide data to our partners in the travel industry</li>
+                      <li>Our partners develop special offers matching your interests</li>
+                      <li>You recieve personalized deals for trips you actually want to take</li>
+                    </ol>
+                  </div>
+                </h4>
+            </Row>
           </Container>
         </div>
         <div className="section section-dark text-center landing-section">
