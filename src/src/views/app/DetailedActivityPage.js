@@ -463,7 +463,7 @@ class DetailedActivityPage extends Component{
                             country={data.Country}
                             ActivityID={data.ActivityID}
                             favs= {this.props.location.state.favs}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
+                            pic={data.CardImage}/>
                       </Col>
                     );
                   })}
