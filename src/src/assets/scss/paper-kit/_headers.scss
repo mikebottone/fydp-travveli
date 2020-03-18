@@ -68,10 +68,23 @@
         z-index: 2;
         position: relative;
     }
+    .MainPageFilter{
+      &::after{
+        background-color: rgba(0, 0, 0, 0.6);
+        content: "";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 2;
+      }
+    }
 
     .filter{
       &::after{
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.15);
         content: "";
         display: block;
         height: 100%;

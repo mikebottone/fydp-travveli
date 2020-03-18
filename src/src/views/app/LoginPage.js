@@ -58,7 +58,7 @@ class LoginPage extends Component {
               "url(" + require("assets/img/sections/bruno-abatti.jpg") + ")"
           }}
         >
-          <div className="filter" />
+          <div className="MainPageFilter" />
           <Container>
             <Row>
               <Col className="ml-auto mr-auto" lg="4" md="6" sm="6">

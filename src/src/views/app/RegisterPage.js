@@ -82,7 +82,7 @@ class RegisterPage extends Component {
       ReactGA.event({
         category: "Register",
         action: "User Registered",
-});
+      });
     })
 
   }
@@ -98,7 +98,7 @@ class RegisterPage extends Component {
               "url(" + require("assets/img/sections/soroush-karimi.jpg") + ")"
           }}
         >
-          <div className="filter" />
+          <div className="MainPageFilter" />
           <Container>
             <Row>
               <Col className="ml-auto" lg="6" md="6" sm="7" xs="12">
