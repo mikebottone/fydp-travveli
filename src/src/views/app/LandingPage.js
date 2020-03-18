@@ -107,8 +107,8 @@ function LandingPage() {
               </Col>
             </Row>
             <Row>
-              <Col className="ml-auto mr-auto" mnd="12">
-                <h2 className="title">How it Works</h2>
+              <Col className="ml-auto mr-auto">
+                <h2 className="title">How it works</h2>
               </Col>
                 <h4>
                   <div align="left">
@@ -120,6 +120,36 @@ function LandingPage() {
                       <li>Our partners develop special offers matching your interests</li>
                       <li>You recieve personalized deals for trips you actually want to take</li>
                     </ol>
+                  </div>
+                </h4>
+            </Row>
+            <Row>
+              <Col className="ml-auto mr-auto">
+                <h2 className="title">About our Algorithms</h2>
+              </Col>
+                <h4>
+                  <div align="left">
+                    <ul>
+                      <li>Recomended for You
+                          <ul>
+                            <li>A Jaccard Similarity index compares all users to each other based on likes </li>
+                            <li>Each user to user pair then receives a match percentage</li>
+                            <li>Recomendations are based on your 3 closest matches and their favourites</li>
+                          </ul>
+                      </li>
+                      <li>Users also liked
+                      <ul>
+                        <li>All of the users that have liked the activity you are viewing are aggregated</li>
+                        <li>We then compile their likes and surface them based on popularity</li>
+                      </ul>
+                      </li>
+                      <li>Nearby Activities
+                      <ul>
+                        <li>These are activities that also reside in the city of the activity you are viewing</li>
+                      </ul>
+                      </li>
+
+                    </ul>
                   </div>
                 </h4>
             </Row>
