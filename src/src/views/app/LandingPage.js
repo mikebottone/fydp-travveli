@@ -39,19 +39,14 @@ function LandingPage() {
         <div className="section text-center landing-section">
           <Container>
             <Row>
-              <Col className="ml-auto mr-auto" md="8">
+              <Col className="ml-auto mr-auto" md="12">
                 <h2 className="title">About Travveli</h2>
-                <h5>
-                <p> Gone are the days of spending your precious time off lounging by the beach. Today's travelers demand cultural immersion and engaging activities.
-                </p>
-                <br>
-                </br>
-                <p> Through the use of dynamic content and personalized experiences, Travveli surfaces recomendations directly aligned with your interests.</p>
-                </h5>
-                <br />
+                <h4>
+                 Gone are the days of spending your precious time off lounging by the beach. Today's travelers demand cultural immersion and engaging activities.
+                 Through the use of dynamic content and personalized experiences, Travveli surfaces recomendations directly aligned with your interests.
+                </h4>
               </Col>
             </Row>
-            <br />
             <br />
             <Row>
               <Col md="3">
@@ -76,7 +71,7 @@ function LandingPage() {
                   <div className="description">
                     <h4 className="info-title">Inspirational Discovery Journey</h4>
                     <p>
-                      Vacations are meant for stepping outside your
+                      Vacations are for living outside your
                       comfort zone and experiencing something new.
                     </p>
                   </div>

@@ -4,10 +4,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td
     -webkit-font-smoothing: antialiased;
     font-family: $font-family-sans-serif;
     font-weight: $font-weight-light;
+        font-family: 'Playfair Display', serif;
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4{
     margin: $margin-large-vertical 0 0;
+        font-family: 'Playfair Display', serif;
 }
 h1, .h1 {
     font-size: $font-size-h1;
@@ -19,35 +21,53 @@ h3, .h3{
     font-size: $font-size-h3;
     line-height: 1.4;
     margin: 20px 0 0px;
+    font-family: 'Playfair Display', serif;
 }
 h4, .h4{
     font-size: $font-size-h4;
     line-height: 1.2em;
+    font-family: 'Chivo', sans-serif;
 }
 h5, .h5 {
     font-size: $font-size-h5;
     line-height: 1.4em;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
 }
 h6, .h6{
     font-size: $font-size-h6;
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     line-height: 1.5em;
+    font-family: 'Chivo', sans-serif;
+    font-weight: 500;
+
 }
 p{
     font-size: $font-paragraph;
     line-height: $line-height-general;
     margin-bottom: 5px;
+    font-family: 'Chivo', sans-serif;
+    font-weight: 500;
+
+
 }
 
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
     color: $dark-gray;
     line-height: $line-height-general;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+
 }
 
 h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
     font-size: 60%;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+
 }
+
 
 .title,
 .card-title,
@@ -57,7 +77,9 @@ h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
 .footer-big h4,
 .media .media-heading{
     font-family: $font-family-sans-serif;;
-
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-style: italic;
     &,
     a{
         color: $card-black-color;
@@ -69,6 +91,8 @@ h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
 }
 .description{
     color: $dark-gray;
+    font-weight: 500;
+
 }
 blockquote small{
     font-style: normal;
@@ -81,6 +105,8 @@ blockquote small{
 }
 .text-info, .text-info:hover{
     color: $info-color !important;
+    font-weight: 500;
+
 }
 .text-success, .text-success:hover{
     color: $success-color !important;
