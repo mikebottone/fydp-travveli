@@ -1,4 +1,5 @@
 import React from "react";
+import ReactGA from 'react-ga';
 
 // reactstrap components
 // import {
@@ -53,6 +54,13 @@ function Index() {
       <SectionJavaScript />
       <SectionCards />
       <FooterBlack />
+
+      {/* Global site tag (gtag.js) - Google Analytics */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=UA-160400687-1"
+        />
+        <script>{ReactGA()}</script>
     </>
   );
 }

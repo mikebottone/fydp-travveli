@@ -54,7 +54,8 @@ class ActivityDetailCard extends Component {
       fetch('/delete-fav?UserID=' + this.state.UserID + '&ActivityID=' + this.props.ActivityID, {method: 'delete'})
       .then(res =>
         res.json().then(json => {
-          alert("Activity was removed from your favourites")
+          console.log(res)
+          // alert("Activity was removed from your favourites")
         })
       );
       this.setState({selected: false})
@@ -62,7 +63,8 @@ class ActivityDetailCard extends Component {
     else {
       //add to favourites
       addFav(fav).then(res =>
-        alert("Activity was added to your favourites")
+        console.log(res)
+        // alert("Activity was added to your favourites")
       )
       this.setState({selected: true})
     }

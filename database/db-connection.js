@@ -40,7 +40,7 @@ const queries = {
 
   //Specific Lists
   popularactivities: "SELECT POP.AID as ActivityID,	POP.ATitle as Title,POP.ACity as City,Pop.ACountry as Country,CardImage FROM `activity-pictures` as AP RIGHT JOIN(	SELECT 	activity.ActivityID as AID,	activity.Title as ATitle, activity.City as ACity, activity.Country as ACountry, Count(fav.ActivityID) AS 'Total Favourited' FROM heroku_2e52a7e26390f81.`activity-details` as activity RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav ON activity.ActivityID = fav.ActivityID GROUP BY fav.ActivityID ORDER BY Count(fav.ActivityID) DESC, fav.ActivityID ASC ) AS POP ON AP.activityID=POP.AID LIMIT 20;",
-  popularcities: "SELECT tagdetails.TagID, tagdetails.TagName, tagdetails.TagType, Temp.TagCount FROM heroku_2e52a7e26390f81.`tag-details` as tagdetails JOIN(  SELECT activitydetailstags.TagID, COUNT(activitydetailstags.TagID) AS TagCount FROM heroku_2e52a7e26390f81.`activity-details-tags` as activitydetailstags  RIGHT JOIN (SELECT activity.ActivityID, activity.Title FROM heroku_2e52a7e26390f81.`activity-details` as activity  RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav  ON activity.ActivityID = fav.ActivityID    ORDER BY ActivityID ASC) AS TopActivities    ON activitydetailstags.ActivityID = TopActivities.ActivityID    GROUP BY TagID) AS TEMP ON tagdetails.TagID = Temp.TagID WHERE TagType='City' GROU BY TagID ORDER BY TagCount DESC;"
+  popularcities: "SELECT tagdetails.TagID, tagdetails.TagName, tagdetails.TagType, Temp.TagCount FROM heroku_2e52a7e26390f81.`tag-details` as tagdetails JOIN(  SELECT activitydetailstags.TagID, COUNT(activitydetailstags.TagID) AS TagCount FROM heroku_2e52a7e26390f81.`activity-details-tags` as activitydetailstags  RIGHT JOIN (SELECT activity.ActivityID, activity.Title FROM heroku_2e52a7e26390f81.`activity-details` as activity  RIGHT JOIN heroku_2e52a7e26390f81.`user-favourites` as fav  ON activity.ActivityID = fav.ActivityID    ORDER BY ActivityID ASC) AS TopActivities    ON activitydetailstags.ActivityID = TopActivities.ActivityID    GROUP BY TagID) AS TEMP ON tagdetails.TagID = Temp.TagID WHERE TagType='City' GROU BY TagID ORDER BY TagCount DESC Limit 20;"
 };
 
 expressApp.listen(port, () => {
@@ -70,6 +70,12 @@ router.get('/recommended', function (req, res) {
 router.get('/activity-pictures', function (req, res) {
   console.log("GET request received for /activity-pictures");
   var querystring = "SELECT * FROM `activity-pictures` Where ActivityID=" + req.query.ActivityID + ";";
+  getDBData(req, res, db_conn_info, querystring);
+});
+//Gets the details (image for header) of a given tag
+router.get('/tag-details', function (req, res) {
+  // console.log("GET request received for /tag-details");
+  var querystring = "SELECT * FROM `tag-details` Where TagID=" + req.query.TagID + ";";
   getDBData(req, res, db_conn_info, querystring);
 });
 
@@ -124,7 +130,7 @@ router.get('/activity-details', function (req, res) {
   var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country, ap.CardImage " +
   "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " +
   "ON adt.ActivityID = ad.ActivityID INNER JOIN `activity-pictures` ap ON adt.ActivityID = ap.ActivityID " +
-  "Where TagID=" + req.query.TagID + ";";
+  "Where TagID=" + req.query.TagID + " ORDER BY RAND() Limit 30;";
   getDBData(req, res, db_conn_info, querystring);
 });
 
@@ -150,9 +156,10 @@ router.get('/activity-tags', function (req, res) {
 //Gets the nearby activities for Detailed Activity page carousel
 router.get('/nearby-activities', function (req, res) {
   console.log("GET request received for /nearby-activities");
-  var querystring = "SELECT ad2.ActivityID, ad2.Title, ad2.City, ad2.Country " +
-                    "FROM `activity-details` as ad1 LEFT JOIN `activity-details` as ad2 ON ad1.City = ad2.City " +
-                    "Where ad1.ActivityID=" + req.query.ActivityID + " LIMIT 20;";
+  var querystring =  "Select Temp.ActivityID, Temp.Title, Temp.City, Temp.Country, AP.CardImage FROM heroku_2e52a7e26390f81.`activity-pictures` as AP " +
+                      "Right JOIN (	SELECT ad2.ActivityID, ad2.Title, ad2.City, ad2.Country  "+
+                      "FROM `activity-details` as ad1 LEFT JOIN `activity-details` as ad2 ON ad1.City = ad2.City Where ad1.ActivityID="+
+                      req.query.ActivityID + ") As Temp ON AP.activityID = Temp.ActivityID ORDER BY RAND() LIMIT 20;";
   getDBData(req, res, db_conn_info, querystring);
 });
 

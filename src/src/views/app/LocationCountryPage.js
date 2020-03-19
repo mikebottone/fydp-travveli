@@ -28,13 +28,16 @@ class LocationCountryPage extends Component{
       TagID: null, //country ID
       cities:[],
       activityDetails: [],
-      favs: []
+      favs: [],
+      tagDetails: []
     };
     this.fetchCitiesFromDB = this.fetchCitiesFromDB.bind(this);
     this.getCityCards = this.getCityCards.bind(this);
     this.renderCityList = this.renderCityList.bind(this);
     this.renderCityCards = this.renderCityCards.bind(this);
     this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
+    this.renderAppHeader = this.renderAppHeader.bind(this);
+    this.getTagDetails = this.getTagDetails.bind(this);
   }
 
   componentDidMount(){
@@ -43,6 +46,13 @@ class LocationCountryPage extends Component{
     window.scrollTo(0,0);
     this.fetchCitiesFromDB();
     this.getFavourites();
+    this.getTagDetails();
+  }
+
+  getTagDetails(){
+    fetch('/tag-details?TagID=' + this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(tagDetails => this.setState({tagDetails}))
   }
 
   getFavourites(){
@@ -118,7 +128,8 @@ class LocationCountryPage extends Component{
             pathname: "/city",
             state: {
               city: city.TagName,
-              TagID: city.TagID
+              TagID: city.TagID,
+              description: city.TagLongDescription
             }
           }}> {/* TODO: Pass mood to linked page: https://www.youtube.com/watch?v=nmbX2QL7ZJc */}
           <h4>{city.TagName}</h4>
@@ -176,12 +187,20 @@ class LocationCountryPage extends Component{
         </Carousel>
   }
 
+  renderAppHeader(){
+    return this.state.tagDetails.map((data) => {
+      return <AppHeader key={data.TagID}
+              title={data.TagName}
+              pic = {data.TagCoverImage}
+            />
+    })
+  }
+
   render(){
     return (
       <>
         <AppNavbar />
-        <AppHeader title={this.state.country}
-        />
+        <this.renderAppHeader />
         <div className="main">
             <Container>
             <div>
