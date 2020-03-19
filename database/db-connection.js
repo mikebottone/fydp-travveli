@@ -74,7 +74,7 @@ router.get('/activity-pictures', function (req, res) {
 });
 //Gets the details (image for header) of a given tag
 router.get('/tag-details', function (req, res) {
-  console.log("GET request received for /tag-details");
+  // console.log("GET request received for /tag-details");
   var querystring = "SELECT * FROM `tag-details` Where TagID=" + req.query.TagID + ";";
   getDBData(req, res, db_conn_info, querystring);
 });
