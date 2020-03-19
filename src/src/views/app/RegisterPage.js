@@ -46,7 +46,7 @@ class RegisterPage extends Component {
         const container = {};
 
         container.value = items.AirportCode;
-        container.label=items.AirportCode + "|" + items.AirportCity;
+        container.label=items.AirportCode + "  |  " + items.AirportCity;
         return container;
        })
       this.setState({airports: airportsDrop});
