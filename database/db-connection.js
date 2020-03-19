@@ -159,7 +159,9 @@ router.get('/nearby-activities', function (req, res) {
   var querystring =  "Select Temp.ActivityID, Temp.Title, Temp.City, Temp.Country, AP.CardImage FROM heroku_2e52a7e26390f81.`activity-pictures` as AP " +
                       "Right JOIN (	SELECT ad2.ActivityID, ad2.Title, ad2.City, ad2.Country  "+
                       "FROM `activity-details` as ad1 LEFT JOIN `activity-details` as ad2 ON ad1.City = ad2.City Where ad1.ActivityID="+
-                      req.query.ActivityID + ") As Temp ON AP.activityID = Temp.ActivityID ORDER BY RAND() LIMIT 20;";
+                      req.query.ActivityID + ") As Temp ON AP.activityID = Temp.ActivityID"+
+                      "WHERE NOT AP.ActivityID="+req.query.ActivityID +
+                      "ORDER BY RAND() LIMIT 20;";
   getDBData(req, res, db_conn_info, querystring);
 });
 
