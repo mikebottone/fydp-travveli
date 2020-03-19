@@ -29,11 +29,9 @@ function LandingPageHeader() {
         className="page-header"
         ref={pageHeader}
         style={{
-          backgroundImage:
-            "url(" + require("assets/img/sections/david-marcu.jpg") + ")"
-        }}
+          backgroundImage: "url(" + require("assets/img/sections/david-marcu.jpg") + ")" }}
       >
-        <div className="filter" />
+        <div className="MainPageFilter" />
         <div className="content-center">
           <Container>
             <div className="motto">

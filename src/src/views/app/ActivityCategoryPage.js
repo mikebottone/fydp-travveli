@@ -29,13 +29,16 @@ class ActivityCategoryPage extends Component{
       TagID: null, //primary activity ID
       secondaryActivities:[],
       activityDetails: [],
-      favs: []
+      favs: [],
+      tagDetails: []
     };
     this.getSecondaryCategoryCards = this.getSecondaryCategoryCards.bind(this);
     this.renderSecondaryActivityCategoriesList = this.renderSecondaryActivityCategoriesList.bind(this);
     this.renderSecondaryActivityCategoryCards = this.renderSecondaryActivityCategoryCards.bind(this);
     this.fetchSecondaryActivitiesFromDB = this.fetchSecondaryActivitiesFromDB.bind(this);
     this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
+    this.renderAppHeader = this.renderAppHeader.bind(this);
+    this.getTagDetails = this.getTagDetails.bind(this);
   }
 
   componentDidMount(){
@@ -45,6 +48,13 @@ class ActivityCategoryPage extends Component{
     this.fetchSecondaryActivitiesFromDB();
     this.fetchActivityDetails();
     this.getFavourites();
+    this.getTagDetails();
+  }
+
+  getTagDetails(){
+    fetch('/tag-details?TagID=' + this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(tagDetails => this.setState({tagDetails}))
   }
 
   getFavourites(){
@@ -177,11 +187,20 @@ class ActivityCategoryPage extends Component{
         </Carousel>
   }
 
+  renderAppHeader(){
+    return this.state.tagDetails.map((data) => {
+      return <AppHeader key={data.TagID}
+              title={data.TagName}
+              pic = {data.TagCoverImage}
+            />
+    })
+  }
+
   render(){
     return (
       <>
         <AppNavbar />
-        <AppHeader />
+        <this.renderAppHeader />
         <div className="main">
             <Container>
             <Row>

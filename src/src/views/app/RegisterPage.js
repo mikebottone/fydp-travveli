@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {register} from "components/UserFunctions";
+import ReactGA from 'react-ga';
 
 // reactstrap components
 import {
@@ -45,7 +46,7 @@ class RegisterPage extends Component {
         const container = {};
 
         container.value = items.AirportCode;
-        container.label=items.AirportCode + "|" + items.AirportCity;
+        container.label=items.AirportCode + "  |  " + items.AirportCity;
         return container;
        })
       this.setState({airports: airportsDrop});
@@ -78,6 +79,10 @@ class RegisterPage extends Component {
       else{
         alert(res);
       }
+      ReactGA.event({
+        category: "Register",
+        action: "User Registered",
+      });
     })
 
   }
@@ -93,7 +98,7 @@ class RegisterPage extends Component {
               "url(" + require("assets/img/sections/soroush-karimi.jpg") + ")"
           }}
         >
-          <div className="filter" />
+          <div className="MainPageFilter" />
           <Container>
             <Row>
               <Col className="ml-auto" lg="6" md="6" sm="7" xs="12">

@@ -5,7 +5,8 @@
   "dependencies": {
     "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.18.3"
+    "eslint-plugin-react": "^7.18.3",
+    "react-ga": "^2.7.0"
   },
   "scripts": {
     "build": "concurrently \"cd database && npm run build\" \"cd src && npm run build\"",

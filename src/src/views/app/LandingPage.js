@@ -1,5 +1,5 @@
 import React from "react";
-
+import ReactGA from 'react-ga';
 // reactstrap components
 import {
   Button,
@@ -26,6 +26,11 @@ function LandingPage() {
       document.body.classList.remove("landing-page");
     };
   });
+  ReactGA.event({
+    category: "Landing Page Visit",
+    action: "User viewed landing page",
+  });
+
   return (
     <>
     {/*   <LandingNavbar/> } */ }
@@ -34,15 +39,14 @@ function LandingPage() {
         <div className="section text-center landing-section">
           <Container>
             <Row>
-              <Col className="ml-auto mr-auto" md="8">
-                <h2 className="title">Problem Statement</h2>
-                <h5>
-                  We believe a need exists to leverage consumer data for the purpose of creating more effective insights within a consumer facing travel discovery solution.
-                </h5>
-                <br />
+              <Col className="ml-auto mr-auto" md="12">
+                <h2 className="title">About Travveli</h2>
+                <h4>
+                 Gone are the days of spending your precious time off lounging by the beach. Today's travelers demand cultural immersion and engaging activities.
+                 Through the use of dynamic content and personalized experiences, Travveli surfaces recomendations directly aligned with your interests.
+                </h4>
               </Col>
             </Row>
-            <br />
             <br />
             <Row>
               <Col md="3">
@@ -67,7 +71,7 @@ function LandingPage() {
                   <div className="description">
                     <h4 className="info-title">Inspirational Discovery Journey</h4>
                     <p>
-                      Vacations are meant for stepping outside your
+                      Vacations are for living outside your
                       comfort zone and experiencing something new.
                     </p>
                   </div>
@@ -102,6 +106,53 @@ function LandingPage() {
                 </div>
               </Col>
             </Row>
+            <Row>
+              <Col className="ml-auto mr-auto">
+                <h2 className="title">How it works</h2>
+              </Col>
+                <h4>
+                  <div align="left">
+                    <ol>
+                      <li>Create an account</li>
+                      <li>Favourite activities that match your interests</li>
+                      <li>Our algorithm continuously learns from you and tailors recomendations</li>
+                      <li>We analyze your patterns and provide data to our partners in the travel industry</li>
+                      <li>Our partners develop special offers matching your interests</li>
+                      <li>You recieve personalized deals for trips you actually want to take</li>
+                    </ol>
+                  </div>
+                </h4>
+            </Row>
+            <Row>
+              <Col className="ml-auto mr-auto">
+                <h2 className="title">About our Algorithms</h2>
+              </Col>
+                <h4>
+                  <div align="left">
+                    <ul>
+                      <li>Recomended for You
+                          <ul>
+                            <li>A Jaccard Similarity index compares all users to each other based on likes </li>
+                            <li>Each user to user pair then receives a match percentage</li>
+                            <li>Recomendations are based on your 3 closest matches and their favourites</li>
+                          </ul>
+                      </li>
+                      <li>Users also liked
+                      <ul>
+                        <li>All of the users that have liked the activity you are viewing are aggregated</li>
+                        <li>We then compile their likes and surface them based on popularity</li>
+                      </ul>
+                      </li>
+                      <li>Nearby Activities
+                      <ul>
+                        <li>These are activities that also reside in the city of the activity you are viewing</li>
+                      </ul>
+                      </li>
+
+                    </ul>
+                  </div>
+                </h4>
+            </Row>
           </Container>
         </div>
         <div className="section section-dark text-center landing-section">
@@ -127,9 +178,6 @@ function LandingPage() {
                         </h6>
                       </div>
                     </a>
-                    <p className="card-description text-center">
-                    Mr. Punctuality
-                    </p>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -160,9 +208,6 @@ function LandingPage() {
                         <h6 className="card-category text-muted">4B Management Engineering</h6>
                       </div>
                     </a>
-                    <p className="card-description text-center">
-                  I bring the markers
-                    </p>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -193,9 +238,6 @@ function LandingPage() {
                         <h6 className="card-category text-muted">4B Management Engineering</h6>
                       </div>
                     </a>
-                    <p className="card-description text-center">
-                  Code God
-                    </p>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button

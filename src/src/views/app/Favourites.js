@@ -46,6 +46,7 @@ class FavouritesPage extends Component{
     this.fetchTopCountries();
     this.fetchTopCities();
     this.fetchUserFavourites();
+    window.scrollTo(0,0);
   }
 
   fetchTopMoods(){
