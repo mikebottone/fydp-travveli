@@ -127,7 +127,7 @@ router.get('/secondary-level', function (req, res) {
 //Gets the activity details for a specific TagID to be used in the ActivityDetailCard
 router.get('/activity-details', function (req, res) {
   // console.log("GET request received for /activity-details");
-  var querystring = "SELECT adt.ActivityID, adt.TagID, adt.TagCoverImage, ad.Title, ad.City, ad.Country, ap.CardImage " +
+  var querystring = "SELECT adt.ActivityID, adt.TagID, ad.Title, ad.City, ad.Country, ap.CardImage " +
   "FROM `activity-details-tags` adt INNER JOIN `activity-details` ad " +
   "ON adt.ActivityID = ad.ActivityID INNER JOIN `activity-pictures` ap ON adt.ActivityID = ap.ActivityID " +
   "Where TagID=" + req.query.TagID + " ORDER BY RAND() Limit 30;";
@@ -156,9 +156,10 @@ router.get('/activity-tags', function (req, res) {
 //Gets the nearby activities for Detailed Activity page carousel
 router.get('/nearby-activities', function (req, res) {
   console.log("GET request received for /nearby-activities");
-  var querystring =  "Select	Temp.ActivityID, Temp.Title, Temp.City, Temp.Country, AP.CardImage FROM heroku_2e52a7e26390f81.`activity-pictures` as AP Right JOIN (	SELECT ad2.ActivityID, ad2.Title, ad2.City, ad2.Country  "+
-                    "FROM `activity-details` as ad1 LEFT JOIN `activity-details` as ad2 ON ad1.City = ad2.City Where ad1.ActivityID="+
-                    req.query.ActivityID + ") As Temp ON AP.activityID = Temp.ActivityID ORDER BY RAND() LIMIT 20;";
+  var querystring =  "Select Temp.ActivityID, Temp.Title, Temp.City, Temp.Country, AP.CardImage FROM heroku_2e52a7e26390f81.`activity-pictures` as AP " +
+                      "Right JOIN (	SELECT ad2.ActivityID, ad2.Title, ad2.City, ad2.Country  "+
+                      "FROM `activity-details` as ad1 LEFT JOIN `activity-details` as ad2 ON ad1.City = ad2.City Where ad1.ActivityID="+
+                      req.query.ActivityID + ") As Temp ON AP.activityID = Temp.ActivityID ORDER BY RAND() LIMIT 20;";
   getDBData(req, res, db_conn_info, querystring);
 });
 

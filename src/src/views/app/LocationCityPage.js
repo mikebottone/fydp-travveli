@@ -24,16 +24,26 @@ class LocationCityPage extends Component{
     this.state = {
       TagID: null,
       activityDetails: [],
-      favs: []
+      favs: [],
+      tagDetails: []
     };
     this.renderActivityCards = this.renderActivityCards.bind(this);
     this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
+    this.renderAppHeader = this.renderAppHeader.bind(this);
+    this.getTagDetails = this.getTagDetails.bind(this);
   }
   componentDidMount(){
     window.scrollTo(0,0);
     this.setState({TagID: this.props.location.state.TagID});
     this.getFavourites();
     this.fetchActivityDetails();
+    this.getTagDetails();
+  }
+
+  getTagDetails(){
+    fetch('/tag-details?TagID=' + this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(tagDetails => this.setState({tagDetails}))
   }
 
   getFavourites(){
@@ -59,19 +69,26 @@ class LocationCityPage extends Component{
               country={detail.Country}
               ActivityID={detail.ActivityID}
               favs={this.state.favs}
-            />;
+            />
     </Col>
       );
     return( <Row>{output}</Row>);
+  }
+
+  renderAppHeader(){
+    return this.state.tagDetails.map((data) => {
+      return <AppHeader key={data.TagID}
+              title={data.TagName}
+              pic = {data.TagCoverImage}
+            />
+    })
   }
 
   render(){
     return (
       <>
         <AppNavbar />
-        <AppHeader
-          title={this.props.location.state.city}
-        />
+        <this.renderAppHeader />
         <div className="main">
             <Container>
             <Row>

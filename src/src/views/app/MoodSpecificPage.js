@@ -24,16 +24,26 @@ class MoodSpecificPage extends Component{
     this.state = {
       TagID: null,
       activityDetails: [],
-      favs: []
+      favs: [],
+      tagDetails: []
     }
     this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
     this.renderCards = this.renderCards.bind(this);
+    this.renderAppHeader = this.renderAppHeader.bind(this);
+    this.getTagDetails = this.getTagDetails.bind(this);
   }
   componentDidMount(){
     window.scrollTo(0,0);
     this.setState({TagID: this.props.location.state.TagID});
     this.fetchActivityDetails();
-    this.getFavourites()
+    this.getFavourites();
+    this.getTagDetails();
+  }
+
+  getTagDetails(){
+    fetch('/tag-details?TagID=' + this.props.location.state.TagID)
+    .then(res => res.json())
+    .then(tagDetails => this.setState({tagDetails}))
   }
 
   getFavourites(){
@@ -60,18 +70,27 @@ class MoodSpecificPage extends Component{
               country={detail.Country}
               ActivityID={detail.ActivityID}
               favs= {this.state.favs}
-            />;
+            />
        </div>
      </Col>
       );
      return( <Row>{output}</Row>);
  }
 
+ renderAppHeader(){
+  return this.state.tagDetails.map((data) => {
+    return <AppHeader key={data.TagID}
+            title={data.TagName}
+            pic = {data.TagCoverImage}
+          />
+  })
+}
+
  render(){
     return (
       <>
         <AppNavbar />
-        <AppHeader />
+        <this.renderAppHeader />
         <div className="main">
             <Container>
              <h2>{this.props.location.state.mood}</h2>

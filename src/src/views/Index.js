@@ -55,7 +55,6 @@ function Index() {
       <SectionCards />
       <FooterBlack />
 
-
       {/* Global site tag (gtag.js) - Google Analytics */}
         <script
           async
