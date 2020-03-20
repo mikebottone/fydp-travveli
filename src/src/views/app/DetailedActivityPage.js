@@ -38,7 +38,6 @@ class DetailedActivityPage extends Component{
       activityTags: [],
       activityPicUrls: [],
       nearbyActivities: [],
-      similarActivities: [],
       UserID: null,
       selected: false
     };
@@ -50,7 +49,6 @@ class DetailedActivityPage extends Component{
     this.fetchActivityTags = this.fetchActivityTags.bind(this);
     this.fetchActivityPics = this.fetchActivityPics.bind(this);
     this.fetchNearbyActivities = this.fetchNearbyActivities.bind(this);
-    this.fetchSimilarActivities = this.fetchSimilarActivities.bind(this);
     this.getDetailedActivityHeader = this.getDetailedActivityHeader.bind(this);
     this.checkIfSelected = this.checkIfSelected.bind(this);
     this.updateFavourites = this.updateFavourites.bind(this);
@@ -72,7 +70,6 @@ class DetailedActivityPage extends Component{
     this.fetchDetailedActivityInfo();
     this.fetchActivityPics();
     this.fetchNearbyActivities();
-    this.fetchSimilarActivities();
   }
 
   checkIfSelected(){
@@ -127,12 +124,6 @@ class DetailedActivityPage extends Component{
     fetch('/activity-pictures?ActivityID='+this.props.location.state.ActivityID)
     .then(res => res.json())
     .then(activityPicUrls => this.setState({ activityPicUrls }))
-  }
-
-  fetchSimilarActivities(){
-    fetch('/similar-activities?ActivityID='+this.props.location.state.ActivityID)
-    .then(res => res.json())
-    .then(similarActivities => this.setState({ similarActivities }))
   }
 
   fetchNearbyActivities(){
@@ -237,7 +228,7 @@ class DetailedActivityPage extends Component{
         (<span></span>)
         }
         {data.img4 !== null ?
-        (<Col md="4" sm="4">
+        (<Col md="3" sm="4">
         <Card>
           <img
             alt="..."
@@ -250,7 +241,7 @@ class DetailedActivityPage extends Component{
         (<span></span>)
         }
         {data.img5 !== null ?
-        (<Col md="3" sm="4">
+        (<Col md="4" sm="4">
         <Card>
           <img
             alt="..."
@@ -264,7 +255,7 @@ class DetailedActivityPage extends Component{
         }
 
       {data.img6 !== null ?
-      (<Col md="4" sm="4">
+      (<Col md="3" sm="4">
       <Card>
         <img
           alt="..."
@@ -466,32 +457,6 @@ class DetailedActivityPage extends Component{
                             ActivityID={data.ActivityID}
                             favs= {this.props.location.state.favs}
                             pic={data.CardImage}/>
-                      </Col>
-                    );
-                  })}
-                </Carousel>
-            <hr/>
-                <h3>Similar Activities</h3>
-                <Carousel responsive={responsive}
-                swipeable={true} draggable={false}
-                showDots={false}  ssr={true} // means to render carousel on server-side.
-                infinite={true}  autoPlay={false}
-                autoPlaySpeed={3000} keyBoardControl={true}
-                containerClass=""    renderButtonGroupOutside={false}
-                renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
-                dotListClass=""  itemClass=""  additionalTransfrom={25}   arrows={true}
-                className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
-                slidesToSlide={4}
-                >
-                  {this.state.similarActivities.map((data) => {
-                  return(
-                      <Col key={data.ActivityID}>
-                            <ActivityDetailCard title={data.Title}
-                            city={data.City}
-                            country={data.Country}
-                            ActivityID={data.ActivityID}
-                            favs= {this.props.location.state.favs}
-                            pic={require("assets/img/sections/leonard-cotte.jpg")}/>
                       </Col>
                     );
                   })}
