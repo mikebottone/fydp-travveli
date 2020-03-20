@@ -120,7 +120,7 @@ class Homepage extends Component{
         <div className="main">
             <Container>
               {/* Recommended for you */}
-              {this.state.recommended.length === 0 ? (
+              {this.state.recommended.length !== 0 ? (
               <div>
               <h3>Recommended for you...</h3>
                 <Carousel responsive={responsive}
