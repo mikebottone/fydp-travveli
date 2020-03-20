@@ -65,11 +65,14 @@ class DetailedActivityPage extends Component{
       UserID: decoded.UserID
     })
     this.checkIfSelected();
-    window.scrollTo(0,0)
     this.fetchActivityTags();
     this.fetchDetailedActivityInfo();
     this.fetchActivityPics();
     this.fetchNearbyActivities();
+  }
+
+  componentWillReceiveProps(){
+    window.location.reload();
   }
 
   checkIfSelected(){

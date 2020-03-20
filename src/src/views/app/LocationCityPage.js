@@ -93,7 +93,9 @@ class LocationCityPage extends Component{
             <Container>
             <Row>
               <h2> {this.props.location.state.city}</h2>
-              {this.props.location.state.description}
+            </Row>
+            <Row>
+            {this.props.location.state.description}
             </Row>
             {this.state.activityDetails.length ?
             (<Row>
