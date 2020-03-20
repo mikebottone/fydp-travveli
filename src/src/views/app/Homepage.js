@@ -120,32 +120,39 @@ class Homepage extends Component{
         <div className="main">
             <Container>
               {/* Recommended for you */}
+              {this.state.recommended.length === 0 ? (
+              <div>
               <h3>Recommended for you...</h3>
-              <Carousel responsive={responsive}
-                swipeable={true} draggable={false}
-                showDots={false}  ssr={true} // means to render carousel on server-side.
-                infinite={true}  autoPlay={false}
-                autoPlaySpeed={3000} keyBoardControl={true}
-                containerClass=""    renderButtonGroupOutside={false}
-                renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
-                dotListClass=""  itemClass=""  additionalTransfrom={25}   arrows={true}
-                className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
-                slidesToSlide={4}
-                >
-                  {this.state.recommended.map((data) => {
-                  return(
-                      <Col key={data.ActivityID}>
-                            <ActivityDetailCard title={data.Title}
-                            city={data.City}
-                            country={data.Country}
-                            ActivityID={data.ActivityID}
-                            favs= {this.state.favs}
-                            pic={data.CardImage}/>
-                      </Col>
-                    );
-                  })}
-                </Carousel>
-            <hr/>
+                <Carousel responsive={responsive}
+                  swipeable={true} draggable={false}
+                  showDots={false}  ssr={true} // means to render carousel on server-side.
+                  infinite={true}  autoPlay={false}
+                  autoPlaySpeed={3000} keyBoardControl={true}
+                  containerClass=""    renderButtonGroupOutside={false}
+                  renderDotsOutside={false} removeArrowOnDeviceType={["tablet", "mobile"]}
+                  dotListClass=""  itemClass=""  additionalTransfrom={25}   arrows={true}
+                  className=""  focusOnSelect={true}  minimumTouchDrag={80}  sliderClass=""
+                  slidesToSlide={4}
+                  >
+                    {this.state.recommended.map((data) => {
+                    return(
+                        <Col key={data.ActivityID}>
+                              <ActivityDetailCard title={data.Title}
+                              city={data.City}
+                              country={data.Country}
+                              ActivityID={data.ActivityID}
+                              favs= {this.state.favs}
+                              pic={data.CardImage}/>
+                        </Col>
+                      );
+                    })}
+                  </Carousel>
+              <hr/>
+              </div>
+              ):(
+                <span></span>
+              )
+              }
 
             <h3>Popular Activities</h3>
             <Carousel responsive={responsive}
