@@ -84,8 +84,7 @@ class ActivityDetailCard extends Component {
                 title: this.props.title,
                 favs: this.props.favs
               }
-            }}
-            >
+            }}>
           <CardImg src={this.props.pic}/>
           <CardTitle className="card-activity-detail text-center"> <h4> {this.props.title} </h4> </CardTitle>
         </Link>

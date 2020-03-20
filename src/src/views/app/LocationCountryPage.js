@@ -25,13 +25,11 @@ class LocationCountryPage extends Component{
       country: "",
       TagID: null, //country ID
       cities:[],
-      activityDetails: [],
       favs: [],
       tagDetails: []
     };
     this.fetchCitiesFromDB = this.fetchCitiesFromDB.bind(this);
     this.renderCityCards = this.renderCityCards.bind(this);
-    this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
     this.renderAppHeader = this.renderAppHeader.bind(this);
     this.getTagDetails = this.getTagDetails.bind(this);
   }
@@ -62,12 +60,6 @@ class LocationCountryPage extends Component{
     fetch('/secondary-level?TagID='+this.props.location.state.TagID)
     .then(res => res.json())
     .then(cities => this.setState({ cities }))
-  }
-
-  fetchActivityDetails(){
-    fetch('/activity-details?TagID='+ this.props.location.state.TagID)
-    .then(res => res.json())
-    .then(activityDetails => this.setState({ activityDetails }))
   }
 
   renderCityCards(){
