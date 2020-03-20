@@ -84,14 +84,6 @@ class Homepage extends Component{
     .then(recommended => this.setState({recommended}))
   }
 
-  getPic(){
-    return require("assets/img/faces/erik-lucatero-2.jpg");
-  }
-
-  getDescription(){
-    return "this is some text";
-  }
-
   render() {
     const responsive = {
       superLargeDesktop: {
@@ -120,7 +112,7 @@ class Homepage extends Component{
         <div className="main">
             <Container>
               {/* Recommended for you */}
-              {this.state.recommended.length !== 0 ? (
+              {this.state.recommended.length !== 1 ? (
               <div>
               <h3>Recommended for you...</h3>
                 <Carousel responsive={responsive}
