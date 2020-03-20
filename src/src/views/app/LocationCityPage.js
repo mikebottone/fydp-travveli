@@ -98,9 +98,9 @@ class LocationCityPage extends Component{
             {this.props.location.state.description}
             </Row>
             {this.state.activityDetails.length ?
-            (<Row>
+            (<div>
               <this.renderActivityCards/>
-            </Row>)
+            </div>)
             :
             (
               <Row>

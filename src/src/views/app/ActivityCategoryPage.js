@@ -26,14 +26,12 @@ class ActivityCategoryPage extends Component{
       primaryActivity: "", //primary activity name
       TagID: null, //primary activity ID
       secondaryActivities:[],
-      activityDetails: [],
       favs: [],
       tagDetails: []
     };
 
     this.renderSecondaryActivityCategoryCards = this.renderSecondaryActivityCategoryCards.bind(this);
     this.fetchSecondaryActivitiesFromDB = this.fetchSecondaryActivitiesFromDB.bind(this);
-    this.fetchActivityDetails = this.fetchActivityDetails.bind(this);
     this.renderAppHeader = this.renderAppHeader.bind(this);
     this.getTagDetails = this.getTagDetails.bind(this);
   }
@@ -43,7 +41,6 @@ class ActivityCategoryPage extends Component{
     this.setState({primaryActivity: this.props.location.state.primaryActivity})
     window.scrollTo(0,0);
     this.fetchSecondaryActivitiesFromDB();
-    this.fetchActivityDetails();
     this.getFavourites();
     this.getTagDetails();
   }
@@ -65,12 +62,6 @@ class ActivityCategoryPage extends Component{
     fetch('/secondary-level?TagID='+this.props.location.state.TagID)
     .then(res => res.json())
     .then(secondaryActivities => this.setState({ secondaryActivities }))
-  }
-
-  fetchActivityDetails(){
-    fetch('/activity-details?TagID='+ this.props.location.state.TagID)
-    .then(res => res.json())
-    .then(activityDetails => this.setState({ activityDetails }))
   }
 
   renderSecondaryActivityCategoryCards(){
