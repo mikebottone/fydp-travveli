@@ -72,7 +72,9 @@ class DetailedActivityPage extends Component{
   }
 
   componentWillReceiveProps(){
-    window.location.reload();
+     this.componentDidMount();
+     window.location.reload();
+     window.scrollTo(0,0)
   }
 
   checkIfSelected(){
@@ -277,7 +279,7 @@ class DetailedActivityPage extends Component{
 
   getTags(){
     var output = this.state.activityTags.map((data) =>
-    <div key={data.ActivityID} className="tags">
+    <div key={data.TagID} className="tags">
         {data.TagName !== null ?
         (
           //check if tag type is country
