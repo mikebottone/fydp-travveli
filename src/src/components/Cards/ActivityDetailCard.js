@@ -76,7 +76,7 @@ class ActivityDetailCard extends Component {
 
       <Card className="app-card" >
         <Link to={{
-              pathname: "/detailed-activity/" + this.props.ActivityID,
+              pathname: "/detailed-activity",
               state: {
                 city: this.props.city,
                 ActivityID: this.props.ActivityID,

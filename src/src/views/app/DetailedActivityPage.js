@@ -71,12 +71,6 @@ class DetailedActivityPage extends Component{
     this.fetchNearbyActivities();
   }
 
-  componentWillReceiveProps(){
-     this.componentDidMount();
-     window.location.reload();
-     window.scrollTo(0,0)
-  }
-
   checkIfSelected(){
     this.props.location.state.favs.map((fav) => {
       if(fav.ActivityID === this.props.location.state.ActivityID){
