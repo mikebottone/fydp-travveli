@@ -167,12 +167,12 @@ router.get('/detailed-activity-info', function (req, res) {
 //Gets the activity detail tags a specific ActivityID for the DetailedActivityPage
 router.get('/activity-tags', function (req, res) {
   console.log("GET request received for /activity-tags");
-  var querystring = "SELECT activity.ActivityID, activity.Title, details.TagID, tagdetails.TagType, tagdetails.TagName, tagdetails.TagLongDescription " +
+  var querystring = "SELECT details.TagID, tagdetails.TagType, tagdetails.TagName, tagdetails.TagLongDescription " +
                     "FROM `activity-details` as activity " +
                     "LEFT JOIN `activity-details-tags` as details ON activity.ActivityID = details.ActivityID " +
                     "LEFT JOIN `tag-details` as tagdetails ON tagdetails.TagID = details.TagID " +
                     "Where activity.ActivityID=" + req.query.ActivityID + " " +
-                    "GROUP BY ActivityID, TagID " + "ORDER BY ActivityID ASC;";
+                    "GROUP BY activity.ActivityID, TagID " + "ORDER BY activity.ActivityID ASC;";
   getDBData(req, res, db_conn_info, querystring);
 });
 
