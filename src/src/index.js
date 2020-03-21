@@ -70,7 +70,7 @@ ReactDOM.render(
       <Route path="/activities" render={props => <ActivitiesPage {...props} />} />
       <Route path="/activity-category" render={props => <ActivityCategoryPage {...props} />} />
       <Route path="/activity-specific" render={props => <ActivitySpecificPage {...props} />} />
-      <Route path="/detailed-activity" render={props => <DetailedActivityPage {...props} />} />
+      <Route path="/detailed-activity/:ActivityID" render={props => <DetailedActivityPage {...props} />} />
       <Route path="/favourites" render={props => <FavouritesPage {...props} />} />
       <Route path="/homepage" render={props => <Homepage {...props} />} />
       <Route path="/city" render={props => <LocationCityPage {...props} />} />
